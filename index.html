@@ -1,0 +1,157 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Learn how to use the Firebase platform on the Web">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untraveled Roads</title>
+
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <!-- App Styling -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="styles/main.css">
+
+
+</head>
+
+<body>
+  <div id="pre_loader" class="lds-dual-ring" style="display: block">
+  </div>
+  <div id="mainBody" style="display: none">
+    <div id="signinForm">
+      <div id="login_loader" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+      <div id="firebaseui-auth-container"></div>
+    </div>
+
+    <div id="accountForm">
+      <touristForm>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="first_name_input">
+          <label class="mdl-textfield__label" for="message">First Name</label>
+        </div><br>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="last_name_input">
+          <label class="mdl-textfield__label" for="message">Last Name</label>
+        </div><br>
+        <div class="mdc-select">
+          <i class="mdc-select__dropdown-icon"></i>
+          <label class="mdc-floating-label">Language</label>
+          <select class="mdc-select__native-control" id="language_input">
+            <option value="" disabled selected></option>
+            <option value="english">
+              EN
+            </option>
+            <option value="german">
+              DE
+            </option>
+            <option value="french">
+              FR
+            </option>
+          </select>
+          <div class="mdc-line-ripple"></div>
+        </div>
+      </touristForm>
+      <localForm>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="address_input">
+          <label class="mdl-textfield__label" for="message">Where do you live? </label>
+        </div><br>
+        Willing to connect with travelers?<br> <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="traveler_connect_input">
+          <input type="checkbox" id="traveler_connect_input" class="mdl-switch__input" checked>
+          <span class="mdl-switch__label"></span>
+        </label><br>
+      </localForm>
+      <profile>
+        Upload profile picture:<input type="file" id="profile_pic_upload" accept="image/*" />
+      </profile><br><br>
+      <button id="submit_btn" onclick="submitFct()" disabled class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        Submit
+      </button>
+    </div>
+
+    <div id="postingSpots">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="title_input">
+        <label class="mdl-textfield__label" for="message">title</label>
+      </div><br>
+      <div class="mdl-textfield mdl-js-textfield">
+        <textarea class="mdl-textfield__input" type="text" rows="3" id="post_txt_input"></textarea>
+        <label class="mdl-textfield__label" for="post_txt_input">insert your post here</label>
+      </div><br>
+      <div class="mdl-textfield mdl-js-textfield">
+        <textarea class="mdl-textfield__input" type="text" rows="3" id="secret_txt_input"></textarea>
+        <label class="mdl-textfield__label" for="post_txt_input">recommend secret tips</label>
+      </div>
+      <br>
+      <input type="file" id="upload_post_pic" class="upload" />
+      <h6>Maximum file size is 2MB</h6>
+      <button id="post_btn" onclick="postFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        Post
+      </button>
+      <button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        Search
+      </button><br>
+    </div>
+
+    <div id="searchScreen">
+      <style>
+        .demo-card-square.mdl-card {
+          width: 320px;
+        }
+
+        .demo-card-square>.mdl-card__title {
+          color: #fff;
+          background:
+            bottom right 15% no-repeat #46B6AC;
+        }
+      </style>
+
+      <div class="demo-card-square mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-card--expand">
+          <h2 id="post_title" class="mdl-card__title-text">Title</h2>
+        </div>
+        <h5>Review</h5>
+        <div id="post_txt" class="mdl-card__supporting-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Aenan convallis.
+        </div>
+        <h5>Secret Tips</h5>
+        <div id="secret_txt" class="mdl-card__supporting-text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Aenan convallis.
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <a onclick="switchToAboutFct()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            bamboozled
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="aboutScreen">
+      <h1> wait, WTF? </h1>
+      <section id="page-post" class="mdl-grid fp-content">
+        <div class="fp-image-container mdl-cell mdl-cell--12-col mdl-grid"></div>
+      </section>
+    </div>
+    <!-- Import and configure the Firebase SDK -->
+    <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
+    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+    <script src="/__/firebase/init.js"></script>
+
+    <script src="scripts/loginUi.js"></script>
+    <script src="scripts/main.js"></script>
+  </div>
+</body>
+
+</html>
