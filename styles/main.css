@@ -188,6 +188,9 @@ main, #messages-card {
 
 .lds-dual-ring {
   display: inline-block;
+
+  margin-left: auto;
+  margin-right: auto;
   width: 64px;
   height: 64px;
 }

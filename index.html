@@ -16,7 +16,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="styles/main.css">
 
+  <!-- GeoFirestore -->
+  <script src="https://unpkg.com/geofirestore@3.2.3/dist/geofirestore.js"></script>
 
+  <!-- Geokit -->
+  <script src="https://unpkg.com/geokit@0.1.2/dist/geokit.js"></script>
 </head>
 
 <body>
@@ -65,10 +69,7 @@
           <input type="checkbox" id="traveler_connect_input" class="mdl-switch__input" checked>
           <span class="mdl-switch__label"></span>
         </label><br>
-      </localForm>
-      <profile>
-        Upload profile picture:<input type="file" id="profile_pic_upload" accept="image/*" />
-      </profile><br><br>
+      </localForm><br>
       <button id="submit_btn" onclick="submitFct()" disabled class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
         Submit
       </button>
@@ -95,7 +96,9 @@
       </button>
       <button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
         Search
-      </button><br>
+      </button><br><button id="chat_btn" onclick="switchToChatFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        chat
+      </button>
     </div>
 
     <div id="searchScreen">
@@ -134,11 +137,15 @@
     </div>
 
     <div id="aboutScreen">
-      <h1> wait, WTF? </h1>
       <section id="page-post" class="mdl-grid fp-content">
         <div class="fp-image-container mdl-cell mdl-cell--12-col mdl-grid"></div>
       </section>
     </div>
+
+    <div id="chatScreen">
+      <h2>hello, welcome to the chat</h2>
+    </div>
+
     <!-- Import and configure the Firebase SDK -->
     <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
@@ -151,6 +158,7 @@
 
     <script src="scripts/loginUi.js"></script>
     <script src="scripts/main.js"></script>
+    <script src="scripts/geo.js"></script>
   </div>
 </body>
 

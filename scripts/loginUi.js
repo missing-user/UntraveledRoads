@@ -8,10 +8,19 @@ var uiConfig = {
       accountForm.style.display = "block";
       console.log('signin success');
       var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
-      query.get().then(function(doc) {
-          if (!doc.empty) {
+      var docId;
+      query.get().then(function(querySnapshot) {
+          if (!querySnapshot.empty) {
             showScreen(2);
             console.log('welcome back');
+            querySnapshot.forEach(function(documentSnapshot) {
+              docId = documentSnapshot.id;
+              docRef = firebase.firestore().collection('users').doc(docId);
+              docRef.update({
+                lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+                profilePicUrl: getProfilePicUrl(),
+              });
+            });
             return false;
           } else {
             showScreen(1);
@@ -20,10 +29,11 @@ var uiConfig = {
           }
         })
         .catch(function(error) {
-          console.log("Error getting document:", error);
+          console.log("Error getting document id:", error);
           showScreen(1);
           return false;
         });
+
     },
     uiShown: function() {
       document.getElementById('login_loader').style.display = 'none';
