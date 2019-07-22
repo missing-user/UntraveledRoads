@@ -73,6 +73,7 @@ function submitFct() {
     lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
     profilePicUrl: getProfilePicUrl(),
     willingToMeet: travelConnectChk.value == "on",
+    postCount: 0,
   });
   showScreen(2);
 }
@@ -163,7 +164,8 @@ function getUserInfo(uid) {
       console.log(doc.id, " => ", doc.data());
       const div = document.createElement('div');
       div.className = 'userInfo';
-      var profilePicName = "<img src=" + doc.get(profilePicUrl) + " /><h4>" + doc.get(firstName) + " " + doc.get(lastName) + "</h4>";
+      var profilePicName = "<img src=" + doc.get(profilePicUrl) + " /><h4>" + doc.get(firstName) + " " + doc.get(lastName) +
+      "</h4><br><h4>" + doc.get(postCount) + "</h4>";
       div.innerHTML = userHtml(10, profilePicName);
       pagePost.appendChild(div);
     })
