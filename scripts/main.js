@@ -149,16 +149,23 @@ function loadNewPost() {
   var query = firebase.firestore().collection('posts').orderBy('rating', 'desc').limit(12);
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-        console.log(doc.id, " => ", doc.data());
+        //console.log(doc.id, " => ", doc.data());
         const div = document.createElement('div');
         div.className = 'row';
-        div.innerHTML = createPostHtml(10, doc.get("imageUrl"));
+        div.innerHTML = createPostHtml(doc.id, doc.get("imageUrl"));
         pagePost.appendChild(div);
       });
     })
     .catch(function(error) {
       console.log("Error getting documents: ", error);
     });
+}
+
+function openPost(pid){
+  var collection = firebase.firestore().collection('posts')
+  collection.doc(pid).then(function(docRef){
+    
+  });
 }
 
 function getUserInfo(uid) {
@@ -213,6 +220,11 @@ function showScreen(s) {
   }
 }
 
+function postSelected(pid){
+  showScreen(6);
+  openPost(pid);
+}
+
 var fnameInput = document.getElementById('first_name_input');
 var lnameInput = document.getElementById('last_name_input');
 var languageInput = document.getElementById('language_input');
@@ -241,7 +253,6 @@ postPicUpload.onchange = function() {
   console.log('insert the current image name into a header element here');
 };
 
-
 //add event listeners
 postPicUpload.addEventListener('change', postPicSelected);
 
@@ -257,8 +268,6 @@ languageInput.addEventListener('change', enableButton);
 // Remove the warning about timstamps change.
 var firestore = firebase.firestore();
 showScreen(0);
-//var settings = {};
-//firestore.settings(settings);
 
 function userHtml(postId, testImg) {
   return `
@@ -279,7 +288,7 @@ function userHtml(postId, testImg) {
 function createPostHtml(postId, testImg) {
   return `
       <div class="col s12">
-        <div class="card">
+        <div  onclick="postSelected(${postId})" class="card  waves-effect waves-block waves-light">
           <div class="card-image">
             <img src=${testImg}>
           </div>
@@ -295,7 +304,9 @@ function createPostHtml(postId, testImg) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
- M.AutoInit();});
+ //M.AutoInit();
+}
+);
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
@@ -314,6 +325,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.slider');
-  var instances = M.Slider.init(elems, {
+  var instances = M.Slider.init(elems, {interval: 8000,
   });
 });
