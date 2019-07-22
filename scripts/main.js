@@ -152,10 +152,9 @@ function loadNewPost() {
   var query = firebase.firestore().collection('posts').orderBy('rating', 'desc').limit(12);
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-        console.log(doc.id, " => ", doc.data());
         const div = document.createElement('div');
         div.className = 'row';
-        div.innerHTML = createPostHtml(doc.id, doc.get("imageUrls")[0]);
+        div.innerHTML = createPostHtml(doc.id, doc.get("title"), doc.get("imageUrls")[0], doc.get("text"));
         pagePost.appendChild(div);
         document.getElementById(doc.id).onclick = function() {
           postSelected(this.id);
@@ -170,126 +169,134 @@ function loadNewPost() {
 function openPost(pid) {
   var collection = firebase.firestore().collection('posts')
   collection.doc(pid).get().then(function(docRef) {
-    imageGallery.innerHtml = imageGalleryListHtml(docRef.get("imageUrls"));
-    //var reviewTextNode = document.createElement("B1");
-    postText.innerHtml = docRef.get("text");
-    secretText.innerHtml = docRef.get("secrets");
-    console.log("uid: " + docRef.get("uid"));
-    getUserInfo(docRef.get("uid"));
-  }).catch(function(error) {
-    console.log("Error getting document:", error);
-  });;
-}
+      var imageUrls = docRef.get("imageUrls");
+      imageUrls.forEach(function(imgUrl) {
+          imageGallery.appendChild(imageGalleryListHtml(imgUrl));
+        });
+        //reinitialize the gallery
+        var elems = document.querySelectorAll('.slider');
+        var instances = M.Slider.init(elems, {
+          interval: 8000,
+        });
+        var title = docRef.get("title"); postTitle.innerHTML = title;
+        var text = docRef.get("text");
 
-function getUserInfo(uid) {
-  var query = firebase.firestore().collection('users').where("uid", "==", uid).limit(1);
-  query.get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-        console.log(doc.data());
+        const bodytxt = document.createElement('b1'); bodytxt.innerHTML = text; postText.appendChild(bodytxt);
+
+        const secrets = document.createElement('b1'); secrets.innerHTML = docRef.get("secrets"); secretText.appendChild(secrets);
+
+        getUserInfo(docRef.get("uid"));
+      }).catch(function(error) {
+      console.log("Error getting document:", error);
+    });;
+  }
+
+  function getUserInfo(uid) {
+    var query = firebase.firestore().collection('users').where("uid", "==", uid).limit(1);
+    query.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         const div = document.createElement('div');
         div.className = 'userInfo';
         div.innerHTML = userHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), doc.get("postCount"));
         userinfo.appendChild(div);
-      })
-      .catch(function(error) {
-        console.log("Error getting documents: ", error);
       });
-  });
-}
-
-function showScreen(s) {
-  signinForm.style.display = "none";
-  accountForm.style.display = "none";
-  postingSpots.style.display = "none";
-  searchScreen.style.display = "none";
-  aboutScreen.style.display = "none";
-  chatScreen.style.display = "none";
-  specificPostScreen.style.display = "none";
-  switch (s) {
-    case 0:
-      signinForm.style.display = "block";
-      break;
-    case 1:
-      accountForm.style.display = "block";
-      break;
-    case 2:
-      postingSpots.style.display = "block";
-      postImages = [];
-      console.log(postImages);
-      break;
-    case 3:
-      searchScreen.style.display = "block";
-      break;
-    case 4:
-      aboutScreen.style.display = "block";
-      break;
-    case 5:
-      chatScreen.style.display = "block";
-      break;
-    case 6:
-      specificPostScreen.style.display = "block";
-      break;
-    default:
-      aboutScreen.style.display = "block";
-
+    });
   }
-}
 
-function postSelected(pid) {
-  showScreen(6);
-  openPost(pid);
-}
+  function showScreen(s) {
+    signinForm.style.display = "none";
+    accountForm.style.display = "none";
+    postingSpots.style.display = "none";
+    searchScreen.style.display = "none";
+    aboutScreen.style.display = "none";
+    chatScreen.style.display = "none";
+    specificPostScreen.style.display = "none";
+    switch (s) {
+      case 0:
+        signinForm.style.display = "block";
+        break;
+      case 1:
+        accountForm.style.display = "block";
+        break;
+      case 2:
+        postingSpots.style.display = "block";
+        postImages = [];
+        console.log(postImages);
+        break;
+      case 3:
+        searchScreen.style.display = "block";
+        break;
+      case 4:
+        aboutScreen.style.display = "block";
+        break;
+      case 5:
+        chatScreen.style.display = "block";
+        break;
+      case 6:
+        specificPostScreen.style.display = "block";
+        break;
+      default:
+        aboutScreen.style.display = "block";
 
-var fnameInput = document.getElementById('first_name_input');
-var lnameInput = document.getElementById('last_name_input');
-var languageInput = document.getElementById('language_input');
-var travelConnectChk = document.getElementById('traveler_connect_input');
-var addressInput = document.getElementById('address_input');
-var signIn = document.getElementById('sign_in');
+    }
+  }
 
-var submitBtn = document.getElementById('submit_btn');
-var searchBtn = document.getElementById('search_btn');
-var accountForm = document.getElementById('accountForm');
-var searchScreen = document.getElementById('searchScreen');
-var chatScreen = document.getElementById('chatScreen');
-var postingSpots = document.getElementById('postingSpots');
-var postBtn = document.getElementById("post_btn");
-var postTextInput = document.getElementById("post_txt_input");
-var titleInput = document.getElementById("title_input");
-var secretInput = document.getElementById("secret_txt_input");
-var pagePost = document.getElementById("page-post");
-var userinfo = document.getElementById("userinfo");
-var specificPostScreen = document.getElementById("specificPostScreen");
-var imageGallery = document.getElementById("imageGallery");
-var postText = document.getElementById("postText");
-var secretText = document.getElementById("secretText");
+  function postSelected(pid) {
+    showScreen(6);
+    openPost(pid);
+  }
 
-//postingSpots
-var postImages = {};
+  var fnameInput = document.getElementById('first_name_input');
+  var lnameInput = document.getElementById('last_name_input');
+  var languageInput = document.getElementById('language_input');
+  var travelConnectChk = document.getElementById('traveler_connect_input');
+  var addressInput = document.getElementById('address_input');
+  var signIn = document.getElementById('sign_in');
 
-var postPicUpload = document.getElementById("upload_post_pic");
-postPicUpload.onchange = function() {
-  console.log('insert the current image name into a header element here');
-};
+  var submitBtn = document.getElementById('submit_btn');
+  var searchBtn = document.getElementById('search_btn');
+  var accountForm = document.getElementById('accountForm');
+  var searchScreen = document.getElementById('searchScreen');
+  var chatScreen = document.getElementById('chatScreen');
+  var postingSpots = document.getElementById('postingSpots');
+  var postBtn = document.getElementById("post_btn");
+  var postTextInput = document.getElementById("post_txt_input");
+  var titleInput = document.getElementById("title_input");
+  var secretInput = document.getElementById("secret_txt_input");
+  var pagePost = document.getElementById("page-post");
+  var userinfo = document.getElementById("userinfo");
+  var specificPostScreen = document.getElementById("specificPostScreen");
+  var imageGallery = document.getElementById("imageGallery");
+  var postText = document.getElementById("postText");
+  var secretText = document.getElementById("secretText");
+  var postTitle = document.getElementById("postTitle");
 
-//add event listeners
-postPicUpload.addEventListener('change', postPicSelected);
+  //postingSpots
+  var postImages = {};
 
-lnameInput.addEventListener('keyup', enableButton);
-lnameInput.addEventListener('change', enableButton);
-fnameInput.addEventListener('keyup', enableButton);
-fnameInput.addEventListener('change', enableButton);
-addressInput.addEventListener('keyup', enableButton);
-addressInput.addEventListener('change', enableButton);
-languageInput.addEventListener('keyup', enableButton);
-languageInput.addEventListener('change', enableButton);
+  var postPicUpload = document.getElementById("upload_post_pic");
+  postPicUpload.onchange = function() {
+    console.log('insert the current image name into a header element here');
+  };
 
-// Remove the warning about timstamps change.
-var firestore = firebase.firestore();
-showScreen(0);
+  //add event listeners
+  postPicUpload.addEventListener('change', postPicSelected);
 
-function userHtml(imgUrl, fn, ln, postc) {
-  return `
+  lnameInput.addEventListener('keyup', enableButton);
+  lnameInput.addEventListener('change', enableButton);
+  fnameInput.addEventListener('keyup', enableButton);
+  fnameInput.addEventListener('change', enableButton);
+  addressInput.addEventListener('keyup', enableButton);
+  addressInput.addEventListener('change', enableButton);
+  languageInput.addEventListener('keyup', enableButton);
+  languageInput.addEventListener('change', enableButton);
+
+  // Remove the warning about timstamps change.
+  var firestore = firebase.firestore();
+  showScreen(0);
+
+  function userHtml(imgUrl, fn, ln, postc) {
+    return `
   <b1>
     This post was written by:
   </b1><br>
@@ -308,22 +315,16 @@ function userHtml(imgUrl, fn, ln, postc) {
       </div>
     </div>
   </div>`;
-}
+  }
 
-function imageGalleryListHtml(imageUrls) {
-  var string = "";
-  imageUrls.forEach(function(imgUrl) {
-    string += `<li>
-    <img src=${imgUrl}>
-  </li>`;
-  });
-  console.log(string);
-  return string;
-}
+  function imageGalleryListHtml(imgUrl) {
+    const lelem = document.createElement('li');
+    lelem.innerHTML = '<img src='+imgUrl+'>';
+    return lelem;
+  }
 
-function createPostHtml(postId, testImg) {
-  console.log("the createPostHtml function got executed with:  " + postId);
-  return `
+  function createPostHtml(postId, titl, testImg, txt) {
+    return `
       <div class="col s12">
         <div id="${postId}" onclick="" class="card  waves-effect waves-block waves-light">
           <div class="card-image">
@@ -331,36 +332,36 @@ function createPostHtml(postId, testImg) {
           </div>
           <div class="card-stacked">
             <div class="card-content">
-              <h1>${postId}</h1>
-              <b1>post</b1>
+              <h1>${titl}</h1>
+              <b1>${txt}</b1>
             </div>
           </div>
         </div>
       </div>
       `;
-}
+  }
 
-document.addEventListener('DOMContentLoaded', function() {
-  //M.AutoInit();
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems, {
-    inDuration: 350,
-    outDuration: 350,
-    edge: 'left'
+  document.addEventListener('DOMContentLoaded', function() {
+    M.AutoInit();
   });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.materialboxed');
-  var instances = M.Materialbox.init(elems, {});
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.slider');
-  var instances = M.Slider.init(elems, {
-    interval: 8000,
+  /*document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, {
+      inDuration: 350,
+      outDuration: 350,
+      edge: 'left'
+    });
   });
-});
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.materialboxed');
+    var instances = M.Materialbox.init(elems, {});
+  });*/
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.slider');
+    var instances = M.Slider.init(elems, {
+      interval: 8000,
+    });
+  });
