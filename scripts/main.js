@@ -283,8 +283,8 @@ function createPostHtml(postId, testImg) {
           </div>
           <div class="card-stacked">
             <div class="card-content">
-              <h4>${postId}</h4>
-              <pB>post</pB>
+              <h1>${postId}</h1>
+              <b1>post</b1>
             </div>
           </div>
         </div>

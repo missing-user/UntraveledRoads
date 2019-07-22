@@ -1,42 +1,135 @@
-.ur-yellow {
-  background-color: #fef3e0
+/* colors
+   ========================================================================== */
+.ur-white {
+  color: #fff
 }
 
-.ur-pink {
+.ur-pink-dark {
   color: #e57373;
 }
 
 .ur-blue {
+  color: #5c6bc0;
+}
+
+.ur-blue-dark {
+  color: #1a247e;
+}
+
+.ur-bg-pink-light {
+  background-color: #ef9a9a;
+}
+
+.ur-bg-yellow {
+  background-color: #fef3e0
+}
+
+.ur-bg-blue {
   background-color: #5c6bc0;
 }
 
-.ur-gradient {
+.ur-bg-gradient {
   background-image: linear-gradient(#5c6bc0, #e57373);
 }
 
+/* fonts
+   ========================================================================== */
+h1 {
+  font-family: Ubuntu, sans-serif;
+  font-size: 2.25em;
+  font-weight: 500;
+  font-kerning: auto;
+  font-stretch: 130%;
+  line-height: 1.4;
+  color: #e57373;
+}
+
+h2 {
+  font-family: Ubuntu, sans-serif;
+  font-size: 1.5em;
+  font-weight: 400;
+  font-kerning: auto;
+  font-stretch: 130%;
+  /* doesn't work????? */
+  line-height: 1.4;
+  color: #5c6bc0;
+}
+
+b1 {
+  font-family: Roboto, sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  font-kerning: auto;
+  font-stretch: normal;
+  /* doesn't work????? */
+  line-height: 1.4;
+  color: #1a247e;
+}
+
+b2 {
+  font-family: Roboto, sans-serif;
+  font-size: 0.875em;
+  font-weight: 500;
+  font-kerning: auto;
+  font-stretch: normal;
+  /* doesn't work????? */
+  line-height: 1.4;
+  color: #1a247e;
+}
+
+/* not using as of now
+btn {
+  font-family: Roboto, sans-serif;
+  font-size: 0.875em;
+  font-weight: 500;
+  font-kerning: auto;
+  font-stretch: 200%;
+  /* doesn't work????? */
+line-height: 1.4;
+color: #1a247e;
+}
+
+*/
+
+/* icons
+   ========================================================================== */
+
+/* navbar and search input field
+   ========================================================================== */
+.navbar-fixed {
+  position: relative;
+  height: 56px;
+  z-index: 997;
+}
+
 .nav-wrapper {
-  background-color: #fff !important;
+  background-color: #5c6bc0 !important;
   width: inherit;
 }
 
-pB {
-  color: #1a247e
+.nav-wrapper .input-field input[type=search] {
+  height: inherit;
+  padding-left: 4rem;
+  width: 100% border-box;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
-pW {
-  color: #fff
-}
-
-h4 {
-  color: #5c6bc0
-}
-
+/* column
+   ========================================================================== */
 .col {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 1rem;
 }
 
+.section{
+  font-size: 16px;
+}
+
+/* cards
+   ========================================================================== */
 .card-image {
   max-height: 10rem;
   overflow: hidden;
@@ -61,28 +154,4 @@ h4 {
 
 .card .card-content p {
   margin: 10;
-
-.nav-wrapper .input-field input[type=search] {
-  height: inherit;
-  padding-left: 4rem;
-  width: 100% border-box;
-  border: 0;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-}
-
-.input-field input[type=search]:focus:not(.browser-default) + label i,
-.input-field input[type=search]:focus:not(.browser-default) ~ .mdi-navigation-close,
-.input-field input[type=search]:focus:not(.browser-default) ~ .material-icons {
-  color: #e57373;
-}
-
-.material-icons {
-  color: #e57373;
-}
-
-.navbar-fixed {
-  position: relative;
-  height: 56px;
-  z-index: 997;
 }
