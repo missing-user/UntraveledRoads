@@ -116,6 +116,10 @@ function switchToSearchFct() {
   showScreen(3);
 }
 
+function switchTospecificPostScreen() {
+  showScreen(6);
+}
+
 function switchToAboutFct() {
   showScreen(4);
   loadNewPost();
@@ -134,7 +138,7 @@ function hasUserPosted() {
 
 function switchToChatFct() {
   if (hasUserPosted()) {
-    showScreen(5)
+    showScreen(5);
   } else {
     console.log("you have to post before chatting with people");
   };
@@ -147,8 +151,7 @@ function loadNewPost() {
         console.log(doc.id, " => ", doc.data());
         const div = document.createElement('div');
         div.className = 'row';
-        var tstImg = "<img src=" + doc.get("imageUrl") + " />";
-        div.innerHTML = createPostHtml(10, tstImg);
+        div.innerHTML = createPostHtml(10, doc.get("imageUrl"));
         pagePost.appendChild(div);
       });
     })
@@ -179,6 +182,7 @@ function showScreen(s) {
   searchScreen.style.display = "none";
   aboutScreen.style.display = "none";
   chatScreen.style.display = "none";
+  specificPostScreen.style.display = "none";
   switch (s) {
     case 0:
       signinForm.style.display = "block";
@@ -197,6 +201,9 @@ function showScreen(s) {
       break;
     case 5:
       chatScreen.style.display = "block";
+      break;
+    case 6:
+      specificPostScreen.style.display = "block";
       break;
     default:
       aboutScreen.style.display = "block";
@@ -222,6 +229,7 @@ var postTextInput = document.getElementById("post_txt_input");
 var titleInput = document.getElementById("title_input");
 var secretInput = document.getElementById("secret_txt_input");
 var pagePost = document.getElementById("page-post");
+var specificPostScreen = document.getElementById("specificPostScreen");
 
 //postingSpots
 var postImages = {};
@@ -268,22 +276,42 @@ function userHtml(postId, testImg) {
 
 function createPostHtml(postId, testImg) {
   return `
-      <div class="fp-post mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet
-                  mdl-cell--8-col-desktop mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-card mdl-shadow--2dp mdl-cell
-                    mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                    <h4>this is post number ${postId}</h4>
-          <div class="fp-header">
-              <div class="fp-avatar">${testImg}</div>
-              <div class="fp-username mdl-color-text--black"></div>
+      <div class="col s12">
+        <div class="card">
+          <div class="card-image">
+            <img src=${testImg}>
           </div>
-          <div class="fp-image"></div>
+          <div class="card-stacked">
+            <div class="card-content">
+              <h4>${postId}</h4>
+              <pB>post</pB>
+            </div>
+          </div>
         </div>
-      </div>`;
+      </div>
+      `;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+ M.AutoInit();});
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
   var instances = M.Sidenav.init(elems, {
+    inDuration: 350,
+    outDuration: 350,
+    edge: 'left'
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.materialboxed');
+  var instances = M.Materialbox.init(elems, {
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.slider');
+  var instances = M.Slider.init(elems, {
   });
 });

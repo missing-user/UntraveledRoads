@@ -30,6 +30,12 @@
   <div id="mainBody" style="display: none">
     <div id="signinForm">
       <div id="login_loader" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+      <button id="skip_btn" onclick="switchToAboutFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        skip
+      </button>
+      <button id="skip_btn" onclick="switchTospecificPostScreen()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        skip
+      </button>
       <div id="firebaseui-auth-container"></div>
     </div>
 
@@ -138,29 +144,115 @@
     </div>
 
     <div id="aboutScreen">
-      <section id="page-post" class="mdl-grid fp-content">
-        <div class="fp-image-container mdl-cell mdl-cell--12-col mdl-grid"></div>
-      </section>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper z-depth-2">
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="left hide-on-med-and-down">
+              <a class="waves-effect btn-flat ur-pink">Home</a>
+              <a class="waves-effect btn-flat ur-pink">Messages</a>
+            </ul>
+            <form>
+              <div class="left input-field">
+                <input id="search" type="search" required>
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </div>
+        </nav>
+      </div>
+
+      <ul class="sidenav ur-blue" id="mobile-demo">
+        <li><a class="waves-effect btn-flat"><pW>Home</pW></a></li>
+        <li><a class="waves-effect btn-flat"><pW>Messages</pW></a></li>
+      </ul>
+
+      <div class="row" id="page-post">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-image">
+              <img src="https://www.santacruzsentinel.com/wp-content/uploads/migration/2015/201506/NEWS_150619715_AR_0_DDFUSFGULNNY.jpg?w=535">
+            </div>
+            <div class="card-stacked">
+              <div class="card-content">
+                <h4>Title</h4>
+                <pB>post</pB>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="chatScreen">
-      <h2>hello, welcome to the chat</h2>
+    <div id="specificPostScreen">
+      <div class="slider">
+        <ul class="slides">
+          <li>
+            <img src="https://lorempixel.com/580/250/nature/1">
+            <div class="caption center-align">
+              <h3>Caption</h3>
+            </div>
+          </li>
+          <li>
+            <img src="https://lorempixel.com/580/250/nature/2">
+            <div class="caption center-align">
+              <h3>Caption</h3>
+            </div>
+          </li>
+          <li>
+            <img src="https://lorempixel.com/580/250/nature/3">
+            <div class="caption center-align">
+              <h3>Caption</h3>
+            </div>
+          </li>
+          <li>
+            <img src="https://lorempixel.com/580/250/nature/4">
+            <div class="caption center-align">
+              <h3>Caption</h3>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <div class="section">
+            <h5>Review</h5>
+            <p>Stuff</p>
+          </div>
+          <div class="divider"></div>
+          <div class="section">
+            <h5>Secret Tips</h5>
+            <p>Stuff</p>
+          </div>
+          <div class="divider"></div>
+          <div class="section">
+            <h5>User</h5>
+            <p>Stuff</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Import and configure the Firebase SDK -->
-    <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
-    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
-    <script src="/__/firebase/init.js"></script>
 
-    <script src="scripts/loginUi.js"></script>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/geo.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+  <div id="chatScreen">
+    <h2>hello, welcome to the chat</h2>
+  </div>
+
+  <!-- Import and configure the Firebase SDK -->
+  <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
+  <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+  <script src="/__/firebase/init.js"></script>
+
+  <script src="scripts/materialize.js"></script>
+  <script src="scripts/loginUi.js"></script>
+  <script src="scripts/main.js"></script>
   </div>
 </body>
 
