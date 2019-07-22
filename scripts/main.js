@@ -51,6 +51,8 @@ function saveImageFile(file, coll) {
     return firebase.storage().ref(filePath).put(file).then(function(fileSnapshot) {
       return fileSnapshot.ref.getDownloadURL().then((url) => {
         lastPostImage = url;
+        postImages.push(lastPostImage);
+        console.log(postImages);
         return uploadRef.update({
           imageUrl: url,
           storageUri: fileSnapshot.metadata.fullPath
@@ -84,12 +86,13 @@ function postFct() {
     title: titleInput.value,
     uid: firebase.auth().currentUser.uid,
     rating: 5,
-    imageUrl: lastPostImage,
+    imageUrls: postImages,
     text: postTextInput.value,
     secrets: secretInput.value,
     locationHash: secretInput.value,
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   });
+  postImages = [];
   showScreen(3);
 }
 
@@ -149,11 +152,14 @@ function loadNewPost() {
   var query = firebase.firestore().collection('posts').orderBy('rating', 'desc').limit(12);
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-        //console.log(doc.id, " => ", doc.data());
+        console.log(doc.id, " => ", doc.data());
         const div = document.createElement('div');
         div.className = 'row';
-        div.innerHTML = createPostHtml(doc.id, doc.get("imageUrl"));
+        div.innerHTML = createPostHtml(doc.id, doc.get("imageUrls")[0]);
         pagePost.appendChild(div);
+        document.getElementById(doc.id).onclick = function() {
+          postSelected(this.id);
+        };
       });
     })
     .catch(function(error) {
@@ -161,27 +167,34 @@ function loadNewPost() {
     });
 }
 
-function openPost(pid){
+function openPost(pid) {
   var collection = firebase.firestore().collection('posts')
-  collection.doc(pid).then(function(docRef){
-    
-  });
+  collection.doc(pid).get().then(function(docRef) {
+    imageGallery.innerHtml = imageGalleryListHtml(docRef.get("imageUrls"));
+    //var reviewTextNode = document.createElement("B1");
+    postText.innerHtml = docRef.get("text");
+    secretText.innerHtml = docRef.get("secrets");
+    console.log("uid: " + docRef.get("uid"));
+    getUserInfo(docRef.get("uid"));
+  }).catch(function(error) {
+    console.log("Error getting document:", error);
+  });;
 }
 
 function getUserInfo(uid) {
   var query = firebase.firestore().collection('users').where("uid", "==", uid).limit(1);
-  query.get().then(function(doc) {
-      console.log(doc.id, " => ", doc.data());
-      const div = document.createElement('div');
-      div.className = 'userInfo';
-      var profilePicName = "<img src=" + doc.get(profilePicUrl) + " /><h4>" + doc.get(firstName) + " " + doc.get(lastName) +
-      "</h4><br><h4>" + doc.get(postCount) + "</h4>";
-      div.innerHTML = userHtml(10, profilePicName);
-      pagePost.appendChild(div);
-    })
-    .catch(function(error) {
-      console.log("Error getting documents: ", error);
-    });
+  query.get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        console.log(doc.data());
+        const div = document.createElement('div');
+        div.className = 'userInfo';
+        div.innerHTML = userHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), doc.get("postCount"));
+        userinfo.appendChild(div);
+      })
+      .catch(function(error) {
+        console.log("Error getting documents: ", error);
+      });
+  });
 }
 
 function showScreen(s) {
@@ -201,6 +214,8 @@ function showScreen(s) {
       break;
     case 2:
       postingSpots.style.display = "block";
+      postImages = [];
+      console.log(postImages);
       break;
     case 3:
       searchScreen.style.display = "block";
@@ -220,7 +235,7 @@ function showScreen(s) {
   }
 }
 
-function postSelected(pid){
+function postSelected(pid) {
   showScreen(6);
   openPost(pid);
 }
@@ -243,7 +258,11 @@ var postTextInput = document.getElementById("post_txt_input");
 var titleInput = document.getElementById("title_input");
 var secretInput = document.getElementById("secret_txt_input");
 var pagePost = document.getElementById("page-post");
+var userinfo = document.getElementById("userinfo");
 var specificPostScreen = document.getElementById("specificPostScreen");
+var imageGallery = document.getElementById("imageGallery");
+var postText = document.getElementById("postText");
+var secretText = document.getElementById("secretText");
 
 //postingSpots
 var postImages = {};
@@ -269,26 +288,44 @@ languageInput.addEventListener('change', enableButton);
 var firestore = firebase.firestore();
 showScreen(0);
 
-function userHtml(postId, testImg) {
+function userHtml(imgUrl, fn, ln, postc) {
   return `
-    <div class="fp-post mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet
-                mdl-cell--8-col-desktop mdl-grid mdl-grid--no-spacing">
-      <div class="mdl-card mdl-shadow--2dp mdl-cell
-                  mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                  <h4>this is post number ${postId}</h4>
-        <div class="fp-header">
-            <div class="fp-avatar">${testImg}</div>
-            <div class="fp-username mdl-color-text--black"></div>
-        </div>
-        <div class="fp-image"></div>
+  <b1>
+    This post was written by:
+  </b1><br>
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="row valign-wrapper">
+      <div class="col s3">
+        <img src=${imgUrl} class="circle responsive-img">
       </div>
-    </div>`;
+      <div class="col s9">
+        <b1>
+          ${fn} ${ln}
+        </b1><br>
+        <b1>
+          ${postc}
+        </b1>
+      </div>
+    </div>
+  </div>`;
+}
+
+function imageGalleryListHtml(imageUrls) {
+  var string = "";
+  imageUrls.forEach(function(imgUrl) {
+    string += `<li>
+    <img src=${imgUrl}>
+  </li>`;
+  });
+  console.log(string);
+  return string;
 }
 
 function createPostHtml(postId, testImg) {
+  console.log("the createPostHtml function got executed with:  " + postId);
   return `
       <div class="col s12">
-        <div  onclick="postSelected(${postId})" class="card  waves-effect waves-block waves-light">
+        <div id="${postId}" onclick="" class="card  waves-effect waves-block waves-light">
           <div class="card-image">
             <img src=${testImg}>
           </div>
@@ -304,9 +341,8 @@ function createPostHtml(postId, testImg) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
- //M.AutoInit();
-}
-);
+  //M.AutoInit();
+});
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
@@ -319,12 +355,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.materialboxed');
-  var instances = M.Materialbox.init(elems, {
-  });
+  var instances = M.Materialbox.init(elems, {});
 });
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.slider');
-  var instances = M.Slider.init(elems, {interval: 8000,
+  var instances = M.Slider.init(elems, {
+    interval: 8000,
   });
 });
