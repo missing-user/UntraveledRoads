@@ -92,6 +92,9 @@ function postFct() {
     locationHash: secretInput.value,
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   });
+  userDocRef.update({
+    postCount: firebase.firestore.FieldValue.increment(1),
+  });
   postImages = [];
   showScreen(3);
 }
@@ -149,6 +152,7 @@ function switchToChatFct() {
 }
 
 function loadNewPost() {
+  //where("searchTerms", "array-contains", searchBox.value).
   var query = firebase.firestore().collection('posts').orderBy('rating', 'desc').limit(12);
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
@@ -271,6 +275,8 @@ function openPost(pid) {
   var secretText = document.getElementById("secretText");
   var postTitle = document.getElementById("postTitle");
 
+  var searchBox = document.getElementById("search_box");
+
   //postingSpots
   var postImages = {};
 
@@ -310,7 +316,7 @@ function openPost(pid) {
           ${fn} ${ln}
         </b1><br>
         <b1>
-          ${postc}
+          number of posts ${postc}
         </b1>
       </div>
     </div>

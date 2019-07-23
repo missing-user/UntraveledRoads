@@ -1,6 +1,6 @@
 // Initialize the FirebaseUI Widget using Firebase.
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
+var userDocRef;
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function(authResult, redirectUrl) {
@@ -8,15 +8,15 @@ var uiConfig = {
       accountForm.style.display = "block";
       console.log('signin success');
       var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
-      var docId;
+      var userDocId;
       query.get().then(function(querySnapshot) {
           if (!querySnapshot.empty) {
             showScreen(2);
             console.log('welcome back');
             querySnapshot.forEach(function(documentSnapshot) {
-              docId = documentSnapshot.id;
-              docRef = firebase.firestore().collection('users').doc(docId);
-              docRef.update({
+              userDocId = documentSnapshot.id;
+              userDocRef = firebase.firestore().collection('users').doc(userDocId);
+              userDocRef.update({
                 lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
                 profilePicUrl: getProfilePicUrl(),
               });
