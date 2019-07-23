@@ -1,34 +1,34 @@
 /* colors
    ========================================================================== */
-.ur-white {
-  color: #fffff !important:
+.white-text {
+  color: #FFFFFF !important;
 }
 
-.ur-pink-dark {
-  color: #e57373 !important;
+.red-text.text-lighten-2 {
+  color: #E57373 !important;
 }
 
-.ur-blue {
+.indigo-text.text-lighten-1 {
   color: #5c6bc0 !important;
 }
 
-.ur-blue-dark {
-  color: #1a247e !important;
+.indigo-text.text-darken-4 {
+  color: #1a237e !important;
 }
 
-.ur-bg-pink-light {
-  background-color: #ef9a9a !important;
+.red.lighten-3 {
+  background-color: #EF9A9A !important;
 }
 
-.ur-bg-pink-dark {
-  background-color: #e57373 !important;
+.red.lighten-2 {
+  background-color: #E57373 !important;
 }
 
-.ur-bg-yellow {
-  background-color: #fef3e0 !important;
+.orange.lighten-5 {
+  background-color: #fff3e0 !important;
 }
 
-.ur-bg-blue {
+.indigo.lighten-1 {
   background-color: #5c6bc0 !important;
 }
 
@@ -47,41 +47,41 @@
 /* fonts
    ========================================================================== */
 h1 {
-  font-family: Ubuntu, sans-serif;
-  font-size: 2.25em;
+  font-family: Ubuntu, Roboto, sans-serif;
+  font-size: 2em;
   font-weight: 500;
   font-kerning: auto;
   font-stretch: 130%;
   line-height: 1.4;
-  color: #e57373;
+  color: #5c6bc0;
 }
 
 h2 {
-  font-family: Ubuntu, sans-serif;
-  font-size: 1.5em;
+  font-family: Ubuntu, Roboto, sans-serif;
+  font-size: 1.125em;
   font-weight: 400;
   font-kerning: auto;
   font-stretch: 130%;
   /* doesn't work????? */
-  line-height: 1.1;
-  color: #5c6bc0;
+  line-height: 1.4;
+  color: #1a247e;
 }
 
 b1 {
   font-family: Roboto, sans-serif;
-  font-size: 1em;
+  font-size: 0.875em;
   font-weight: 500;
   font-kerning: auto;
   font-stretch: normal;
   /* doesn't work????? */
-  line-height: 0.5;
+  line-height: 1.4;
   color: #1a247e;
 }
 
 b2 {
   font-family: Roboto, sans-serif;
-  font-size: 0.875em;
-  font-weight: 500;
+  font-size: 0.75em;
+  font-weight: 400;
   font-kerning: auto;
   font-stretch: normal;
   /* doesn't work????? */
@@ -100,7 +100,6 @@ btn {
 line-height: 1.4;
 color: #1a247e;
 }*/
-
 li a {
   color: #fff;
 }
@@ -108,7 +107,15 @@ li a {
 /* padding
    ========================================================================== */
 .left-padding-1 {
-  padding-left: 1em;
+  padding-left: 1rem;
+}
+
+.left-padding-4 {
+  padding-left: 4.5rem;
+}
+
+.bottom-padding-1 {
+  padding-bottom: 1rem;
 }
 
 /* icons
@@ -129,16 +136,16 @@ li a {
 .nav-wrapper .input-field input[type=search] {
   height: inherit;
   padding-left: 4rem;
-  width: 100% border-box;
-  border: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
 }
 
 .circle {
   width: 20vw;
 }
 
+.sidenav {
+  width: 85vw;
+  max-width: 20rem;
+}
 
 /* column
    ========================================================================== */
@@ -150,6 +157,10 @@ li a {
 
 .section {
   font-size: 16px;
+}
+
+.section.bottom-padding-1 {
+  padding-bottom: 1.5rem;
 }
 
 /* cards
@@ -178,4 +189,28 @@ li a {
 
 .card .card-content p {
   margin: 10;
+}
+
+/* slides
+   ========================================================================== */
+.slider {
+  position: relative;
+  height: 50vh !important;
+  width: 100%;
+}
+
+.slides {
+  background-color: #9e9e9e;
+  margin: 0;
+  height: 45vh !important;
+}
+
+.slider .indicators .indicator-item.active {
+  background-color: #E57373;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.slider .indicators .indicator-item {
+  background-color: #EF9A9A;
 }
