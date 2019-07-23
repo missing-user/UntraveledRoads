@@ -1,11 +1,19 @@
 /* colors
    ========================================================================== */
+.ur-transparent {
+  background-color: transparent !important;
+}
+
 .white-text {
   color: #FFFFFF !important;
 }
 
 .red-text.text-lighten-2 {
   color: #E57373 !important;
+}
+
+.red-text.text-lighten-3 {
+  color: #EF9A9A !important;
 }
 
 .indigo-text.text-lighten-1 {
@@ -118,8 +126,12 @@ li a {
   padding-bottom: 1rem;
 }
 
-/* icons
+/* icons and buttons
    ========================================================================== */
+.float {
+  z-index: 999 !important;
+}
+
 /* navbar and search input field
    ========================================================================== */
 .navbar-fixed {
@@ -203,6 +215,7 @@ li a {
   background-color: #9e9e9e;
   margin: 0;
   height: 45vh !important;
+  z-index: 0;
 }
 
 .slider .indicators .indicator-item.active {
