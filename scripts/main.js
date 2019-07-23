@@ -272,72 +272,10 @@ function postSelected(pid) {
   openPost(pid);
 }
 
-<<<<<<< HEAD
-var ratingsId;
-
-var fnameInput = document.getElementById('first_name_input');
-var lnameInput = document.getElementById('last_name_input');
-var languageInput = document.getElementById('language_input');
-var travelConnectChk = document.getElementById('traveler_connect_input');
-var addressInput = document.getElementById('address_input');
-var signIn = document.getElementById('sign_in');
-
-var submitBtn = document.getElementById('submit_btn');
-var searchBtn = document.getElementById('search_btn');
-var accountForm = document.getElementById('accountForm');
-var searchScreen = document.getElementById('searchScreen');
-var chatScreen = document.getElementById('chatScreen');
-var postingSpots = document.getElementById('postingSpots');
-var postBtn = document.getElementById("post_btn");
-var postTextInput = document.getElementById("post_txt_input");
-var titleInput = document.getElementById("title_input");
-var secretInput = document.getElementById("secret_txt_input");
-var pagePost = document.getElementById("page-post");
-var userinfo = document.getElementById("userinfo");
-var specificPostScreen = document.getElementById("specificPostScreen");
-var imageGallery = document.getElementById("imageGallery");
-var postText = document.getElementById("postText");
-var secretText = document.getElementById("secretText");
-var postTitle = document.getElementById("postTitle");
-var addressTextInput = document.getElementById("addressTextInput");
-var ratingSlider = document.getElementById("ratingSlider");
-var searchBox = document.getElementById("search_box");
-
-//postingSpots
-var postImages = {};
-
-var postPicUpload = document.getElementById("upload_post_pic");
-postPicUpload.onchange = function() {
-  console.log('insert the current image name into a header element here');
-};
-
-//add event listeners
-postPicUpload.addEventListener('change', postPicSelected);
-
-lnameInput.addEventListener('keyup', enableButton);
-lnameInput.addEventListener('change', enableButton);
-fnameInput.addEventListener('keyup', enableButton);
-fnameInput.addEventListener('change', enableButton);
-addressInput.addEventListener('keyup', enableButton);
-addressInput.addEventListener('change', enableButton);
-languageInput.addEventListener('keyup', enableButton);
-languageInput.addEventListener('change', enableButton);
-
-// Remove the warning about timstamps change.
-var firestore = firebase.firestore();
-showScreen(0);
-
-function userHtml(imgUrl, fn, ln, postc) {
-  return `
-  <b1>
-    This post was written by:
-  </b1><br>
-=======
   function userHtml(imgUrl, fn, ln, postc) {
     return `
   <b2>This post was written by:</b2>
   <br>
->>>>>>> acf02d4a52ec9d0e9bb93f765e923b286b7a57a7
   <div class="col s12 m8 offset-m2 l6 offset-l3">
     <div class="row valign-wrapper">
       <div class="col s3" style="position: relative; top: 0.75rem">
