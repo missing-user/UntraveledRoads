@@ -24,13 +24,16 @@
   <script src="https://unpkg.com/geokit@0.1.2/dist/geokit.js"></script>
 </head>
 
-<body>
+<body class="ur-bg-yellow">
   <div id="pre_loader" class="lds-dual-ring" style="display: block">
   </div>
   <div id="mainBody" style="display: none">
     <div id="signinForm">
       <div id="login_loader" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
       <button id="skip_btn" onclick="switchToAboutFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        skip
+      </button>
+      <button id="skip_btn" onclick="switchTospecificPostScreen()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
         skip
       </button>
       <div id="firebaseui-auth-container"></div>
@@ -91,52 +94,66 @@
     </div>
 
     <div id="postingSpots">
-      <row>
-        <div class="col 12">
-          <h1>Post a local spot</h1>
-          <b2 style="position: relative; top: -0.5rem">Post your favorite local spots so travelers know where locals visit!</b2>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="title_input">
-            <label class="mdl-textfield__label" for="message">title</label>
-          </div><br>
-          <div class="mdl-textfield mdl-js-textfield">
-            <textarea class="mdl-textfield__input" type="text" rows="3" id="post_txt_input"></textarea>
-            <label class="mdl-textfield__label" for="post_txt_input">insert your post here</label>
-          </div><br>
-          <div class="mdl-textfield mdl-js-textfield">
-            <textarea class="mdl-textfield__input" type="text" rows="3" id="secret_txt_input"></textarea>
-            <label class="mdl-textfield__label" for="post_txt_input">recommend secret tips</label>
-          </div>
-          <br>
-          <input type="file" id="upload_post_pic" class="upload" />
-          <h6>Maximum file size is 2MB</h6>
-          <button id="post_btn" onclick="postFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            Post
-          </button>
-          <!--<button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            Search
-          </button>
-          <br>
-          <button id="chat_btn" onclick="switchToChatFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            chat
-          </button>-->
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="title_input" type="text" class="validate">
+          <label for="title_input">Title</label>
         </div>
+      </div>
+
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="post_txt_input" class="materialize-textarea" data-length="400"></textarea>
+            <label for="post_txt_input">Input post here</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="secret_txt_input" class="materialize-textarea" data-length="400"></textarea>
+            <label for="secret_txt_input">Secret local tips</label>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="addressTextInput" type="text" class="validate">
+          <label for="addressTextInput">Address</label>
+        </div>
+      </div>
+
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Upload Images</span>
+          <input type="file" multiple id="upload_post_pic">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Upload one or more files">
+        </div>
+      </div>
+
+      <button id="post_btn" onclick="postFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        Post
+      </button>
+      <button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        Search
+      </button><br><button id="chat_btn" onclick="switchToChatFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        chat
+      </button>
     </div>
-    </row>
 
     <div id="searchScreen">
-
       <div class="navbar-fixed">
         <nav>
           <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="left hide-on-med-and-down">
-              <a class="waves-effect white-text">HOME</a>
-              <a class="waves-effect white-text">MESSAGES</a>
+              <a class="waves-effect ur-white">HOME</a>
+              <a class="waves-effect ur-white">MESSAGES</a>
             </ul>
-            <form class="left-padding-4">
-              <div class="input-field">
-                <input id="search" type="search" required>
+            <form>
+              <div class="left input-field">
+                <input id="search_box" type="search" required>
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
               </div>
@@ -145,24 +162,26 @@
         </nav>
       </div>
 
-      <ul class="sidenav ur-bg-gradient-vrt z-depth-2" id="mobile-demo">
+      <ul class="sidenav ur-bg-gradient-vrt" id="mobile-demo">
         <li>
-          <div class="user-view row" id="sidenav-profile">
+          <div class="user-view row">
             <div class="col s4" style="position: relative; right: 0.5rem; top: 0.5rem">
               <img src="https://i.redd.it/vt6ljt2sodmz.jpg" alt="" class="circle responsive-img">
             </div>
             <div class="col s7" style="position: relative; right: 0.5rem;">
-              <h2 class="white-text" style="position: relative; top: 0rem">Cute Reptile</h2>
-              <b1 class="white-text" style="position: relative; top: -1rem">imsoCuTe@gmail.com</b1>
+              <h2 class="white-text">Cute Reptile</h2>
+              <b1 class="white-text">imsoCuTe@gmail.com</b1>
             </div>
           </div>
         </li>
-        <div class="divider indigo lighten-3" style="position: relative; top: 0.5rem"></div>
-        <li><a class="waves-effect grey-text text-lighten-5" style="position: relative; top: 0.8rem" id="homeButton">HOME</a></li>
-        <li><a class="waves-effect grey-text text-lighten-5" style="position: relative; top: 0.8rem" id="messageButton">MESSAGES</a></li>
+        <br>
+        <div class="divider ur-bg-blue"></div>
+        <li><a class="waves-effect white-text" id="homeButton">HOME</a></li>
+        <li><a class="waves-effect white-text" id="messageButton">MESSAGES</a></li>
       </ul>
 
-      <div class="row" id="page-post" style="position: relative; top: 1rem"></div>
+      <div class="row" id="page-post">
+      </div>
     </div>
 
     <div id="specificPostScreen">
@@ -173,51 +192,51 @@
           </a>
         </ul>
       </div>
-      <div class="row">
-        <div class="col s10 offset-s1">
+      <form class="col s6">
+        <div class="row">
+          <label id="ratingLabel">Rating</label>
+          <p class="range-field">
+            <input type="range" id="ratingSlider" min="0" max="10" />
+          </p>
+        </div>
+        <div class="row">
           <h1 id="postTitle">Name<h1>
-              <div id="postText" class="section no-pad">
+              <div id="postText" class="section">
                 <h2>Reviews</h2>
               </div>
+              <div class="divider"></div>
+              <div id="secretText" class="section">
+                <h2>Secret Tips</h2>
+              </div>
+              <div class="divider"></div>
+              <div class="section">
+                <div id="userinfo" class="section">
+                </div>
+              </div>
         </div>
-        <div class="col s12">
-          <div class="divider"></div>
-        </div>
-        <div class="col s10 offset-s1">
-          <div id="secretText" class="section no-pad-top bottom-padding-1">
-            <h2>Secret Tips</h2>
-          </div>
-        </div>
-        <div class="col s12">
-          <div class="divider"></div>
-        </div>
-        <div class="col s10 offset-s1">
-          <div id="userinfo" class="section"></div>
-        </div>
+      </form>
+
+      <div id="chatScreen">
+        <h2>hello, welcome to the chat</h2>
       </div>
     </div>
-
-    <div id="chatScreen">
-      <h2>hello, welcome to the chat</h2>
-    </div>
-  </div>
-  <!--main body ends-->
+    <!--main body ends-->
 
 
-  <!-- Import and configure the Firebase SDK -->
-  <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
-  <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
-  <script src="/__/firebase/6.2.4/firebase-app.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
-  <script src="/__/firebase/init.js"></script>
+    <!-- Import and configure the Firebase SDK -->
+    <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
+    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+    <script src="/__/firebase/init.js"></script>
 
-  <script src="scripts/materialize.js"></script>
-  <script src="scripts/loginUi.js"></script>
-  <script src="scripts/main.js"></script>
-  <script src="scripts/geo.js"></script>
+    <script src="scripts/materialize.js"></script>
+    <script src="scripts/loginUi.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/geo.js"></script>
   </div>
 </body>
 

@@ -1,0 +1,21 @@
+the less google results, the more local it is
+filter out restaurant chains
+local score and travel score
+address field for the restaurants and stuff
+mark favorite restaurants in a separate list
+CHAT FUNCTION!!!!
+
+Evanston:
+clock museum, deep dish pizza, thirsty Thursday milkshakes, ...
+
+
+future plans:
+-follow certain cities
+-specific regional cuisines should get recommended for each region!!!
+-categories
+--local cuisines
+--concerts (local music)
+--specials (skin eating fish)
+--interesting sites
+--events (flooding the roads tradition, Maibaum)
+--timely events (relevance changes during year) with calendar functionality

@@ -20,22 +20,25 @@ function postPicSelected(event) {
 
 function onMediaFileSelected(event, coll) {
   event.preventDefault();
-  var file = event.target.files[0];
-  console.log('file uploaded');
-  // Clear the selection in the file picker input.
-  //imageFormElement.reset();
+  var files = event.target.files;
+  for (var i = 0, f; f = files[i]; i++) {
+    var file = f;
+    console.log('file uploaded');
+    // Clear the selection in the file picker input.
+    //imageFormElement.reset();
 
-  if (!file.type.match('image.*')) {
-    var data = {
-      message: 'You can only share images',
-      timeout: 2000
-    };
-    console.error('only images can be uploaded');
-    return;
-  }
-  if (checkSignedInWithMessage()) {
-    saveImageFile(file, coll);
-  }
+    if (!file.type.match('image.*')) {
+      var data = {
+        message: 'You can only share images',
+        timeout: 2000
+      };
+      console.error('only images can be uploaded');
+      return;
+    }
+    if (checkSignedInWithMessage()) {
+      saveImageFile(file, coll);
+    }
+  };
 }
 
 var LOADING_IMAGE_URL = 'https://loading.io/spinners/typing/lg.-text-entering-comment-loader.gif';
@@ -82,19 +85,30 @@ function submitFct() {
 
 function postFct() {
   console.log('post submitted');
+  firebase.firestore().collection('ratings').add({
+    ratings: [5],
+    users: [firebase.auth().currentUser.uid],
+  }).then(function(docRef) {
+    ratingsId = docRef.id;
+  });
+
   firebase.firestore().collection('posts').add({
     title: titleInput.value,
     uid: firebase.auth().currentUser.uid,
-    rating: 5,
+    rating: ratingsId,
     imageUrls: postImages,
     text: postTextInput.value,
+    address: addressTextInput.value,
     secrets: secretInput.value,
     locationHash: secretInput.value,
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   });
+  userDocRef.update({
+    postCount: firebase.firestore.FieldValue.increment(1),
+  });
   postImages = [];
   showScreen(3);
-  loadNewPost();
+  ratingsId = "";
 }
 
 function enableButton() {
@@ -151,7 +165,8 @@ function switchToChatFct() {
 }
 
 function loadNewPost() {
-  var query = firebase.firestore().collection('posts').orderBy('rating', 'desc').limit(12);
+  //where("searchTerms", "array-contains", searchBox.value).
+  var query = firebase.firestore().collection('posts').orderBy("timestamp", "desc").limit(12);
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         const div = document.createElement('div');
@@ -164,12 +179,13 @@ function loadNewPost() {
       });
     })
     .catch(function(error) {
-      console.log("Error getting documents: ", error);
+      console.error("Error getting documents: ", error);
     });
 }
 
 function openPost(pid) {
-  var collection = firebase.firestore().collection('posts')
+  console.log("pid: " + pid);
+  var collection = firebase.firestore().collection('posts');
   collection.doc(pid).get().then(function(docRef) {
     var imageUrls = docRef.get("imageUrls");
     imageUrls.forEach(function(imgUrl) {
@@ -314,7 +330,7 @@ function userHtml(imgUrl, fn, ln, postc) {
           ${fn} ${ln}
         </b1><br>
         <b1>
-          ${postc}
+          number of posts ${postc}
         </b1>
       </div>
     </div>
@@ -370,9 +386,46 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.fixed-action-btn');
-  var instances = M.FloatingActionButton.init(elems, {
-    hoverEnabled
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ratingSlider.addEventListener('change', function() {
+  docRef = firebase.firestore().collection('ratings').doc(ratingsId);
+  docRef.get().then(function(docSnap) {
+    usersArray = docSnap.get("users");
+    ratingsArray = docSnap.get("ratings");
+
+    if (!usersArray.includes(firebase.auth().currentUser.uid)) {
+      console.log("adding user and rating");
+      ratingsArray.push(ratingSlider.value);
+      usersArray.push(firebase.auth().uid);
+      docRef.update({
+        ratings: ratingsArray,
+        users: usersArray,
+      });
+    } else {
+      console.log("all the ratings: ")
+      console.log(ratingsArray);
+      ratingsArray[usersArray.indexOf(firebase.auth().currentUser.uid)] = ratingSlider.value;
+      docRef.update({
+        ratings: ratingsArray,
+      });
+    }
+    updateRatingDisplay();
   });
-});
+}, false);
+
+function updateRatingDisplay() {
+  ratingLabel.text = "Rating: " + getAvgRating();
+}
+
+function getAvgRating() {
+  firebase.firestore().collection('ratings').doc(ratingsId).get().then(function(docRef) {
+    var rtgs = docRef.get("ratings");
+
+    var total = 0;
+    for (var i = 0; i < rtgs.length; i++) {
+      total += rtgs[i];
+    }
+    return total / rtgs.length;
+  });
+}
