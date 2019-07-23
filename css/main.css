@@ -1,35 +1,47 @@
 /* colors
    ========================================================================== */
 .ur-white {
-  color: #fff
+  color: #fffff !important:
 }
 
 .ur-pink-dark {
-  color: #e57373;
+  color: #e57373 !important;
 }
 
 .ur-blue {
-  color: #5c6bc0;
+  color: #5c6bc0 !important;
 }
 
 .ur-blue-dark {
-  color: #1a247e;
+  color: #1a247e !important;
 }
 
 .ur-bg-pink-light {
-  background-color: #ef9a9a;
+  background-color: #ef9a9a !important;
+}
+
+.ur-bg-pink-dark {
+  background-color: #e57373 !important;
 }
 
 .ur-bg-yellow {
-  background-color: #fef3e0
+  background-color: #fef3e0 !important;
 }
 
 .ur-bg-blue {
-  background-color: #5c6bc0;
+  background-color: #5c6bc0 !important;
 }
 
-.ur-bg-gradient {
-  background-image: linear-gradient(#5c6bc0, #e57373);
+.ur-bg-gradient-vrt {
+  background-image: linear-gradient(#5c6bc0, #e57373) !important;
+}
+
+.ur-bg-gradient-hrz {
+  background-image: linear-gradient(to right, #5c6bc0, #e57373) !important;
+}
+
+.ur-bg-gradient-2 {
+  background-image: linear-gradient(#5c6bc0, #695bd2) !important;
 }
 
 /* fonts
@@ -51,7 +63,7 @@ h2 {
   font-kerning: auto;
   font-stretch: 130%;
   /* doesn't work????? */
-  line-height: 1.4;
+  line-height: 1.1;
   color: #5c6bc0;
 }
 
@@ -62,7 +74,7 @@ b1 {
   font-kerning: auto;
   font-stretch: normal;
   /* doesn't work????? */
-  line-height: 1.4;
+  line-height: 0.5;
   color: #1a247e;
 }
 
@@ -84,16 +96,23 @@ btn {
   font-weight: 500;
   font-kerning: auto;
   font-stretch: 200%;
-  /* doesn't work????? */
+  doesn't work?????
 line-height: 1.4;
 color: #1a247e;
+}*/
+
+li a {
+  color: #fff;
 }
 
-*/
+/* padding
+   ========================================================================== */
+.left-padding-1 {
+  padding-left: 1em;
+}
 
 /* icons
    ========================================================================== */
-
 /* navbar and search input field
    ========================================================================== */
 .navbar-fixed {
@@ -103,7 +122,7 @@ color: #1a247e;
 }
 
 .nav-wrapper {
-  background-color: #5c6bc0 !important;
+  background-color: ;
   width: inherit;
 }
 
@@ -116,6 +135,11 @@ color: #1a247e;
   box-shadow: none;
 }
 
+.circle {
+  width: 20vw;
+}
+
+
 /* column
    ========================================================================== */
 .col {
@@ -124,7 +148,7 @@ color: #1a247e;
   padding-top: 1rem;
 }
 
-.section{
+.section {
   font-size: 16px;
 }
 
