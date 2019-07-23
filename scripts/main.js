@@ -152,8 +152,7 @@ function switchTospecificPostScreen() {
 }
 
 function switchToAboutFct() {
-  showScreen(3);
-  loadNewPost();
+  console.log('its being called after all')
 }
 
 function hasUserPosted() {
