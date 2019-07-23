@@ -40,46 +40,57 @@
     </div>
 
     <div id="accountForm">
-      <touristForm>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="first_name_input">
-          <label class="mdl-textfield__label" for="message">First Name</label>
-        </div><br>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="last_name_input">
-          <label class="mdl-textfield__label" for="message">Last Name</label>
-        </div><br>
-        <div class="mdc-select">
-          <i class="mdc-select__dropdown-icon"></i>
-          <label class="mdc-floating-label">Language</label>
-          <select class="mdc-select__native-control" id="language_input">
-            <option value="" disabled selected></option>
-            <option value="english">
-              EN
-            </option>
-            <option value="german">
-              DE
-            </option>
-            <option value="french">
-              FR
-            </option>
-          </select>
-          <div class="mdc-line-ripple"></div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="first_name_input" type="text" class="validate">
+          <label for="first_name_input">First Name</label>
         </div>
-      </touristForm>
-      <localForm>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="address_input">
-          <label class="mdl-textfield__label" for="message">Where do you live? </label>
-        </div><br>
-        Willing to connect with travelers?<br> <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="traveler_connect_input">
-          <input type="checkbox" id="traveler_connect_input" class="mdl-switch__input" checked>
-          <span class="mdl-switch__label"></span>
-        </label><br>
-      </localForm><br>
-      <button id="submit_btn" onclick="submitFct()" disabled class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        Submit
-      </button>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="last_name_input" type="text" class="validate">
+          <label for="last_name_input">Last Name</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <select id="language_input">
+            <option value="" disabled selected>Choose your language</option>
+            <option value="EN">English</option>
+            <option value="DE">German</option>
+            <option value="FR">French</option>
+            <option value="IT">Italian</option>
+            <option value="HR">Croatian</option>
+          </select>
+          <label>Language Select</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="address_input" type="text" class="validate">
+          <label for="address_input">Address</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <p>
+            <label>
+              <input id="traveler_connect_input" type="checkbox" />
+              <span>Willing to connect with travelers? </span>
+            </label>
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <a id="submit_btn" onclick="submitFct()" disabled class="waves-effect waves-light btn">Submit</a>
+        </div>
+      </div>
     </div>
 
     <div id="postingSpots">
@@ -200,37 +211,27 @@
 
     <div id="specificPostScreen">
       <div class="slider">
-        <ul class="slides">
-          <li>
-            <img src="https://lorempixel.com/580/250/nature/1">
-          </li>
-          <li>
-            <img src="https://lorempixel.com/580/250/nature/2">
-          </li>
-          <li>
-            <img src="https://lorempixel.com/580/250/nature/3">
-          </li>
-          <li>
-            <img src="https://lorempixel.com/580/250/nature/4">
-          </li>
+        <ul id="imageGallery" class="slides">
         </ul>
       </div>
       <div class="row">
         <div class="col s12">
-          <h1>Name<h1>
-              <div class="section">
+          <h1 id="postTitle">Name<h1>
+              <div id="postText" class="section">
                 <h2>Reviews</h2>
-                <b1>stuff</b1>
               </div>
               <div class="divider"></div>
-              <div class="section">
+              <div id="secretText" class="section">
                 <h2>Secret Tips</h2>
-                <b1>Stuff</b1>
               </div>
               <div class="divider"></div>
+<<<<<<< HEAD
               <div class="section">
                 <h2>User</h2>
                 <b1>Stuff</b1>
+=======
+              <div id="userinfo" class="section">
+>>>>>>> 606386cf839d0f9ef8f86bed144920e47fa6820c
               </div>
         </div>
       </div>

@@ -51,6 +51,8 @@ function saveImageFile(file, coll) {
     return firebase.storage().ref(filePath).put(file).then(function(fileSnapshot) {
       return fileSnapshot.ref.getDownloadURL().then((url) => {
         lastPostImage = url;
+        postImages.push(lastPostImage);
+        console.log(postImages);
         return uploadRef.update({
           imageUrl: url,
           storageUri: fileSnapshot.metadata.fullPath
@@ -84,12 +86,13 @@ function postFct() {
     title: titleInput.value,
     uid: firebase.auth().currentUser.uid,
     rating: 5,
-    imageUrl: lastPostImage,
+    imageUrls: postImages,
     text: postTextInput.value,
     secrets: secretInput.value,
     locationHash: secretInput.value,
     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
   });
+  postImages = [];
   showScreen(3);
 }
 
@@ -149,11 +152,13 @@ function loadNewPost() {
   var query = firebase.firestore().collection('posts').orderBy('rating', 'desc').limit(12);
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-        //console.log(doc.id, " => ", doc.data());
         const div = document.createElement('div');
         div.className = 'row';
-        div.innerHTML = createPostHtml(doc.id, doc.get("imageUrl"));
+        div.innerHTML = createPostHtml(doc.id, doc.get("title"), doc.get("imageUrls")[0], doc.get("text"));
         pagePost.appendChild(div);
+        document.getElementById(doc.id).onclick = function() {
+          postSelected(this.id);
+        };
       });
     })
     .catch(function(error) {
@@ -161,170 +166,202 @@ function loadNewPost() {
     });
 }
 
-function openPost(pid){
+function openPost(pid) {
   var collection = firebase.firestore().collection('posts')
-  collection.doc(pid).then(function(docRef){
-    
-  });
-}
+  collection.doc(pid).get().then(function(docRef) {
+      var imageUrls = docRef.get("imageUrls");
+      imageUrls.forEach(function(imgUrl) {
+          imageGallery.appendChild(imageGalleryListHtml(imgUrl));
+        });
+        //reinitialize the gallery
+        var elems = document.querySelectorAll('.slider');
+        var instances = M.Slider.init(elems, {
+          interval: 8000,
+        });
+        var title = docRef.get("title"); postTitle.innerHTML = title;
+        var text = docRef.get("text");
 
-function getUserInfo(uid) {
-  var query = firebase.firestore().collection('users').where("uid", "==", uid).limit(1);
-  query.get().then(function(doc) {
-      console.log(doc.id, " => ", doc.data());
-      const div = document.createElement('div');
-      div.className = 'userInfo';
-      var profilePicName = "<img src=" + doc.get(profilePicUrl) + " /><h4>" + doc.get(firstName) + " " + doc.get(lastName) +
-      "</h4><br><h4>" + doc.get(postCount) + "</h4>";
-      div.innerHTML = userHtml(10, profilePicName);
-      pagePost.appendChild(div);
-    })
-    .catch(function(error) {
-      console.log("Error getting documents: ", error);
-    });
-}
+        const bodytxt = document.createElement('b1'); bodytxt.innerHTML = text; postText.appendChild(bodytxt);
 
-function showScreen(s) {
-  signinForm.style.display = "none";
-  accountForm.style.display = "none";
-  postingSpots.style.display = "none";
-  searchScreen.style.display = "none";
-  aboutScreen.style.display = "none";
-  chatScreen.style.display = "none";
-  specificPostScreen.style.display = "none";
-  switch (s) {
-    case 0:
-      signinForm.style.display = "block";
-      break;
-    case 1:
-      accountForm.style.display = "block";
-      break;
-    case 2:
-      postingSpots.style.display = "block";
-      break;
-    case 3:
-      searchScreen.style.display = "block";
-      break;
-    case 4:
-      aboutScreen.style.display = "block";
-      break;
-    case 5:
-      chatScreen.style.display = "block";
-      break;
-    case 6:
-      specificPostScreen.style.display = "block";
-      break;
-    default:
-      aboutScreen.style.display = "block";
+        const secrets = document.createElement('b1'); secrets.innerHTML = docRef.get("secrets"); secretText.appendChild(secrets);
 
+        getUserInfo(docRef.get("uid"));
+      }).catch(function(error) {
+      console.log("Error getting document:", error);
+    });;
   }
-}
 
-function postSelected(pid){
-  showScreen(6);
-  openPost(pid);
-}
+  function getUserInfo(uid) {
+    var query = firebase.firestore().collection('users').where("uid", "==", uid).limit(1);
+    query.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        const div = document.createElement('div');
+        div.className = 'userInfo';
+        div.innerHTML = userHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), doc.get("postCount"));
+        userinfo.appendChild(div);
+      });
+    });
+  }
 
-var fnameInput = document.getElementById('first_name_input');
-var lnameInput = document.getElementById('last_name_input');
-var languageInput = document.getElementById('language_input');
-var travelConnectChk = document.getElementById('traveler_connect_input');
-var addressInput = document.getElementById('address_input');
-var signIn = document.getElementById('sign_in');
+  function showScreen(s) {
+    signinForm.style.display = "none";
+    accountForm.style.display = "none";
+    postingSpots.style.display = "none";
+    searchScreen.style.display = "none";
+    aboutScreen.style.display = "none";
+    chatScreen.style.display = "none";
+    specificPostScreen.style.display = "none";
+    switch (s) {
+      case 0:
+        signinForm.style.display = "block";
+        break;
+      case 1:
+        accountForm.style.display = "block";
+        break;
+      case 2:
+        postingSpots.style.display = "block";
+        postImages = [];
+        console.log(postImages);
+        break;
+      case 3:
+        searchScreen.style.display = "block";
+        break;
+      case 4:
+        aboutScreen.style.display = "block";
+        break;
+      case 5:
+        chatScreen.style.display = "block";
+        break;
+      case 6:
+        specificPostScreen.style.display = "block";
+        break;
+      default:
+        aboutScreen.style.display = "block";
 
-var submitBtn = document.getElementById('submit_btn');
-var searchBtn = document.getElementById('search_btn');
-var accountForm = document.getElementById('accountForm');
-var searchScreen = document.getElementById('searchScreen');
-var chatScreen = document.getElementById('chatScreen');
-var postingSpots = document.getElementById('postingSpots');
-var postBtn = document.getElementById("post_btn");
-var postTextInput = document.getElementById("post_txt_input");
-var titleInput = document.getElementById("title_input");
-var secretInput = document.getElementById("secret_txt_input");
-var pagePost = document.getElementById("page-post");
-var specificPostScreen = document.getElementById("specificPostScreen");
+    }
+  }
 
-//postingSpots
-var postImages = {};
+  function postSelected(pid) {
+    showScreen(6);
+    openPost(pid);
+  }
 
-var postPicUpload = document.getElementById("upload_post_pic");
-postPicUpload.onchange = function() {
-  console.log('insert the current image name into a header element here');
-};
+  var fnameInput = document.getElementById('first_name_input');
+  var lnameInput = document.getElementById('last_name_input');
+  var languageInput = document.getElementById('language_input');
+  var travelConnectChk = document.getElementById('traveler_connect_input');
+  var addressInput = document.getElementById('address_input');
+  var signIn = document.getElementById('sign_in');
 
-//add event listeners
-postPicUpload.addEventListener('change', postPicSelected);
+  var submitBtn = document.getElementById('submit_btn');
+  var searchBtn = document.getElementById('search_btn');
+  var accountForm = document.getElementById('accountForm');
+  var searchScreen = document.getElementById('searchScreen');
+  var chatScreen = document.getElementById('chatScreen');
+  var postingSpots = document.getElementById('postingSpots');
+  var postBtn = document.getElementById("post_btn");
+  var postTextInput = document.getElementById("post_txt_input");
+  var titleInput = document.getElementById("title_input");
+  var secretInput = document.getElementById("secret_txt_input");
+  var pagePost = document.getElementById("page-post");
+  var userinfo = document.getElementById("userinfo");
+  var specificPostScreen = document.getElementById("specificPostScreen");
+  var imageGallery = document.getElementById("imageGallery");
+  var postText = document.getElementById("postText");
+  var secretText = document.getElementById("secretText");
+  var postTitle = document.getElementById("postTitle");
 
-lnameInput.addEventListener('keyup', enableButton);
-lnameInput.addEventListener('change', enableButton);
-fnameInput.addEventListener('keyup', enableButton);
-fnameInput.addEventListener('change', enableButton);
-addressInput.addEventListener('keyup', enableButton);
-addressInput.addEventListener('change', enableButton);
-languageInput.addEventListener('keyup', enableButton);
-languageInput.addEventListener('change', enableButton);
+  //postingSpots
+  var postImages = {};
 
-// Remove the warning about timstamps change.
-var firestore = firebase.firestore();
-showScreen(0);
+  var postPicUpload = document.getElementById("upload_post_pic");
+  postPicUpload.onchange = function() {
+    console.log('insert the current image name into a header element here');
+  };
 
-function userHtml(postId, testImg) {
-  return `
-    <div class="fp-post mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet
-                mdl-cell--8-col-desktop mdl-grid mdl-grid--no-spacing">
-      <div class="mdl-card mdl-shadow--2dp mdl-cell
-                  mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-                  <h4>this is post number ${postId}</h4>
-        <div class="fp-header">
-            <div class="fp-avatar">${testImg}</div>
-            <div class="fp-username mdl-color-text--black"></div>
-        </div>
-        <div class="fp-image"></div>
+  //add event listeners
+  postPicUpload.addEventListener('change', postPicSelected);
+
+  lnameInput.addEventListener('keyup', enableButton);
+  lnameInput.addEventListener('change', enableButton);
+  fnameInput.addEventListener('keyup', enableButton);
+  fnameInput.addEventListener('change', enableButton);
+  addressInput.addEventListener('keyup', enableButton);
+  addressInput.addEventListener('change', enableButton);
+  languageInput.addEventListener('keyup', enableButton);
+  languageInput.addEventListener('change', enableButton);
+
+  // Remove the warning about timstamps change.
+  var firestore = firebase.firestore();
+  showScreen(0);
+
+  function userHtml(imgUrl, fn, ln, postc) {
+    return `
+  <b1>
+    This post was written by:
+  </b1><br>
+  <div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="row valign-wrapper">
+      <div class="col s3">
+        <img src=${imgUrl} class="circle responsive-img">
       </div>
-    </div>`;
-}
+      <div class="col s9">
+        <b1>
+          ${fn} ${ln}
+        </b1><br>
+        <b1>
+          ${postc}
+        </b1>
+      </div>
+    </div>
+  </div>`;
+  }
 
-function createPostHtml(postId, testImg) {
-  return `
+  function imageGalleryListHtml(imgUrl) {
+    const lelem = document.createElement('li');
+    lelem.innerHTML = '<img src='+imgUrl+'>';
+    return lelem;
+  }
+
+  function createPostHtml(postId, titl, testImg, txt) {
+    return `
       <div class="col s12">
-        <div  onclick="postSelected(${postId})" class="card  waves-effect waves-block waves-light">
+        <div id="${postId}" onclick="" class="card  waves-effect waves-block waves-light">
           <div class="card-image">
             <img src=${testImg}>
           </div>
           <div class="card-stacked">
             <div class="card-content">
-              <h1>${postId}</h1>
-              <b1>post</b1>
+              <h1>${titl}</h1>
+              <b1>${txt}</b1>
             </div>
           </div>
         </div>
       </div>
       `;
-}
+  }
 
-document.addEventListener('DOMContentLoaded', function() {
- //M.AutoInit();
-}
-);
-
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems, {
-    inDuration: 350,
-    outDuration: 350,
-    edge: 'left'
+  document.addEventListener('DOMContentLoaded', function() {
+    M.AutoInit();
   });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.materialboxed');
-  var instances = M.Materialbox.init(elems, {
+  /*document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, {
+      inDuration: 350,
+      outDuration: 350,
+      edge: 'left'
+    });
   });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.slider');
-  var instances = M.Slider.init(elems, {interval: 8000,
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.materialboxed');
+    var instances = M.Materialbox.init(elems, {});
+  });*/
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.slider');
+    var instances = M.Slider.init(elems, {
+      interval: 8000,
+    });
   });
-});
