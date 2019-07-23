@@ -144,6 +144,7 @@ function checkSignedInWithMessage() {
 
 function switchToSearchFct() {
   showScreen(3);
+  loadNewPost();
 }
 
 function switchTospecificPostScreen() {
@@ -151,7 +152,7 @@ function switchTospecificPostScreen() {
 }
 
 function switchToAboutFct() {
-  showScreen(4);
+  showScreen(3);
   loadNewPost();
 }
 
@@ -244,7 +245,6 @@ function showScreen(s) {
   accountForm.style.display = "none";
   postingSpots.style.display = "none";
   searchScreen.style.display = "none";
-  aboutScreen.style.display = "none";
   chatScreen.style.display = "none";
   specificPostScreen.style.display = "none";
   switch (s) {
@@ -262,8 +262,6 @@ function showScreen(s) {
     case 3:
       searchScreen.style.display = "block";
       break;
-    case 4:
-      aboutScreen.style.display = "block";
       break;
     case 5:
       chatScreen.style.display = "block";
@@ -272,8 +270,8 @@ function showScreen(s) {
       specificPostScreen.style.display = "block";
       break;
     default:
-      aboutScreen.style.display = "block";
-
+      searchScreen.style.display = "block";
+      break;
   }
 }
 
@@ -281,7 +279,6 @@ function postSelected(pid) {
   showScreen(6);
   openPost(pid);
 }
-
 var ratingsId;
 
 var fnameInput = document.getElementById('first_name_input');
@@ -335,7 +332,6 @@ languageInput.addEventListener('change', enableButton);
 // Remove the warning about timstamps change.
 var firestore = firebase.firestore();
 showScreen(0);
-
 
 function userHtml(imgUrl, fn, ln, postc) {
   return `
@@ -406,8 +402,6 @@ document.addEventListener('DOMContentLoaded', function() {
     interval: 8000,
   });
 });
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ratingSlider.addEventListener('change', function() {
   docRef = firebase.firestore().collection('ratings').doc(ratingsId);
