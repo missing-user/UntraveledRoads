@@ -326,14 +326,14 @@ function openPost(pid) {
   function createPostHtml(postId, titl, testImg, txt) {
     return `
       <div class="col s12">
-        <div id="${postId}" onclick="" class="card  waves-effect waves-block waves-light">
+        <div id="${postId}" onclick="" class="card waves-effect waves-block waves-light">
           <div class="card-image">
             <img src=${testImg}>
           </div>
           <div class="card-stacked">
             <div class="card-content">
               <h1>${titl}</h1>
-              <b1>${txt}</b1>
+              <b1 style="position: relative; top: -0.8rem">${txt}</b1>
             </div>
           </div>
         </div>

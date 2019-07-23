@@ -1,34 +1,34 @@
 /* colors
    ========================================================================== */
-.ur-white {
-  color: #fffff !important:
+.white-text {
+  color: #FFFFFF !important;
 }
 
-.ur-pink-dark {
-  color: #e57373 !important;
+.red-text.text-lighten-2 {
+  color: #E57373 !important;
 }
 
-.ur-blue {
+.indigo-text.text-lighten-1 {
   color: #5c6bc0 !important;
 }
 
-.ur-blue-dark {
-  color: #1a247e !important;
+.indigo-text.text-darken-4 {
+  color: #1a237e !important;
 }
 
-.ur-bg-pink-light {
-  background-color: #ef9a9a !important;
+.red.lighten-3 {
+  background-color: #EF9A9A !important;
 }
 
-.ur-bg-pink-dark {
-  background-color: #e57373 !important;
+.red.lighten-2 {
+  background-color: #E57373 !important;
 }
 
-.ur-bg-yellow {
-  background-color: #fef3e0 !important;
+.orange.lighten-5 {
+  background-color: #fff3e0 !important;
 }
 
-.ur-bg-blue {
+.indigo.lighten-1 {
   background-color: #5c6bc0 !important;
 }
 
@@ -47,7 +47,7 @@
 /* fonts
    ========================================================================== */
 h1 {
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu, Roboto, sans-serif;
   font-size: 2.25em;
   font-weight: 500;
   font-kerning: auto;
@@ -57,13 +57,13 @@ h1 {
 }
 
 h2 {
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu, Roboto, sans-serif;
   font-size: 1.5em;
   font-weight: 400;
   font-kerning: auto;
   font-stretch: 130%;
   /* doesn't work????? */
-  line-height: 1.1;
+  line-height: 1.4;
   color: #5c6bc0;
 }
 
@@ -74,7 +74,7 @@ b1 {
   font-kerning: auto;
   font-stretch: normal;
   /* doesn't work????? */
-  line-height: 0.5;
+  line-height: 1.4;
   color: #1a247e;
 }
 
@@ -100,15 +100,14 @@ btn {
 line-height: 1.4;
 color: #1a247e;
 }*/
-
 li a {
   color: #fff;
 }
 
 /* padding
    ========================================================================== */
-.left-padding-1 {
-  padding-left: 1em;
+.left-padding-4 {
+  padding-left: 4.5rem;
 }
 
 /* icons
@@ -129,16 +128,16 @@ li a {
 .nav-wrapper .input-field input[type=search] {
   height: inherit;
   padding-left: 4rem;
-  width: 100% border-box;
-  border: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
 }
 
 .circle {
   width: 20vw;
 }
 
+.sidenav {
+  width: 85vw;
+  max-width: 20rem;
+}
 
 /* column
    ========================================================================== */
