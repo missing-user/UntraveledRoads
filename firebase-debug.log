@@ -115,3 +115,41 @@
 [debug] [2019-07-23T06:03:53.025Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true} {}
 [warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
 [info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2019-07-23T14:25:26.946Z] ----------------------------------------------------------------------
+[debug] [2019-07-23T14:25:26.949Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2019-07-23T14:25:26.950Z] CLI Version:   7.1.1
+[debug] [2019-07-23T14:25:26.950Z] Platform:      darwin
+[debug] [2019-07-23T14:25:26.950Z] Node Version:  v10.16.0
+[debug] [2019-07-23T14:25:26.977Z] Time:          Tue Jul 23 2019 09:25:26 GMT-0500 (Central Daylight Time)
+[debug] [2019-07-23T14:25:26.977Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-07-23T14:25:26.995Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-07-23T14:25:26.995Z] > authorizing via signed-in user
+[debug] [2019-07-23T14:25:26.995Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
+[debug] [2019-07-23T14:25:26.998Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-07-23T14:25:26.999Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-07-23T14:25:27.225Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-23T14:25:27.268Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
+
+[debug] [2019-07-23T14:25:27.380Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-23T14:25:27.381Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
+ 
+[debug] [2019-07-23T14:25:27.520Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads'...
+[info] 
+[debug] [2019-07-23T14:25:27.526Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[debug] [2019-07-23T14:25:27.551Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig  
+ 
+[debug] [2019-07-23T14:25:27.699Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-23T14:25:27.751Z] <<< HTTP RESPONSE 200
+[info] ✔  hosting: Local server: http://localhost:5000
+[info] ✔  functions: Emulator started at http://localhost:5001
+[info] i  functions: Watching "/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads/functions" for Cloud Functions...
+[debug] [2019-07-23T14:25:28.450Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads/functions","node_version":"10.16.0"}
+[debug] [2019-07-23T14:25:28.451Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true} {}
+[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)

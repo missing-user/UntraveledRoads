@@ -24,7 +24,7 @@
   <script src="https://unpkg.com/geokit@0.1.2/dist/geokit.js"></script>
 </head>
 
-<body class="orange lighten-5">
+<body>
   <div id="pre_loader" class="lds-dual-ring" style="display: block">
   </div>
   <div id="mainBody" style="display: none">
@@ -91,30 +91,38 @@
     </div>
 
     <div id="postingSpots">
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text" id="title_input">
-        <label class="mdl-textfield__label" for="message">title</label>
-      </div><br>
-      <div class="mdl-textfield mdl-js-textfield">
-        <textarea class="mdl-textfield__input" type="text" rows="3" id="post_txt_input"></textarea>
-        <label class="mdl-textfield__label" for="post_txt_input">insert your post here</label>
-      </div><br>
-      <div class="mdl-textfield mdl-js-textfield">
-        <textarea class="mdl-textfield__input" type="text" rows="3" id="secret_txt_input"></textarea>
-        <label class="mdl-textfield__label" for="post_txt_input">recommend secret tips</label>
-      </div>
-      <br>
-      <input type="file" id="upload_post_pic" class="upload" />
-      <h6>Maximum file size is 2MB</h6>
-      <button id="post_btn" onclick="postFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        Post
-      </button>
-      <button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        Search
-      </button><br><button id="chat_btn" onclick="switchToChatFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        chat
-      </button>
+      <row>
+        <div class="col 12">
+          <h1>Post a local spot</h1>
+          <b2 style="position: relative; top: -0.5rem">Post your favorite local spots so travelers know where locals visit!</b2>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="title_input">
+            <label class="mdl-textfield__label" for="message">title</label>
+          </div><br>
+          <div class="mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" rows="3" id="post_txt_input"></textarea>
+            <label class="mdl-textfield__label" for="post_txt_input">insert your post here</label>
+          </div><br>
+          <div class="mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" rows="3" id="secret_txt_input"></textarea>
+            <label class="mdl-textfield__label" for="post_txt_input">recommend secret tips</label>
+          </div>
+          <br>
+          <input type="file" id="upload_post_pic" class="upload" />
+          <h6>Maximum file size is 2MB</h6>
+          <button id="post_btn" onclick="postFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Post
+          </button>
+          <!--<button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Search
+          </button>
+          <br>
+          <button id="chat_btn" onclick="switchToChatFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            chat
+          </button>-->
+        </div>
     </div>
+    </row>
 
     <div id="searchScreen">
       <style>
@@ -198,18 +206,25 @@
         </ul>
       </div>
       <div class="row">
-        <div class="col s12">
+        <div class="col s10 offset-s1">
           <h1 id="postTitle">Name<h1>
-              <div id="postText" class="section">
+              <div id="postText" class="section no-pad">
                 <h2>Reviews</h2>
               </div>
-              <div class="divider"></div>
-              <div id="secretText" class="section">
-                <h2>Secret Tips</h2>
-              </div>
-              <div class="divider"></div>
-              <div id="userinfo" class="section">
-              </div>
+        </div>
+        <div class="col s12">
+          <div class="divider"></div>
+        </div>
+        <div class="col s10 offset-s1">
+          <div id="secretText" class="section no-pad-top bottom-padding-1">
+            <h2>Secret Tips</h2>
+          </div>
+        </div>
+        <div class="col s12">
+          <div class="divider"></div>
+        </div>
+        <div class="col s10 offset-s1">
+          <div id="userinfo" class="section"></div>
         </div>
       </div>
     </div>

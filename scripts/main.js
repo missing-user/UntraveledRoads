@@ -297,15 +297,14 @@ function openPost(pid) {
 
   function userHtml(imgUrl, fn, ln, postc) {
     return `
-  <b1>
-    This post was written by:
-  </b1><br>
+  <b2>This post was written by:</b2>
+  <br>
   <div class="col s12 m8 offset-m2 l6 offset-l3">
     <div class="row valign-wrapper">
-      <div class="col s3">
+      <div class="col s3" style="position: relative; top: 0.75rem">
         <img src=${imgUrl} class="circle responsive-img">
       </div>
-      <div class="col s9">
+      <div class="col s9" style="position: relative; top: 0.75rem">
         <b1>
           ${fn} ${ln}
         </b1><br>
