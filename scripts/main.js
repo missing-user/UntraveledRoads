@@ -86,25 +86,36 @@ function submitFct() {
 function postFct() {
   console.log('post submitted');
   firebase.firestore().collection('ratings').add({
-    ratings: [5],
+    ratings: ["5"],
     users: [firebase.auth().currentUser.uid],
   }).then(function(docRef) {
     ratingsId = docRef.id;
+
+    firebase.firestore().collection('posts').add({
+      title: titleInput.value,
+      uid: firebase.auth().currentUser.uid,
+      rating: ratingsId,
+      imageUrls: postImages,
+      text: postTextInput.value,
+      address: addressTextInput.value,
+      secrets: secretInput.value,
+      locationHash: secretInput.value,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    }).catch(function(error) {
+      console.error("Error adding to collection: ", error);
+    });
+  }).catch(function(error) {
+    console.error("Error: ", error);
   });
 
-  firebase.firestore().collection('posts').add({
-    title: titleInput.value,
-    uid: firebase.auth().currentUser.uid,
-    rating: ratingsId,
-    imageUrls: postImages,
-    text: postTextInput.value,
-    address: addressTextInput.value,
-    secrets: secretInput.value,
-    locationHash: secretInput.value,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  });
+  var userDocRef;
+
+  userDocRef = firebase.firestore().collection('users').doc();
+  console.log("userDocRef: " + userDocRef)
   userDocRef.update({
     postCount: firebase.firestore.FieldValue.increment(1),
+  }).catch(function(error) {
+    console.error("Error: ", error);
   });
   postImages = [];
   showScreen(3);
@@ -210,7 +221,6 @@ function openPost(pid) {
     secretText.appendChild(secrets);
 
     getUserInfo(docRef.get("uid"));
-    console.log(ratingsId);
     updateRatingDisplay();
   }).catch(function(error) {
     console.error("Error getting document:", error);
@@ -272,8 +282,63 @@ function postSelected(pid) {
   openPost(pid);
 }
 
-  function userHtml(imgUrl, fn, ln, postc) {
-    return `
+var ratingsId;
+
+var fnameInput = document.getElementById('first_name_input');
+var lnameInput = document.getElementById('last_name_input');
+var languageInput = document.getElementById('language_input');
+var travelConnectChk = document.getElementById('traveler_connect_input');
+var addressInput = document.getElementById('address_input');
+var signIn = document.getElementById('sign_in');
+
+var submitBtn = document.getElementById('submit_btn');
+var searchBtn = document.getElementById('search_btn');
+var accountForm = document.getElementById('accountForm');
+var searchScreen = document.getElementById('searchScreen');
+var chatScreen = document.getElementById('chatScreen');
+var postingSpots = document.getElementById('postingSpots');
+var postBtn = document.getElementById("post_btn");
+var postTextInput = document.getElementById("post_txt_input");
+var titleInput = document.getElementById("title_input");
+var secretInput = document.getElementById("secret_txt_input");
+var pagePost = document.getElementById("page-post");
+var userinfo = document.getElementById("userinfo");
+var specificPostScreen = document.getElementById("specificPostScreen");
+var imageGallery = document.getElementById("imageGallery");
+var postText = document.getElementById("postText");
+var secretText = document.getElementById("secretText");
+var postTitle = document.getElementById("postTitle");
+var addressTextInput = document.getElementById("addressTextInput");
+var ratingSlider = document.getElementById("ratingSlider");
+var searchBox = document.getElementById("search_box");
+
+//postingSpots
+var postImages = {};
+
+var postPicUpload = document.getElementById("upload_post_pic");
+postPicUpload.onchange = function() {
+  console.log('insert the current image name into a header element here');
+};
+
+//add event listeners
+postPicUpload.addEventListener('change', postPicSelected);
+
+lnameInput.addEventListener('keyup', enableButton);
+lnameInput.addEventListener('change', enableButton);
+fnameInput.addEventListener('keyup', enableButton);
+fnameInput.addEventListener('change', enableButton);
+addressInput.addEventListener('keyup', enableButton);
+addressInput.addEventListener('change', enableButton);
+languageInput.addEventListener('keyup', enableButton);
+languageInput.addEventListener('change', enableButton);
+
+// Remove the warning about timstamps change.
+var firestore = firebase.firestore();
+showScreen(0);
+
+
+function userHtml(imgUrl, fn, ln, postc) {
+  return `
   <b2>This post was written by:</b2>
   <br>
   <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -353,17 +418,19 @@ ratingSlider.addEventListener('change', function() {
     if (!usersArray.includes(firebase.auth().currentUser.uid)) {
       console.log("adding user and rating");
       ratingsArray.push(ratingSlider.value);
-      usersArray.push(firebase.auth().uid);
+      usersArray.push(firebase.auth().currentUser.uid);
       docRef.update({
         ratings: ratingsArray,
         users: usersArray,
+      }).catch(function(error) {
+        console.error('There was an error adding the current users rating', error);
       });
     } else {
-      console.log("all the ratings: ")
-      console.log(ratingsArray);
       ratingsArray[usersArray.indexOf(firebase.auth().currentUser.uid)] = ratingSlider.value;
       docRef.update({
         ratings: ratingsArray,
+      }).catch(function(error) {
+        console.error('There was an error updating the current users rating', error);
       });
     }
     updateRatingDisplay();
@@ -377,11 +444,13 @@ function updateRatingDisplay() {
 function getAvgRating() {
   firebase.firestore().collection('ratings').doc(ratingsId).get().then(function(docRef) {
     var rtgs = docRef.get("ratings");
-
+    console.log("ratings: " + rtgs)
     var total = 0;
     for (var i = 0; i < rtgs.length; i++) {
       total += rtgs[i];
     }
     return total / rtgs.length;
+  }).catch(function(error) {
+    console.error('error during average rating function', error);
   });
 }
