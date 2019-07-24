@@ -56,13 +56,13 @@ function saveImageFile(file, coll) {
         lastPostImage = url;
         postImages.push(lastPostImage);
         console.log(lastPostImage);
+        enablePostButton();
         return uploadRef.update({
           imageUrl: url,
           storageUri: fileSnapshot.metadata.fullPath
         });
       });
     });
-    enablePostButton();
   }).catch(function(error) {
     console.error('There was an error uploading a file to Cloud Storage:', error);
   });
@@ -134,7 +134,6 @@ function postFct() {
     });
     console.log("post images have been cleared 1");
     postImages = [];
-    showScreen(3);
     ratingsId = "";
   }).catch(function(error) {
     console.error("Error: ", error);
@@ -150,7 +149,12 @@ function enableButton() {
 }
 
 function enablePostButton() {
+<<<<<<< HEAD
   if (postText.value && secretText.value && addressTextInput.value && titleInput.value && postImages.length > 0) {
+=======
+  console.log("so this IS being executed")
+  if (postTextInput.value && secretInput.value && addressTextInput.value && titleInput.value && (postImages.length>0)) {
+>>>>>>> d9d8cea137284e380ac16b4c3e5ef89c0d44e307
     postBtn.removeAttribute('disabled');
   } else {
     postBtn.setAttribute('disabled', 'true');
@@ -196,11 +200,18 @@ function switchToChatFct() {
   };
 }
 
+<<<<<<< HEAD
 function clearOldPosts() {
 
+=======
+function clearOldPosts(){
+  while(pagePost.firstChild)  {
+      pagePost.removeChild(pagePost.firstChild);}
+>>>>>>> d9d8cea137284e380ac16b4c3e5ef89c0d44e307
 }
 
 function loadNewPost() {
+  console.log("loading new posts");
   //where("searchTerms", "array-contains", searchBox.value).
   var query = firebase.firestore().collection('posts').orderBy("timestamp", "desc").limit(12);
   query.get().then(function(querySnapshot) {
@@ -396,17 +407,14 @@ addressInput.addEventListener('change', enableButton);
 languageInput.addEventListener('keyup', enableButton);
 languageInput.addEventListener('change', enableButton);
 
-postText.addEventListener('keyup', enablePostButton);
-postText.addEventListener('change', enablePostButton);
-secretText.addEventListener('keyup', enablePostButton);
-secretText.addEventListener('change', enablePostButton);
+postTextInput.addEventListener('keyup', enablePostButton);
+postTextInput.addEventListener('change', enablePostButton);
+secretInput.addEventListener('keyup', enablePostButton);
+secretInput.addEventListener('change', enablePostButton);
 addressTextInput.addEventListener('keyup', enablePostButton);
 addressTextInput.addEventListener('change', enablePostButton);
 titleInput.addEventListener('keyup', enablePostButton);
 titleInput.addEventListener('change', enablePostButton);
-
-
-postText.value && secretText.value && addressTextInput.value && titleInput.value && postImages
 
 // Remove the warning about timstamps change.
 var firestore = firebase.firestore();
