@@ -167,8 +167,8 @@
             </ul>
             <form class="left-padding-4">
               <div class="input-field">
-                <input id="search" type="search" required>
-                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <input id="search_box" type="search" required>
+                <label class="label-icon" for="search_box"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
               </div>
             </form>
@@ -219,7 +219,7 @@
     <div id="specificPostScreen">
       <div class="slider">
         <ul id="imageGallery" class="slides">
-          <a class="waves-effect float z-depth-1">
+          <a id="backCont" class="waves-effect float">
             <i class="medium material-icons red-text text-lighten-3" id="backButton" onclick="showScreen(3)">navigate_before</i>
           </a>
         </ul>
@@ -234,11 +234,11 @@
             <br>
             <h1 id="postTitle">Name</h1>
             <div id="postText" class="section no-pad-top">
-              <h2>Reviews</h2>
+              <h2 id="titltCont">Reviews</h2>
             </div>
             <div class="divider indigo lighten-3"></div>
             <div id="secretText" class="section no-pad-top">
-              <h2>Secret Tips</h2>
+              <h2 id="titlsCont">Secret Tips</h2>
             </div>
             <div class="divider indigo lighten-3"></div>
             <div id="userinfo" class="section"></div>
