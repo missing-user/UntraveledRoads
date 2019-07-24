@@ -55,7 +55,6 @@ function saveImageFile(file, coll) {
       return fileSnapshot.ref.getDownloadURL().then((url) => {
         lastPostImage = url;
         postImages.push(lastPostImage);
-        console.log(postImages);
         return uploadRef.update({
           imageUrl: url,
           storageUri: fileSnapshot.metadata.fullPath
@@ -79,6 +78,8 @@ function submitFct() {
     profilePicUrl: getProfilePicUrl(),
     willingToMeet: travelConnectChk.value == "on",
     postCount: 0,
+  }).then(function(docRef) {
+    userDocRef = docRef;
   });
   showScreen(2);
 }
@@ -108,10 +109,21 @@ function postFct() {
     console.error("Error: ", error);
   });
 
-  var userDocRef;
+  var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
+  var userDocId;
+  query.get().then(function(querySnapshot) {
+    if (!querySnapshot.empty) {
+      console.log("user exists");
+      querySnapshot.forEach(function(documentSnapshot) {
+        userDocId = documentSnapshot.id;
+        userDocRef = firebase.firestore().collection('users').doc(userDocId);
+      });
+    } else {
+      console.log("user doesnt exist???");
+    }
+  });
 
-  userDocRef = firebase.firestore().collection('users').doc();
-  console.log("userDocRef: " + userDocRef)
+  console.log("userDocRef: " + userDocRef);
   userDocRef.update({
     postCount: firebase.firestore.FieldValue.increment(1),
   }).catch(function(error) {
@@ -144,7 +156,6 @@ function checkSignedInWithMessage() {
 
 function switchToSearchFct() {
   showScreen(3);
-  loadNewPost();
 }
 
 function switchTospecificPostScreen() {
@@ -256,10 +267,10 @@ function showScreen(s) {
     case 2:
       postingSpots.style.display = "block";
       postImages = [];
-      console.log(postImages);
       break;
     case 3:
       searchScreen.style.display = "block";
+      loadNewPost();
       break;
       break;
     case 5:

@@ -137,41 +137,6 @@
     </div>
 
     <div id="searchScreen">
-      <style>
-        .demo-card-square.mdl-card {
-          width: 320px;
-        }
-
-        .demo-card-square>.mdl-card__title {
-          color: #fff;
-          background:
-            bottom right 15% no-repeat #46B6AC;
-        }
-      </style>
-
-      <div class="demo-card-square mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-card--expand">
-          <h2 id="post_title" class="mdl-card__title-text">Title</h2>
-        </div>
-        <h5>Review</h5>
-        <div id="post_txt" class="mdl-card__supporting-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Aenan convallis.
-        </div>
-        <h5>Secret Tips</h5>
-        <div id="secret_txt" class="mdl-card__supporting-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Aenan convallis.
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-          <a onclick="switchToAboutFct()" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-            bamboozled
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div id="aboutScreen">
       <div class="navbar-fixed">
         <nav>
           <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
@@ -216,9 +181,12 @@
     <div id="specificPostScreen">
       <div class="slider">
         <ul id="imageGallery" class="slides">
+          <a class="waves-effect float z-depth-1">
+            <i class="medium material-icons red-text text-lighten-3" id="backButton" onclick="showScreen(3)">navigate_before</i>
+          </a>
         </ul>
       </div>
-      <form class="col s6">
+      <form class="col s12">
         <div class="row">
           <label id="ratingLabel">Rating</label>
           <p class="range-field">
@@ -247,23 +215,22 @@
       </div>
     </div>
     <!--main body ends-->
-
-
-    <!-- Import and configure the Firebase SDK -->
-    <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
-    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
-    <script src="/__/firebase/init.js"></script>
-
-    <script src="scripts/materialize.js"></script>
-    <script src="scripts/loginUi.js"></script>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/geo.js"></script>
   </div>
+
+  <!-- Import and configure the Firebase SDK -->
+  <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
+  <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+  <script src="/__/firebase/init.js"></script>
+
+  <script src="scripts/materialize.js"></script>
+  <script src="scripts/loginUi.js"></script>
+  <script src="scripts/main.js"></script>
+  <!--   <script src="scripts/geo.js"></script> -->
 </body>
 
 </html>
