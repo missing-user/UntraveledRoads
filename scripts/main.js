@@ -62,6 +62,7 @@ function saveImageFile(file, coll) {
         });
       });
     });
+    enablePostButton();
   }).catch(function(error) {
     console.error('There was an error uploading a file to Cloud Storage:', error);
   });
@@ -147,6 +148,14 @@ function enableButton() {
   }
 }
 
+function enablePostButton() {
+  if (postText.value && secretText.value && addressTextInput.value && titleInput.value && postImages.length>0) {
+    postBtn.removeAttribute('disabled');
+  } else {
+    postBtn.setAttribute('disabled', 'true');
+  }
+}
+
 function checkSignedInWithMessage() {
   if (isUserSignedIn()) {
     return true;
@@ -184,6 +193,10 @@ function switchToChatFct() {
   } else {
     console.log("you have to post before chatting with people");
   };
+}
+
+function clearOldPosts(){
+
 }
 
 function loadNewPost() {
@@ -297,6 +310,7 @@ function showScreen(s) {
       break;
     case 3:
       searchScreen.style.display = "block";
+      clearOldPosts();
       loadNewPost();
       break;
       break;
@@ -365,6 +379,18 @@ addressInput.addEventListener('keyup', enableButton);
 addressInput.addEventListener('change', enableButton);
 languageInput.addEventListener('keyup', enableButton);
 languageInput.addEventListener('change', enableButton);
+
+postText.addEventListener('keyup', enablePostButton);
+postText.addEventListener('change', enablePostButton);
+secretText.addEventListener('keyup', enablePostButton);
+secretText.addEventListener('change', enablePostButton);
+addressTextInput.addEventListener('keyup', enablePostButton);
+addressTextInput.addEventListener('change', enablePostButton);
+titleInput.addEventListener('keyup', enablePostButton);
+titleInput.addEventListener('change', enablePostButton);
+
+
+postText.value && secretText.value && addressTextInput.value && titleInput.value && postImages
 
 // Remove the warning about timstamps change.
 var firestore = firebase.firestore();
