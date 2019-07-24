@@ -372,7 +372,9 @@ showScreen(0);
 
 function userHtml(imgUrl, fn, ln, postc) {
   return `
-  <b2>This post was written by:</b2>
+  <div class="bottom-padding-1">
+    <b2>This post was written by:</b2>
+  </div>
   <div class="col s12 m8 offset-m2 l6 offset-l3">
     <div class="row valign-wrapper">
       <div class="col s3">

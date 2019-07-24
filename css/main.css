@@ -122,6 +122,10 @@ li a {
   padding-left: 4.5rem;
 }
 
+.right-padding-1 {
+  padding-right: 1rem;
+}
+
 .bottom-padding-1 {
   padding-bottom: 1rem;
 }
@@ -162,6 +166,12 @@ input[type=range]::-webkit-slider-runnable-track {
   padding-left: 4rem;
 }
 
+/*make search icon white*/
+.input-field .label[for=search] .material-icons {
+  background-color: #fff !important;
+  color: #fff !important;
+}
+
 .circle {
   width: 20vw;
 }
@@ -183,7 +193,7 @@ input[type=range]::-webkit-slider-runnable-track {
   font-size: 16px;
 }
 
-.section.bottom-padding-1 {
+.section.adding-1 {
   padding-bottom: 1.5rem;
 }
 
@@ -216,11 +226,7 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 .front-page-logo {
-  width: 20rem;
-  overflow: hidden;
-  left: 50%;
-  -webkit-transform: translateX(+50%);
-          transform: translateX(+50%);
+  width: 17rem;
 }
 
 /* slides
@@ -247,3 +253,57 @@ input[type=range]::-webkit-slider-runnable-track {
 .slider .indicators .indicator-item {
   background-color: #EF9A9A;
 }
+
+/* Form
+   ========================================================================== */
+/* label color */
+.input-field label {
+  font-family: Roboto, sans-serif;
+  font-size: 0.875em;
+  font-weight: 500;
+  font-kerning: auto;
+  font-stretch: normal;
+  /* doesn't work????? */
+  line-height: 1.4;
+  color: #fff;
+}
+
+.input-field input {
+  color: #5c6bc0 !important;
+}
+
+.input-field textarea {
+  color: #5c6bc0 !important;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus+label {
+  color: #EF9A9A !important;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #EF9A9A !important;
+  box-shadow: 0 1px 0 0 #EF9A9A !important;
+}
+
+/* valid color */
+.input-field input[type=text].valid {
+  border-bottom: 1px solid #5c6bc0 !important;
+  box-shadow: 0 1px 0 0 #5c6bc0 !important;
+}
+
+/* invalid color */
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid #B00020 !important;
+  box-shadow: 0 1px 0 0 #B00020 !important;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #EF9A9A !important;
+}
+
+/*.switch label input[type=checkbox]+ .lever:before {
+  color: #fff;
+}*/
