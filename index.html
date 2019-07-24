@@ -24,11 +24,15 @@
   <script src="https://unpkg.com/geokit@0.1.2/dist/geokit.js"></script>
 </head>
 
-<body class="ur-bg-yellow">
-  <div id="pre_loader" class="lds-dual-ring" style="display: block">
-  </div>
+<body>
+  <div id="pre_loader" class="lds-dual-ring" style="display: block"></div>
   <div id="mainBody" style="display: none">
     <div id="signinForm">
+      <button id="skip_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        skip
+      </button>
+      <br>
+      <img class="front-page-logo" src="">
       <div id="login_loader" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
       <div id="firebaseui-auth-container"></div>
     </div>
@@ -89,51 +93,49 @@
 
     <div id="postingSpots">
       <div class="row">
-        <div class="input-field col s12">
-          <input id="title_input" type="text" class="validate">
-          <label for="title_input">Title</label>
-        </div>
-      </div>
-
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s12">
-            <textarea id="post_txt_input" class="materialize-textarea" data-length="400"></textarea>
-            <label for="post_txt_input">Input post here</label>
+        <div class="col s12">
+          <h1>Post a local spot</h1>
+          <b2 style="position: relative; top: -1rem">Post your favorite spots so travelers can see where locals go!</b2>
+          <div class="input-field">
+            <input id="title_input" type="text" class="validate">
+            <label for="title_input">Title</label>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <textarea id="secret_txt_input" class="materialize-textarea" data-length="400"></textarea>
-            <label for="secret_txt_input">Secret local tips</label>
+
+          <form>
+            <div class="input-field">
+              <textarea id="post_txt_input" class="materialize-textarea" data-length="400"></textarea>
+              <label for="post_txt_input">Input post here</label>
+            </div>
+            <div class="input-field">
+              <textarea id="secret_txt_input" class="materialize-textarea" data-length="400"></textarea>
+              <label for="secret_txt_input">Secret local tips</label>
+            </div>
+          </form>
+          <div class="input-field">
+            <input id="addressTextInput" type="text" class="validate">
+            <label for="addressTextInput">Address</label>
           </div>
-        </div>
-      </form>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="addressTextInput" type="text" class="validate">
-          <label for="addressTextInput">Address</label>
+
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>Upload Images</span>
+              <input type="file" multiple id="upload_post_pic">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Upload one or more files">
+            </div>
+          </div>
+
+          <button id="post_btn" onclick="postFct(); switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Post
+          </button>
+          <!--<button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Search
+          </button><br><button id="chat_btn" onclick="switchToChatFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            chat
+          </button>-->
         </div>
       </div>
-
-      <div class="file-field input-field">
-        <div class="btn">
-          <span>Upload Images</span>
-          <input type="file" multiple id="upload_post_pic">
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text" placeholder="Upload one or more files">
-        </div>
-      </div>
-
-      <button id="post_btn" onclick="postFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        Post
-      </button>
-      <button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        Search
-      </button><br><button id="chat_btn" onclick="switchToChatFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        chat
-      </button>
     </div>
 
     <div id="searchScreen">
@@ -145,13 +147,14 @@
               <a class="waves-effect ur-white">HOME</a>
               <a class="waves-effect ur-white">MESSAGES</a>
             </ul>
-            <form>
-              <div class="left input-field">
-                <input id="search_box" type="search" required>
-                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                <i class="material-icons">close</i>
-              </div>
-            </form>
+            <row>
+              <form class="left-padding-4">
+                <div class="input-field">
+                  <input id="search" type="search" required>
+                  <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                  <i class="material-icons">close</i>
+                </div>
+              </form>
           </div>
         </nav>
       </div>
@@ -174,8 +177,9 @@
         <li><a class="waves-effect white-text" id="messageButton">MESSAGES</a></li>
       </ul>
 
-      <div class="row" id="page-post">
-      </div>
+      <h1 class="col s12">Local spots near you</h1>
+
+      <div class="row" id="page-post"></div>
     </div>
 
     <div id="specificPostScreen">
@@ -186,36 +190,36 @@
           </a>
         </ul>
       </div>
-      <form class="col s12">
-        <div class="row">
-          <label id="ratingLabel">Rating</label>
-          <p class="range-field">
-            <input type="range" id="ratingSlider" min="0" max="10" />
-          </p>
-        </div>
-        <div class="row">
-          <h1 id="postTitle">Name<h1>
-              <div id="postText" class="section">
-                <h2>Reviews</h2>
+      <row>
+        <form>
+          <div class="col s10 offset-s1">
+            <div class="col s4 offset-s4">
+              <b2 id="ratingLabel">Rating</b2>
+              <div class="range-field">
+                <input type="range" id="ratingSlider" min="0" max="10" />
               </div>
-              <div class="divider"></div>
-              <div id="secretText" class="section">
-                <h2>Secret Tips</h2>
-              </div>
-              <div class="divider"></div>
-              <div class="section">
-                <div id="userinfo" class="section">
-                </div>
-              </div>
-        </div>
-      </form>
-
-      <div id="chatScreen">
-        <h2>hello, welcome to the chat</h2>
-      </div>
+            </div>
+            <h1 id="postTitle">Name</h1>
+            <div id="postText" class="section no-pad-top">
+              <h2>Reviews</h2>
+            </div>
+            <div class="divider indigo lighten-3"></div>
+            <div id="secretText" class="section no-pad-top">
+              <h2>Secret Tips</h2>
+            </div>
+            <div class="divider indigo lighten-3"></div>
+            <div id="userinfo" class="section"></div>
+          </div>
+        </form>
+        <row>
     </div>
-    <!--main body ends-->
+
+    <div id="chatScreen">
+      <h2>hello, welcome to the chat</h2>
+    </div>
   </div>
+  <!--main body ends-->
+
 
   <!-- Import and configure the Firebase SDK -->
   <script src="node_modules/firebaseui/dist/firebaseui.js"></script>

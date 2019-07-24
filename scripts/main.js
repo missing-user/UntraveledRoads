@@ -162,10 +162,6 @@ function switchTospecificPostScreen() {
   showScreen(6);
 }
 
-function switchToAboutFct() {
-  console.log('its being called after all')
-}
-
 function hasUserPosted() {
   var query = firebase.firestore().collection('posts').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
   query.get().then(function(querySnapshot) {
@@ -346,13 +342,12 @@ showScreen(0);
 function userHtml(imgUrl, fn, ln, postc) {
   return `
   <b2>This post was written by:</b2>
-  <br>
   <div class="col s12 m8 offset-m2 l6 offset-l3">
     <div class="row valign-wrapper">
-      <div class="col s3" style="position: relative; top: 0.75rem">
+      <div class="col s3">
         <img src=${imgUrl} class="circle responsive-img">
       </div>
-      <div class="col s9" style="position: relative; top: 0.75rem">
+      <div class="col s9">
         <b1>
           ${fn} ${ln}
         </b1><br>
