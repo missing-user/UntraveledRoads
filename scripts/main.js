@@ -23,7 +23,7 @@ function onMediaFileSelected(event, coll) {
   var files = event.target.files;
   for (var i = 0, f; f = files[i]; i++) {
     var file = f;
-    console.log('file uploaded');
+    console.log('file uploading...');
     // Clear the selection in the file picker input.
     //imageFormElement.reset();
 
@@ -55,6 +55,7 @@ function saveImageFile(file, coll) {
       return fileSnapshot.ref.getDownloadURL().then((url) => {
         lastPostImage = url;
         postImages.push(lastPostImage);
+        console.log(lastPostImage);
         return uploadRef.update({
           imageUrl: url,
           storageUri: fileSnapshot.metadata.fullPath
@@ -87,7 +88,7 @@ function submitFct() {
 function postFct() {
   console.log('post submitted');
   firebase.firestore().collection('ratings').add({
-    ratings: ["5"],
+    ratings: ["10"],
     users: [firebase.auth().currentUser.uid],
   }).then(function(docRef) {
     ratingsId = docRef.id;
@@ -105,33 +106,37 @@ function postFct() {
     }).catch(function(error) {
       console.error("Error adding to collection: ", error);
     });
+
+    console.log("these images have been posted:" + postImages);
+
+
+    var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
+    var userDocId;
+    query.get().then(function(querySnapshot) {
+      if (!querySnapshot.empty) {
+        console.log("user exists");
+        querySnapshot.forEach(function(documentSnapshot) {
+          userDocId = documentSnapshot.id;
+          userDocRef = firebase.firestore().collection('users').doc(userDocId);
+        });
+      } else {
+        console.log("user doesnt exist???");
+      }
+    });
+
+    console.log("userDocRef: " + userDocRef);
+    userDocRef.update({
+      postCount: firebase.firestore.FieldValue.increment(1),
+    }).catch(function(error) {
+      console.error("Error: ", error);
+    });
+    console.log("post images have been cleared 1");
+    postImages = [];
+    showScreen(3);
+    ratingsId = "";
   }).catch(function(error) {
     console.error("Error: ", error);
   });
-
-  var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
-  var userDocId;
-  query.get().then(function(querySnapshot) {
-    if (!querySnapshot.empty) {
-      console.log("user exists");
-      querySnapshot.forEach(function(documentSnapshot) {
-        userDocId = documentSnapshot.id;
-        userDocRef = firebase.firestore().collection('users').doc(userDocId);
-      });
-    } else {
-      console.log("user doesnt exist???");
-    }
-  });
-
-  console.log("userDocRef: " + userDocRef);
-  userDocRef.update({
-    postCount: firebase.firestore.FieldValue.increment(1),
-  }).catch(function(error) {
-    console.error("Error: ", error);
-  });
-  postImages = [];
-  showScreen(3);
-  ratingsId = "";
 }
 
 function enableButton() {
@@ -201,6 +206,31 @@ function loadNewPost() {
 }
 
 function openPost(pid) {
+  //clear images and fix backbutton
+  var backCont = document.getElementById("backCont");
+  while (imageGallery.lastChild) {
+    imageGallery.removeChild(imageGallery.lastChild);
+  }
+  imageGallery.appendChild(backCont);
+
+  //clear all text
+  var titlsCont = document.getElementById("titlsCont");
+  while (secretText.lastChild) {
+    secretText.removeChild(secretText.lastChild);
+  }
+  secretText.appendChild(titlsCont);
+  var titltCont = document.getElementById("titltCont");
+  while (postText.lastChild) {
+    postText.removeChild(postText.lastChild);
+  }
+  postText.appendChild(titltCont);
+
+  //clear the user thingy
+  while (userinfo.lastChild) {
+    userinfo.removeChild(userinfo.lastChild);
+  }
+
+
   console.log("pid: " + pid);
   var collection = firebase.firestore().collection('posts');
   collection.doc(pid).get().then(function(docRef) {
@@ -262,6 +292,7 @@ function showScreen(s) {
       break;
     case 2:
       postingSpots.style.display = "block";
+      console.log("post images have been cleared 2");
       postImages = [];
       break;
     case 3:
