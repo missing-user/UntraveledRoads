@@ -21,7 +21,7 @@ var uiConfig = {
                 lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
                 profilePicUrl: getProfilePicUrl(),
               });
-            });
+            });getUserProfile();
             return false;
           } else {
             showScreen(1);

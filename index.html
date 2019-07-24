@@ -96,14 +96,51 @@
         </div>
 
         <div class="input-field col s10 offset-s1" style="position: relative; top: -3rem">
-          <a id="submit_btn" onclick="submitFct()" class="waves-effect waves-light btn red lighten-3">Sign Up</a>
+          <a id="submit_btn" onclick="submitFct()" disabled class="waves-effect waves-light btn red lighten-3">Sign Up</a>
         </div>
       </div>
     </div>
 
     <div id="postingSpots">
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
+            <a data-target="mobile-demo-postingSpots" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="left hide-on-med-and-down">
+              <a id="homeButton" onclick="showScreen(3); close()" class="waves-effect white; closeSideNavs()">HOME</a>
+              <a id="messagesButton" onclick="showScreen(2)" class="waves-effect white; closeSideNavs()">MESSAGES</a>
+              <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <ul class="sidenav ur-bg-gradient-vrt" id="mobile-demo-postingSpots">
+        <div id="userProfile-2"></div>
+        <div class="divider indigo lighten-3" style="position: relative; top: 1rem"></div>
+        <div class="col s10 offset-s1" style="position: relative; top: rem">
+          <h2 class="white-text">I am currently a:</h2>
+        </div>
+        <div class="row">
+          <div class="center" style="position: relative; top: -0.5rem">
+            <div class="switch">
+              <b1 class="white-text">LOCAL</b1>
+              <label>
+                <input type="checkbox">
+                <span class="lever"></span>
+              </label>
+              <b1 class="white-text">TRAVELER</b1>
+            </div>
+          </div>
+        </div>
+        <div class="divider indigo lighten-3"></div>
+        <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
+        <li><a class="waves-effect white-text" id="messageButton">MESSAGES</a></li>
+        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a></li>
+      </ul>
+
       <div class="row">
-        <div class="col s12">
+        <div class="col s10 offset-s1" style="position: relative; top: 1rem">
           <h1>Post a local spot</h1>
           <b2 style="position: relative; top: -1rem">Post your favorite spots so travelers can see where locals go!</b2>
           <div class="input-field">
@@ -134,19 +171,19 @@
             </label>
           </div>
 
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>Upload Images</span>
+          <div class="col s12" style="position: relative; top: -1.5rem; right: 1.5rem">
+            <div class="file-field input-field">
               <input type="file" multiple id="upload_post_pic">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text" placeholder="Upload one or more files">
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+              </div>
             </div>
           </div>
-
-          <button id="post_btn" onclick="postFct(); switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            Post
-          </button>
+          <div class="col s12" style="position: relative; top: -1.5rem; right: 0.75rem">
+            <button id="post_btn" onclick="postFct(); switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              Post
+            </button>
+          </div>
           <!--<button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
             Search
           </button><br><button id="chat_btn" onclick="switchToChatFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
@@ -160,10 +197,11 @@
       <div class="navbar-fixed">
         <nav>
           <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="left hide-on-med-and-down">
-              <a class="waves-effect white">HOME</a>
-              <a class="waves-effect white">MESSAGES</a>
+              <a id="homeButton" onclick="showScreen(3); close()" class="waves-effect white; closeSideNavs()">HOME</a>
+              <a id="messagesButton" onclick="showScreen(2)" class="waves-effect white; closeSideNavs()">MESSAGES</a>
+              <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a>
             </ul>
             <form class="left-padding-4">
               <div class="input-field">
@@ -177,20 +215,9 @@
       </div>
 
       <ul class="sidenav ur-bg-gradient-vrt" id="mobile-demo">
-        <li>
-          <div class="user-view row">
-            <div class="col s4" style="position: relative; right: 0.5rem; top: 0.5rem">
-              <img src="https://i.redd.it/vt6ljt2sodmz.jpg" alt="" class="circle responsive-img">
-            </div>
-            <div class="col s7" style="position: relative; right: 0.5rem;">
-              <h2 class="white-text">Cute Reptile</h2>
-              <b1 class="white-text">imsoCuTe@gmail.com</b1>
-            </div>
-          </div>
-        </li>
-        <br>
-        <div class="divider indigo lighten-3"></div>
-        <div class="col s10 offset-s1" style="position: relative; top: -0.5rem">
+        <div id="userProfile"></div>
+        <div class="divider indigo lighten-3" style="position: relative; top: 1rem"></div>
+        <div class="col s10 offset-s1" style="position: relative; top: rem">
           <h2 class="white-text">I am currently a:</h2>
         </div>
         <div class="row">
@@ -206,9 +233,9 @@
           </div>
         </div>
         <div class="divider indigo lighten-3"></div>
-        <li><a class="waves-effect white-text" id="homeButton">HOME</a></li>
+        <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
         <li><a class="waves-effect white-text" id="messageButton">MESSAGES</a></li>
-        <li><a class="waves-effect white-text" id="messageButton">POST A SPOT</a></li>
+        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a></li>
       </ul>
 
       <h1 class="col s12">Local spots near you</h1>

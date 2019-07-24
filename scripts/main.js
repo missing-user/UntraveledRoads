@@ -83,7 +83,8 @@ function submitFct() {
   }).then(function(docRef) {
     userDocRef = docRef;
   });
-  showScreen(2);
+
+  getUserProfile();
 }
 
 function postFct() {
@@ -149,7 +150,7 @@ function enableButton() {
 }
 
 function enablePostButton() {
-  if (postText.value && secretText.value && addressTextInput.value && titleInput.value && postImages.length>0) {
+  if (postText.value && secretText.value && addressTextInput.value && titleInput.value && postImages.length > 0) {
     postBtn.removeAttribute('disabled');
   } else {
     postBtn.setAttribute('disabled', 'true');
@@ -195,7 +196,7 @@ function switchToChatFct() {
   };
 }
 
-function clearOldPosts(){
+function clearOldPosts() {
 
 }
 
@@ -285,6 +286,21 @@ function getUserInfo(uid) {
       div.className = 'userInfo';
       div.innerHTML = userHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), doc.get("postCount"));
       userinfo.appendChild(div);
+    });
+  });
+}
+
+function getUserProfile() {
+  console.log("it's getting called :)")
+  var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
+  query.get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      const div = document.createElement('div');
+      div.innerHTML = userProfileHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), firebase.auth().currentUser.email);
+      document.getElementById('userProfile').appendChild(div);
+      const div2 = document.createElement('div');
+      div2.innerHTML = userProfileHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), firebase.auth().currentUser.email);
+      document.getElementById('userProfile-2').appendChild(div2);
     });
   });
 }
@@ -418,6 +434,23 @@ function userHtml(imgUrl, fn, ln, postc) {
   </div>`;
 }
 
+function userProfileHtml(imgUrl, fn, ln, email) {
+  return `
+  <div class="row">
+    <div class="col s12" style="position: relative; right: -0.300rem; top: 1rem">
+      <div class="valign-wrapper">
+        <div class="col s3">
+          <img src=${imgUrl} class="circle responsive-img">
+        </div>
+        <div class="col s9" style="position: relative; top: -0.375rem">
+          <h2 class="white-text">${fn} ${ln}</h2>
+          <b1 class="white-text style="position: relative; top: -0.25rem">${email}</b1>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
 function imageGalleryListHtml(imgUrl) {
   const lelem = document.createElement('li');
   lelem.innerHTML = '<img src=' + imgUrl + '>';
@@ -442,20 +475,29 @@ function createPostHtml(postId, titl, testImg, txt) {
       `;
 }
 
+function closeSideNavs() {
+  sideNavInstances.forEach(function(sideNavInstance) {
+    sideNavInstance.close();
+  });
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
   M.AutoInit();
 });
 
-/*document.addEventListener('DOMContentLoaded', function() {
+var sideNavInstances;
+
+document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.sidenav');
-  var instances = M.Sidenav.init(elems, {
+  sideNavInstances = M.Sidenav.init(elems, {
     inDuration: 350,
     outDuration: 350,
     edge: 'left'
   });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.materialboxed');
   var instances = M.Materialbox.init(elems, {});
 });*/
