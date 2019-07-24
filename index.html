@@ -32,28 +32,38 @@
         skip
       </button>
       <br>
-      <img class="front-page-logo" src="">
+      <br>
+      <div class="row">
+        <div class="col s10 offset-s1 center">
+          <img class="front-page-logo" src="images\untraveled_roads_logo_final CROPPED.png">
+        </div>
+      </div>
       <div id="login_loader" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
       <div id="firebaseui-auth-container"></div>
     </div>
 
     <div id="accountForm">
       <div class="row">
-        <div class="input-field col s12">
+        <br>
+        <br>
+        <div class="col s10 offset-s1 center">
+          <img class="front-page-logo" src="images\untraveled_roads_logo_final CROPPED.png">
+        </div>
+        <div class="input-field col s10 offset-s1">
           <input id="first_name_input" type="text" class="validate">
-          <label for="first_name_input">First Name</label>
+          <label for="first_name_input">
+            <b1>First Name</b1>
+          </label>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -1rem">
           <input id="last_name_input" type="text" class="validate">
-          <label for="last_name_input">Last Name</label>
+          <label for="last_name_input">
+            <b1>Last Name</b1>
+          </label>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -0.5rem">
           <select id="language_input">
             <option value="" disabled selected>Choose your language</option>
             <option value="EN">English</option>
@@ -62,31 +72,31 @@
             <option value="IT">Italian</option>
             <option value="HR">Croatian</option>
           </select>
-          <label>Language Select</label>
+          <label>
+            <b1>Language Select</b1>
+          </label>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -1.75rem">
           <input id="address_input" type="text" class="validate">
-          <label for="address_input">Address</label>
+          <label for="address_input">
+            <b1>City of Residence</b1>
+          </label>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="input-field col s12">
-          <p>
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -2rem">
+          <div class="valign-wrapper">
             <label>
-              <input id="traveler_connect_input" type="checkbox" />
-              <span>Willing to connect with travelers? </span>
+              <input id="traveler_connect_input" type="checkbox">
+              <span>
+                <b1>Willing to connect with travelers?</b1>
+              </span>
             </label>
-          </p>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="input-field col s12">
-          <a id="submit_btn" onclick="submitFct()" disabled class="waves-effect waves-light btn">Submit</a>
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -3rem">
+          <a id="submit_btn" onclick="submitFct()" class="waves-effect waves-light btn red lighten-3">Sign Up</a>
         </div>
       </div>
     </div>
@@ -98,22 +108,30 @@
           <b2 style="position: relative; top: -1rem">Post your favorite spots so travelers can see where locals go!</b2>
           <div class="input-field">
             <input id="title_input" type="text" class="validate">
-            <label for="title_input">Title</label>
+            <label for="title_input">
+              <b1>Title</b1>
+            </label>
           </div>
 
           <form>
             <div class="input-field">
               <textarea id="post_txt_input" class="materialize-textarea" data-length="400"></textarea>
-              <label for="post_txt_input">Input post here</label>
+              <label for="post_txt_input">
+                <b1>Input post here</b1>
+              </label>
             </div>
             <div class="input-field">
               <textarea id="secret_txt_input" class="materialize-textarea" data-length="400"></textarea>
-              <label for="secret_txt_input">Secret local tips</label>
+              <label for="secret_txt_input">
+                <b1>Secret local tips</b1>
+              </label>
             </div>
           </form>
           <div class="input-field">
             <input id="addressTextInput" type="text" class="validate">
-            <label for="addressTextInput">Address</label>
+            <label for="addressTextInput">
+              <b1>Address</b1>
+            </label>
           </div>
 
           <div class="file-field input-field">
@@ -147,14 +165,13 @@
               <a class="waves-effect ur-white">HOME</a>
               <a class="waves-effect ur-white">MESSAGES</a>
             </ul>
-            <row>
-              <form class="left-padding-4">
-                <div class="input-field">
-                  <input id="search" type="search" required>
-                  <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                  <i class="material-icons">close</i>
-                </div>
-              </form>
+            <form class="left-padding-4">
+              <div class="input-field">
+                <input id="search" type="search" required>
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
           </div>
         </nav>
       </div>
@@ -190,15 +207,14 @@
           </a>
         </ul>
       </div>
-      <row>
+      <div class="row">
         <form>
           <div class="col s10 offset-s1">
-            <div class="col s4 offset-s4">
-              <b2 id="ratingLabel">Rating</b2>
-              <div class="range-field">
-                <input type="range" id="ratingSlider" min="0" max="10" />
-              </div>
+            <b2 id="ratingLabel">Rating</b2>
+            <div class="range-field">
+              <input type="range" id="ratingSlider" min="0" max="10">
             </div>
+            <br>
             <h1 id="postTitle">Name</h1>
             <div id="postText" class="section no-pad-top">
               <h2>Reviews</h2>
@@ -211,30 +227,29 @@
             <div id="userinfo" class="section"></div>
           </div>
         </form>
-        <row>
+      </div class="row">
+
+      <div id="chatScreen">
+        <h2>hello, welcome to the chat</h2>
+      </div>
     </div>
-
-    <div id="chatScreen">
-      <h2>hello, welcome to the chat</h2>
-    </div>
-  </div>
-  <!--main body ends-->
+    <!--main body ends-->
 
 
-  <!-- Import and configure the Firebase SDK -->
-  <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
-  <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
-  <script src="/__/firebase/6.2.4/firebase-app.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
-  <script src="/__/firebase/init.js"></script>
+    <!-- Import and configure the Firebase SDK -->
+    <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
+    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+    <script src="/__/firebase/init.js"></script>
 
-  <script src="scripts/materialize.js"></script>
-  <script src="scripts/loginUi.js"></script>
-  <script src="scripts/main.js"></script>
-  <!--   <script src="scripts/geo.js"></script> -->
+    <script src="scripts/materialize.js"></script>
+    <script src="scripts/loginUi.js"></script>
+    <script src="scripts/main.js"></script>
+    <!--   <script src="scripts/geo.js"></script> -->
 </body>
 
 </html>
