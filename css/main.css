@@ -132,6 +132,18 @@ li a {
   z-index: 999 !important;
 }
 
+input[type=range]::-webkit-slider-thumb {
+  background-color: #EF9A9A;
+}
+
+input[type=range]+.thumb {
+  background-color: #EF9A9A;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #5c6bc0, #e57373) !important
+}
+
 /* navbar and search input field
    ========================================================================== */
 .navbar-fixed {
@@ -201,6 +213,14 @@ li a {
 
 .card .card-content p {
   margin: 10;
+}
+
+.front-page-logo {
+  width: 20rem;
+  overflow: hidden;
+  left: 50%;
+  -webkit-transform: translateX(+50%);
+          transform: translateX(+50%);
 }
 
 /* slides
