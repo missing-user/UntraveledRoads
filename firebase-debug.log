@@ -5,28 +5,28 @@
 [debug] [2019-07-24T02:41:11.181Z] Node Version:  v10.16.0
 [debug] [2019-07-24T02:41:11.222Z] Time:          Tue Jul 23 2019 21:41:11 GMT-0500 (Central Daylight Time)
 [debug] [2019-07-24T02:41:11.222Z] ----------------------------------------------------------------------
-[debug] 
+[debug]
 [debug] [2019-07-24T02:41:11.249Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
 [debug] [2019-07-24T02:41:11.249Z] > authorizing via signed-in user
 [debug] [2019-07-24T02:41:11.250Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
 [debug] [2019-07-24T02:41:11.253Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-07-24T02:41:11.254Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2019-07-24T02:41:11.254Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token
  <request body omitted>
 [debug] [2019-07-24T02:41:11.693Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T02:41:11.734Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
+[debug] [2019-07-24T02:41:11.734Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions
 
 [debug] [2019-07-24T02:41:11.845Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T02:41:11.847Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
- 
+[debug] [2019-07-24T02:41:11.847Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377
+
 [debug] [2019-07-24T02:41:11.959Z] <<< HTTP RESPONSE 200
-[info] 
+[info]
 [info] === Serving from '/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads'...
-[info] 
-[debug] [2019-07-24T02:41:11.969Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config  
- 
+[info]
+[debug] [2019-07-24T02:41:11.969Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config
+
 [warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
-[debug] [2019-07-24T02:41:11.988Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig  
- 
+[debug] [2019-07-24T02:41:11.988Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig
+
 [debug] [2019-07-24T02:41:12.080Z] <<< HTTP RESPONSE 200
 [debug] [2019-07-24T02:41:12.242Z] <<< HTTP RESPONSE 200
 [info] ✔  hosting: Local server: http://localhost:5000

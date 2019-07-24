@@ -55,7 +55,6 @@ function saveImageFile(file, coll) {
       return fileSnapshot.ref.getDownloadURL().then((url) => {
         lastPostImage = url;
         postImages.push(lastPostImage);
-        console.log(postImages);
         return uploadRef.update({
           imageUrl: url,
           storageUri: fileSnapshot.metadata.fullPath
@@ -79,6 +78,8 @@ function submitFct() {
     profilePicUrl: getProfilePicUrl(),
     willingToMeet: travelConnectChk.value == "on",
     postCount: 0,
+  }).then(function(docRef) {
+    userDocRef = docRef;
   });
   showScreen(2);
 }
@@ -86,25 +87,47 @@ function submitFct() {
 function postFct() {
   console.log('post submitted');
   firebase.firestore().collection('ratings').add({
-    ratings: [5],
+    ratings: ["5"],
     users: [firebase.auth().currentUser.uid],
   }).then(function(docRef) {
     ratingsId = docRef.id;
+
+    firebase.firestore().collection('posts').add({
+      title: titleInput.value,
+      uid: firebase.auth().currentUser.uid,
+      rating: ratingsId,
+      imageUrls: postImages,
+      text: postTextInput.value,
+      address: addressTextInput.value,
+      secrets: secretInput.value,
+      locationHash: secretInput.value,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    }).catch(function(error) {
+      console.error("Error adding to collection: ", error);
+    });
+  }).catch(function(error) {
+    console.error("Error: ", error);
   });
 
-  firebase.firestore().collection('posts').add({
-    title: titleInput.value,
-    uid: firebase.auth().currentUser.uid,
-    rating: ratingsId,
-    imageUrls: postImages,
-    text: postTextInput.value,
-    address: addressTextInput.value,
-    secrets: secretInput.value,
-    locationHash: secretInput.value,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
+  var userDocId;
+  query.get().then(function(querySnapshot) {
+    if (!querySnapshot.empty) {
+      console.log("user exists");
+      querySnapshot.forEach(function(documentSnapshot) {
+        userDocId = documentSnapshot.id;
+        userDocRef = firebase.firestore().collection('users').doc(userDocId);
+      });
+    } else {
+      console.log("user doesnt exist???");
+    }
   });
+
+  console.log("userDocRef: " + userDocRef);
   userDocRef.update({
     postCount: firebase.firestore.FieldValue.increment(1),
+  }).catch(function(error) {
+    console.error("Error: ", error);
   });
   postImages = [];
   showScreen(3);
@@ -133,7 +156,6 @@ function checkSignedInWithMessage() {
 
 function switchToSearchFct() {
   showScreen(3);
-  loadNewPost();
 }
 
 function switchTospecificPostScreen() {
@@ -195,6 +217,8 @@ function openPost(pid) {
     postTitle.innerHTML = title;
     var text = docRef.get("text");
 
+    ratingsId = docRef.get("rating");
+
     const bodytxt = document.createElement('b1');
     bodytxt.innerHTML = text;
     postText.appendChild(bodytxt);
@@ -204,9 +228,10 @@ function openPost(pid) {
     secretText.appendChild(secrets);
 
     getUserInfo(docRef.get("uid"));
+    updateRatingDisplay();
   }).catch(function(error) {
-    console.log("Error getting document:", error);
-  });;
+    console.error("Error getting document:", error);
+  });
 }
 
 function getUserInfo(uid) {
@@ -238,12 +263,11 @@ function showScreen(s) {
     case 2:
       postingSpots.style.display = "block";
       postImages = [];
-      console.log(postImages);
       break;
     case 3:
       searchScreen.style.display = "block";
+      loadNewPost();
       break;
-      //case 4:
       break;
     case 5:
       chatScreen.style.display = "block";
@@ -253,7 +277,7 @@ function showScreen(s) {
       break;
     default:
       searchScreen.style.display = "block";
-
+      break;
   }
 }
 
@@ -261,6 +285,7 @@ function postSelected(pid) {
   showScreen(6);
   openPost(pid);
 }
+var ratingsId;
 
 var fnameInput = document.getElementById('first_name_input');
 var lnameInput = document.getElementById('last_name_input');
@@ -286,6 +311,9 @@ var imageGallery = document.getElementById("imageGallery");
 var postText = document.getElementById("postText");
 var secretText = document.getElementById("secretText");
 var postTitle = document.getElementById("postTitle");
+var addressTextInput = document.getElementById("addressTextInput");
+var ratingSlider = document.getElementById("ratingSlider");
+var searchBox = document.getElementById("search_box");
 
 //postingSpots
 var postImages = {};
@@ -380,8 +408,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 ratingSlider.addEventListener('change', function() {
   docRef = firebase.firestore().collection('ratings').doc(ratingsId);
   docRef.get().then(function(docSnap) {
@@ -391,17 +417,19 @@ ratingSlider.addEventListener('change', function() {
     if (!usersArray.includes(firebase.auth().currentUser.uid)) {
       console.log("adding user and rating");
       ratingsArray.push(ratingSlider.value);
-      usersArray.push(firebase.auth().uid);
+      usersArray.push(firebase.auth().currentUser.uid);
       docRef.update({
         ratings: ratingsArray,
         users: usersArray,
+      }).catch(function(error) {
+        console.error('There was an error adding the current users rating', error);
       });
     } else {
-      console.log("all the ratings: ")
-      console.log(ratingsArray);
       ratingsArray[usersArray.indexOf(firebase.auth().currentUser.uid)] = ratingSlider.value;
       docRef.update({
         ratings: ratingsArray,
+      }).catch(function(error) {
+        console.error('There was an error updating the current users rating', error);
       });
     }
     updateRatingDisplay();
@@ -415,11 +443,13 @@ function updateRatingDisplay() {
 function getAvgRating() {
   firebase.firestore().collection('ratings').doc(ratingsId).get().then(function(docRef) {
     var rtgs = docRef.get("ratings");
-
+    console.log("ratings: " + rtgs)
     var total = 0;
     for (var i = 0; i < rtgs.length; i++) {
       total += rtgs[i];
     }
     return total / rtgs.length;
+  }).catch(function(error) {
+    console.error('error during average rating function', error);
   });
 }

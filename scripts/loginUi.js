@@ -16,6 +16,7 @@ var uiConfig = {
             querySnapshot.forEach(function(documentSnapshot) {
               userDocId = documentSnapshot.id;
               userDocRef = firebase.firestore().collection('users').doc(userDocId);
+              console.log(userDocRef);
               userDocRef.update({
                 lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
                 profilePicUrl: getProfilePicUrl(),
