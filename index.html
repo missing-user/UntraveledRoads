@@ -143,44 +143,43 @@
         <div class="col s10 offset-s1" style="position: relative; top: 1rem">
           <h1>Post a local spot</h1>
           <b2 style="position: relative; top: -1rem">Post your favorite spots so travelers can see where locals go!</b2>
-          <div class="input-field">
+          <div class="input-field" style="position: relative; top: -0.5rem">
             <input id="title_input" type="text" class="validate">
             <label for="title_input">
-              <b1>Title</b1>
+              <b1>Name</b1>
             </label>
           </div>
-
-          <form>
-            <div class="input-field">
-              <textarea id="post_txt_input" class="materialize-textarea" data-length="400"></textarea>
-              <label for="post_txt_input">
-                <b1>Input post here</b1>
-              </label>
-            </div>
-            <div class="input-field">
-              <textarea id="secret_txt_input" class="materialize-textarea" data-length="400"></textarea>
-              <label for="secret_txt_input">
-                <b1>Secret local tips</b1>
-              </label>
-            </div>
-          </form>
-          <div class="input-field">
+          <div class="input-field" style="position: relative; top: -1rem">
             <input id="addressTextInput" type="text" class="validate">
             <label for="addressTextInput">
               <b1>Address</b1>
             </label>
           </div>
+          <form>
+            <div class="input-field" style="position: relative; top: -1.5rem">
+              <textarea id="post_txt_input" type="text" class="materialize-textarea validate" data-length="400"></textarea>
+              <label for="post_txt_input">
+                <b1>Review</b1>
+              </label>
+            </div>
+            <div class="input-field" style="position: relative; top: -1.875rem">
+              <textarea id="secret_txt_input" type="text" class="materialize-textarea validate" data-length="400"></textarea>
+              <label for="secret_txt_input">
+                <b1>Secret local tips</b1>
+              </label>
+            </div>
+          </form>
 
-          <div class="col s12" style="position: relative; top: -1.5rem; right: 1.5rem">
+          <div class="col s12" style="position: relative; top: -3.25rem; right: 1.5rem">
             <div class="file-field input-field">
               <input type="file" multiple id="upload_post_pic">
               <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                <input class="file-path validate" type="text" placeholder="Upload one or more pictures">
               </div>
             </div>
           </div>
-          <div class="col s12" style="position: relative; top: -1.5rem; right: 0.75rem">
-            <button id="post_btn" onclick="postFct(); switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+          <div class="col s12" style="position: relative; top: -3.75rem; right: 0.75rem">
+            <button id="post_btn" onclick="postFct(); switchToSearchFct()" disabled class="waves-effect waves-light btn red lighten-3">
               Post
             </button>
           </div>
@@ -201,7 +200,7 @@
             <ul class="left hide-on-med-and-down">
               <a id="homeButton" onclick="showScreen(3); close()" class="waves-effect white; closeSideNavs()">HOME</a>
               <a id="messagesButton" onclick="showScreen(2)" class="waves-effect white; closeSideNavs()">MESSAGES</a>
-              <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a>
+              <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a>
             </ul>
             <form class="left-padding-4">
               <div class="input-field">
@@ -235,7 +234,7 @@
         <div class="divider indigo lighten-3"></div>
         <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
         <li><a class="waves-effect white-text" id="messageButton">MESSAGES</a></li>
-        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a></li>
+        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a></li>
       </ul>
 
       <h1 class="col s12">Local spots near you</h1>

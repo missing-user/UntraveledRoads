@@ -7645,7 +7645,7 @@ input[type=range]::-ms-thumb {
 }
 
 .sidenav li > a.btn-floating:hover {
-  background-color: /*#26a69a*/ #EF9A9A;
+  background-color: /*#26a69a*/ #E57373;
 }
 
 .sidenav li > a > i,

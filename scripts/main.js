@@ -149,12 +149,8 @@ function enableButton() {
 }
 
 function enablePostButton() {
-<<<<<<< HEAD
-  if (postText.value && secretText.value && addressTextInput.value && titleInput.value && postImages.length > 0) {
-=======
   console.log("so this IS being executed")
   if (postTextInput.value && secretInput.value && addressTextInput.value && titleInput.value && (postImages.length>0)) {
->>>>>>> d9d8cea137284e380ac16b4c3e5ef89c0d44e307
     postBtn.removeAttribute('disabled');
   } else {
     postBtn.setAttribute('disabled', 'true');
@@ -200,14 +196,9 @@ function switchToChatFct() {
   };
 }
 
-<<<<<<< HEAD
-function clearOldPosts() {
-
-=======
 function clearOldPosts(){
   while(pagePost.firstChild)  {
       pagePost.removeChild(pagePost.firstChild);}
->>>>>>> d9d8cea137284e380ac16b4c3e5ef89c0d44e307
 }
 
 function loadNewPost() {

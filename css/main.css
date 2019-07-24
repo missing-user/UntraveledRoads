@@ -28,6 +28,10 @@
   background-color: #EF9A9A !important;
 }
 
+.red.lighten-3.overideable {
+  background-color: #EF9A9A;
+}
+
 .red.lighten-2 {
   background-color: #E57373 !important;
 }
@@ -302,4 +306,20 @@ input[type=range]::-webkit-slider-runnable-track {
 /* icon prefix focus color */
 .input-field .prefix.active {
   color: #EF9A9A !important;
+}
+
+/* valid color */
+.input-field textarea[type=text].valid {
+  border-bottom: 1px solid #5c6bc0 !important;
+  box-shadow: 0 1px 0 0 #5c6bc0 !important;
+}
+
+/* invalid color */
+.input-field textarea[type=text].invalid {
+  border-bottom: 1px solid #B00020 !important;
+  box-shadow: 0 1px 0 0 #B00020 !important;
+}
+
+.btn[disabled] {
+  background-color: #DFDFDF !important;
 }
