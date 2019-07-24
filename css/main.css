@@ -303,3 +303,7 @@ input[type=range]::-webkit-slider-runnable-track {
 .input-field .prefix.active {
   color: #EF9A9A !important;
 }
+
+/*.switch label input[type=checkbox]+ .lever:before {
+  color: #fff;
+}*/
