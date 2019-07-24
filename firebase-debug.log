@@ -1,151 +1,37 @@
-[debug] [2019-07-24T02:41:11.172Z] ----------------------------------------------------------------------
-[debug] [2019-07-24T02:41:11.180Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2019-07-24T02:41:11.181Z] CLI Version:   7.1.1
-[debug] [2019-07-24T02:41:11.181Z] Platform:      darwin
-[debug] [2019-07-24T02:41:11.181Z] Node Version:  v10.16.0
-[debug] [2019-07-24T02:41:11.222Z] Time:          Tue Jul 23 2019 21:41:11 GMT-0500 (Central Daylight Time)
-[debug] [2019-07-24T02:41:11.222Z] ----------------------------------------------------------------------
-[debug]
-[debug] [2019-07-24T02:41:11.249Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-07-24T02:41:11.249Z] > authorizing via signed-in user
-[debug] [2019-07-24T02:41:11.250Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
-[debug] [2019-07-24T02:41:11.253Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-07-24T02:41:11.254Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token
- <request body omitted>
-[debug] [2019-07-24T02:41:11.693Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T02:41:11.734Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions
-
-[debug] [2019-07-24T02:41:11.845Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T02:41:11.847Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377
-
-[debug] [2019-07-24T02:41:11.959Z] <<< HTTP RESPONSE 200
-[info]
-[info] === Serving from '/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads'...
-[info]
-[debug] [2019-07-24T02:41:11.969Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config
-
-[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
-[debug] [2019-07-24T02:41:11.988Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig
-
-[debug] [2019-07-24T02:41:12.080Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T02:41:12.242Z] <<< HTTP RESPONSE 200
-[info] ✔  hosting: Local server: http://localhost:5000
-[info] ✔  functions: Emulator started at http://localhost:5001
-[info] i  functions: Watching "/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads/functions" for Cloud Functions...
-[debug] [2019-07-24T02:41:12.875Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads/functions","node_version":"10.16.0"}
-[debug] [2019-07-24T02:41:12.876Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true} {}
-[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
-[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
-[debug] [2019-07-24T05:34:25.274Z] ----------------------------------------------------------------------
-[debug] [2019-07-24T05:34:25.278Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2019-07-24T05:34:25.278Z] CLI Version:   7.1.1
-[debug] [2019-07-24T05:34:25.278Z] Platform:      darwin
-[debug] [2019-07-24T05:34:25.278Z] Node Version:  v10.16.0
-[debug] [2019-07-24T05:34:25.287Z] Time:          Wed Jul 24 2019 00:34:25 GMT-0500 (Central Daylight Time)
-[debug] [2019-07-24T05:34:25.287Z] ----------------------------------------------------------------------
+[debug] [2019-07-24T17:12:00.910Z] ----------------------------------------------------------------------
+[debug] [2019-07-24T17:12:00.913Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Mario\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-07-24T17:12:00.913Z] CLI Version:   7.1.1
+[debug] [2019-07-24T17:12:00.913Z] Platform:      win32
+[debug] [2019-07-24T17:12:00.913Z] Node Version:  v12.6.0
+[debug] [2019-07-24T17:12:00.914Z] Time:          Wed Jul 24 2019 12:12:00 GMT-0500 (Central Daylight Time)
+[debug] [2019-07-24T17:12:00.914Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-07-24T05:34:25.309Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-07-24T05:34:25.309Z] > authorizing via signed-in user
-[debug] [2019-07-24T05:34:25.309Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
-[debug] [2019-07-24T05:34:25.311Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-07-24T05:34:25.311Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- <request body omitted>
-[debug] [2019-07-24T05:34:25.517Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T05:34:25.582Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
+[debug] [2019-07-24T17:12:00.923Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-07-24T17:12:00.924Z] > authorizing via signed-in user
+[debug] [2019-07-24T17:12:00.924Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
+[debug] [2019-07-24T17:12:00.927Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
 
-[debug] [2019-07-24T05:34:25.664Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T05:34:25.666Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
+[debug] [2019-07-24T17:12:01.170Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-24T17:12:01.173Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
  
-[debug] [2019-07-24T05:34:25.831Z] <<< HTTP RESPONSE 200
-[info] 
-[info] === Serving from '/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads'...
-[info] 
-[debug] [2019-07-24T05:34:25.838Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config  
- 
-[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
-[debug] [2019-07-24T05:34:25.860Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig  
- 
-[debug] [2019-07-24T05:34:26.029Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T05:34:26.109Z] <<< HTTP RESPONSE 200
-[info] ✔  hosting: Local server: http://localhost:5000
-[info] ✔  functions: Emulator started at http://localhost:5001
-[info] i  functions: Watching "/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads/functions" for Cloud Functions...
-[debug] [2019-07-24T05:34:26.689Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads/functions","node_version":"10.16.0"}
-[debug] [2019-07-24T05:34:26.689Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true} {}
-[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
-[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
-[debug] [2019-07-24T16:00:30.915Z] ----------------------------------------------------------------------
-[debug] [2019-07-24T16:00:30.918Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
-[debug] [2019-07-24T16:00:30.918Z] CLI Version:   7.1.1
-[debug] [2019-07-24T16:00:30.918Z] Platform:      darwin
-[debug] [2019-07-24T16:00:30.918Z] Node Version:  v10.16.0
-[debug] [2019-07-24T16:00:30.927Z] Time:          Wed Jul 24 2019 11:00:30 GMT-0500 (Central Daylight Time)
-[debug] [2019-07-24T16:00:30.927Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2019-07-24T16:00:30.938Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-07-24T16:00:30.939Z] > authorizing via signed-in user
-[debug] [2019-07-24T16:00:30.939Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
-[debug] [2019-07-24T16:00:30.941Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-07-24T16:00:30.941Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- <request body omitted>
-[debug] [2019-07-24T16:00:31.112Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T16:00:31.149Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
-
-[debug] [2019-07-24T16:00:31.562Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T16:00:31.564Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
- 
-[debug] [2019-07-24T16:00:31.668Z] <<< HTTP RESPONSE 200
-[info] 
-[info] === Serving from '/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads'...
-[info] 
-[debug] [2019-07-24T16:00:31.677Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config  
- 
-[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
-[debug] [2019-07-24T16:00:31.700Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig  
- 
-[debug] [2019-07-24T16:00:31.957Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T16:00:32.052Z] <<< HTTP RESPONSE 200
-[info] ✔  hosting: Local server: http://localhost:5000
-[info] ✔  functions: Emulator started at http://localhost:5001
-[info] i  functions: Watching "/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads/functions" for Cloud Functions...
-[debug] [2019-07-24T16:00:32.629Z] [runtime-status] Functions runtime initialized. {"cwd":"/Users/jennytang/Documents/Summer_Camps/LaunchX/Web_Dev/UntraveledRoads/functions","node_version":"10.16.0"}
-[debug] [2019-07-24T16:00:32.630Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true} {}
-[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
-[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
-[debug] [2019-07-24T16:30:41.258Z] ----------------------------------------------------------------------
-[debug] [2019-07-24T16:30:41.261Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Mario\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
-[debug] [2019-07-24T16:30:41.262Z] CLI Version:   7.1.1
-[debug] [2019-07-24T16:30:41.262Z] Platform:      win32
-[debug] [2019-07-24T16:30:41.262Z] Node Version:  v12.6.0
-[debug] [2019-07-24T16:30:41.263Z] Time:          Wed Jul 24 2019 11:30:41 GMT-0500 (Central Daylight Time)
-[debug] [2019-07-24T16:30:41.263Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2019-07-24T16:30:41.272Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-07-24T16:30:41.273Z] > authorizing via signed-in user
-[debug] [2019-07-24T16:30:41.273Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
-[debug] [2019-07-24T16:30:41.276Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
-
-[debug] [2019-07-24T16:30:41.510Z] <<< HTTP RESPONSE 200
-[debug] [2019-07-24T16:30:41.513Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
- 
-[debug] [2019-07-24T16:30:41.693Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-24T17:12:01.374Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from 'C:\Users\Mario\Documents\LaunchX\BasicPost'...
 [info] 
-[debug] [2019-07-24T16:30:41.709Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config  
+[debug] [2019-07-24T17:12:01.388Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config  
  
 [warn] !  Your requested "node" version "8" doesn't match your global version "12"
-[debug] [2019-07-24T16:30:41.738Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig  
+[debug] [2019-07-24T17:12:01.417Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig  
  
-[debug] [2019-07-24T16:30:41.916Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-24T17:12:01.576Z] <<< HTTP RESPONSE 200
 [info] +  functions: Emulator started at http://localhost:5001
-[debug] [2019-07-24T16:30:42.290Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-24T17:12:01.882Z] <<< HTTP RESPONSE 200
 [info] i  functions: Watching "C:\Users\Mario\Documents\LaunchX\BasicPost\functions" for Cloud Functions...
 [info] +  hosting: Local server: http://localhost:5000
-[debug] [2019-07-24T16:30:42.856Z] [runtime-status] Functions runtime initialized. {"cwd":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions","node_version":"12.6.0"}
-[debug] [2019-07-24T16:30:42.857Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true} {}
-[debug] [2019-07-24T16:30:42.861Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
-[debug] [2019-07-24T16:30:42.864Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
-[debug] [2019-07-24T16:30:42.865Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
-[debug] [2019-07-24T16:30:42.905Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
-[debug] [2019-07-24T16:30:42.942Z] [runtime-status] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.2.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[debug] [2019-07-24T17:12:02.340Z] [runtime-status] Functions runtime initialized. {"cwd":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions","node_version":"12.6.0"}
+[debug] [2019-07-24T17:12:02.341Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true} {}
+[debug] [2019-07-24T17:12:02.345Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-07-24T17:12:02.348Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-07-24T17:12:02.349Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-07-24T17:12:02.387Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-07-24T17:12:02.426Z] [runtime-status] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.2.0","resolution":"C:\\Users\\Mario\\Documents\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
