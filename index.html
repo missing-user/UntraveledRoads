@@ -107,8 +107,8 @@
           <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
             <a data-target="mobile-demo-postingSpots" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="left hide-on-med-and-down">
-              <a id="homeButton" onclick="showScreen(3); close()" class="waves-effect white; closeSideNavs()">HOME</a>
-              <a id="messagesButton" onclick="showScreen(2)" class="waves-effect white; closeSideNavs()">MESSAGES</a>
+              <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect white">HOME</a>
+              <a id="messagesButton" onclick="showScreen(5); closeSideNavs()" class="waves-effect white">MESSAGES</a>
               <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a>
             </ul>
           </div>
@@ -135,7 +135,7 @@
         </div>
         <div class="divider indigo lighten-3"></div>
         <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
-        <li><a class="waves-effect white-text" id="messageButton">MESSAGES</a></li>
+        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(5); closeSideNavs()">MESSAGES</a></li>
         <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a></li>
       </ul>
 
@@ -198,8 +198,8 @@
           <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
             <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="left hide-on-med-and-down">
-              <a id="homeButton" onclick="showScreen(3); close()" class="waves-effect white; closeSideNavs()">HOME</a>
-              <a id="messagesButton" onclick="showScreen(2)" class="waves-effect white; closeSideNavs()">MESSAGES</a>
+              <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect white">HOME</a>
+              <a id="messagesButton" onclick="showScreen(5); closeSideNavs()" class="waves-effect white; closeSideNavs()">MESSAGES</a>
               <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a>
             </ul>
             <form class="left-padding-4">
@@ -233,7 +233,7 @@
         </div>
         <div class="divider indigo lighten-3"></div>
         <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
-        <li><a class="waves-effect white-text" id="messageButton">MESSAGES</a></li>
+        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(5); closeSideNavs()">MESSAGES</a></li>
         <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a></li>
       </ul>
 
@@ -271,28 +271,76 @@
           </div>
         </form>
       </div class="row">
+    </div>
 
-      <div id="chatScreen">
-        <h2>hello, welcome to the chat</h2>
+    <div id="chatScreen">
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
+            <a data-target="mobile-demo-chatScreen" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="left hide-on-med-and-down">
+              <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect white">HOME</a>
+              <a id="messagesButton" onclick="showScreen(5); closeSideNavs()" class="waves-effect white; closeSideNavs()">MESSAGES</a>
+              <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a>
+            </ul>
+            <form class="left-padding-4">
+              <div class="input-field">
+                <input id="search_box" type="search" required>
+                <label class="label-icon" for="search_box"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </div>
+        </nav>
+      </div>
+
+      <ul class="sidenav ur-bg-gradient-vrt" id="mobile-demo-chatScreen">
+        <div id="userProfile"></div>
+        <div class="divider indigo lighten-3" style="position: relative; top: 1rem"></div>
+        <div class="col s10 offset-s1" style="position: relative; top: rem">
+          <h2 class="white-text">I am currently a:</h2>
+        </div>
+        <div class="row">
+          <div class="center" style="position: relative; top: -0.5rem">
+            <div class="switch">
+              <b1 class="white-text">LOCAL</b1>
+              <label>
+                <input type="checkbox">
+                <span class="lever"></span>
+              </label>
+              <b1 class="white-text">TRAVELER</b1>
+            </div>
+          </div>
+        </div>
+        <div class="divider indigo lighten-3"></div>
+        <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
+        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(5); closeSideNavs()">MESSAGES</a></li>
+        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a></li>
+      </ul>
+
+      <div class="row">
+        <h1 class="col s12">Local near you</h1>
       </div>
     </div>
-    <!--main body ends-->
+
+  </div>
+  <!--main body ends-->
 
 
-    <!-- Import and configure the Firebase SDK -->
-    <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
-    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
-    <script src="/__/firebase/init.js"></script>
+  <!-- Import and configure the Firebase SDK -->
+  <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
+  <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+  <script src="/__/firebase/init.js"></script>
 
-    <script src="scripts/materialize.js"></script>
-    <script src="scripts/loginUi.js"></script>
-    <script src="scripts/main.js"></script>
-    <!--<script src="scripts/geo.js"></script> -->
+  <script src="scripts/materialize.js"></script>
+  <script src="scripts/loginUi.js"></script>
+  <script src="scripts/main.js"></script>
+  <!--<script src="scripts/geo.js"></script> -->
 </body>
 
 </html>
