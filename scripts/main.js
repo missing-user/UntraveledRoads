@@ -141,7 +141,7 @@ function postFct() {
 }
 
 function updateTravelMode() {
-  console.log('TravelMode ' + modeSelect.value);
+  console.log('TravelMode ' + modeSelect.checked);
 }
 
 function enableButton() {
@@ -417,8 +417,6 @@ addressTextInput.addEventListener('keyup', enablePostButton);
 addressTextInput.addEventListener('change', enablePostButton);
 titleInput.addEventListener('keyup', enablePostButton);
 titleInput.addEventListener('change', enablePostButton);
-
-modeSelect.addEventListener('change', updateTravelMode);
 
 // Remove the warning about timstamps change.
 var firestore = firebase.firestore();
