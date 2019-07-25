@@ -33,17 +33,11 @@
   </div>
   <div id="mainBody" style="display: none">
     <div id="signinForm">
-<<<<<<< HEAD
-      <button id="skip_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        skip
-      </button>
       <button onclick="showScreen(7)" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
         SKIP
       </button>
       <br>
       <br>
-=======
->>>>>>> 7f99c9b6f78cad051e7607ebb52ea5031b72b904
       <div class="row">
         <div class="col s12 center">
           <button id="skip_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
@@ -124,15 +118,9 @@
           <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
             <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="left hide-on-med-and-down">
-<<<<<<< HEAD
               <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect white">HOME</a>
               <a id="messagesButton" onclick="showScreen(5); closeSideNavs()" class="waves-effect white">MESSAGES</a>
               <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a>
-=======
-              <a id="homeButton" onclick="showScreen(3); close()" class="waves-effect white; closeSideNavs()">HOME</a>
-              <a id="messagesButton" onclick="showScreen(2)" class="waves-effect white; closeSideNavs()">MESSAGES</a>
-              <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a>
->>>>>>> 7f99c9b6f78cad051e7607ebb52ea5031b72b904
             </ul>
             <form id='searchBar' class="left-padding-4" >
               <div class="input-field">
@@ -164,13 +152,8 @@
         </div>
         <div class="divider indigo lighten-3"></div>
         <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
-<<<<<<< HEAD
         <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(5); closeSideNavs()">MESSAGES</a></li>
         <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a></li>
-=======
-        <li><a class="waves-effect white-text" id="messageButton">MESSAGES</a></li>
-        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a></li>
->>>>>>> 7f99c9b6f78cad051e7607ebb52ea5031b72b904
       </ul>
     </div>
 
@@ -229,56 +212,7 @@
     </div>
 
     <div id="searchScreen">
-<<<<<<< HEAD
-      <div class="navbar-fixed">
-        <nav>
-          <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
-            <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="left hide-on-med-and-down">
-              <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect white">HOME</a>
-              <a id="messagesButton" onclick="showScreen(5); closeSideNavs()" class="waves-effect white; closeSideNavs()">MESSAGES</a>
-              <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a>
-            </ul>
-            <form class="left-padding-4">
-              <div class="input-field">
-                <input id="search_box" type="search" required>
-                <label class="label-icon" for="search_box"><i class="material-icons">search</i></label>
-                <i class="material-icons">close</i>
-              </div>
-            </form>
-          </div>
-        </nav>
-      </div>
-
-      <ul class="sidenav ur-bg-gradient-vrt" id="mobile-demo">
-        <div id="userProfile"></div>
-        <div class="divider indigo lighten-3" style="position: relative; top: 1rem"></div>
-        <div class="col s10 offset-s1" style="position: relative; top: rem">
-          <h2 class="white-text">I am currently a:</h2>
-        </div>
-        <div class="row">
-          <div class="center" style="position: relative; top: -0.5rem">
-            <div class="switch">
-              <b1 class="white-text">LOCAL</b1>
-              <label>
-                <input type="checkbox">
-                <span class="lever"></span>
-              </label>
-              <b1 class="white-text">TRAVELER</b1>
-            </div>
-          </div>
-        </div>
-        <div class="divider indigo lighten-3"></div>
-        <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
-        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(5); closeSideNavs()">MESSAGES</a></li>
-        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a></li>
-      </ul>
-=======
-
->>>>>>> 7f99c9b6f78cad051e7607ebb52ea5031b72b904
-
       <h1 class="col s12">Local spots near you</h1>
-
       <div class="row" id="page-post"></div>
     </div>
 
@@ -314,50 +248,6 @@
     </div>
 
     <div id="chatScreen">
-      <div class="navbar-fixed">
-        <nav>
-          <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
-            <a data-target="mobile-demo-chatScreen" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="left hide-on-med-and-down">
-              <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect white">HOME</a>
-              <a id="messagesButton" onclick="showScreen(5); closeSideNavs()" class="waves-effect white; closeSideNavs()">MESSAGES</a>
-              <a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a>
-            </ul>
-            <form class="left-padding-4">
-              <div class="input-field">
-                <input id="search_box" type="search" required>
-                <label class="label-icon" for="search_box"><i class="material-icons">search</i></label>
-                <i class="material-icons">close</i>
-              </div>
-            </form>
-          </div>
-        </nav>
-      </div>
-
-      <ul class="sidenav ur-bg-gradient-vrt" id="mobile-demo-chatScreen">
-        <div id="userProfile"></div>
-        <div class="divider indigo lighten-3" style="position: relative; top: 1rem"></div>
-        <div class="col s10 offset-s1" style="position: relative; top: rem">
-          <h2 class="white-text">I am currently a:</h2>
-        </div>
-        <div class="row">
-          <div class="center" style="position: relative; top: -0.5rem">
-            <div class="switch">
-              <b1 class="white-text">LOCAL</b1>
-              <label>
-                <input type="checkbox">
-                <span class="lever"></span>
-              </label>
-              <b1 class="white-text">TRAVELER</b1>
-            </div>
-          </div>
-        </div>
-        <div class="divider indigo lighten-3"></div>
-        <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
-        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(5); closeSideNavs()">MESSAGES</a></li>
-        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A LOCAL SPOT</a></li>
-      </ul>
-
       <div class="row">
         <h1 class="col s12">Locals near you</h1>
 

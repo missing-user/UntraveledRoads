@@ -344,6 +344,7 @@ function showScreen(s) {
       break;
       break;
     case 5:
+      showNavBar(true, true);
       chatScreen.style.display = "block";
       break;
     case 6:
