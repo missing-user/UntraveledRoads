@@ -113,7 +113,7 @@ function postFct() {
 
 
     var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
-    var userDocId;
+    /*var userDocId;
     query.get().then(function(querySnapshot) {
       if (!querySnapshot.empty) {
         console.log("user exists");
@@ -124,7 +124,7 @@ function postFct() {
       } else {
         console.log("user doesnt exist???");
       }
-    });
+    });*/
 
     console.log("userDocRef: " + userDocRef);
     userDocRef.update({
@@ -140,6 +140,10 @@ function postFct() {
   });
 }
 
+function updateTravelMode() {
+  console.log('TravelMode ' + modeSelect.value);
+}
+
 function enableButton() {
   if (lnameInput.value && fnameInput.value && addressInput.value && languageInput.value) {
     submitBtn.removeAttribute('disabled');
@@ -150,7 +154,7 @@ function enableButton() {
 
 function enablePostButton() {
   console.log("so this IS being executed")
-  if (postTextInput.value && secretInput.value && addressTextInput.value && titleInput.value && (postImages.length>0)) {
+  if (postTextInput.value && secretInput.value && addressTextInput.value && titleInput.value && (postImages.length > 0)) {
     postBtn.removeAttribute('disabled');
   } else {
     postBtn.setAttribute('disabled', 'true');
@@ -196,9 +200,10 @@ function switchToChatFct() {
   };
 }
 
-function clearOldPosts(){
-  while(pagePost.firstChild)  {
-      pagePost.removeChild(pagePost.firstChild);}
+function clearOldPosts() {
+  while (pagePost.firstChild) {
+    pagePost.removeChild(pagePost.firstChild);
+  }
 }
 
 function loadNewPost() {
@@ -300,11 +305,13 @@ function getUserProfile() {
       const div = document.createElement('div');
       div.innerHTML = userProfileHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), firebase.auth().currentUser.email);
       document.getElementById('userProfile').appendChild(div);
-      const div2 = document.createElement('div');
-      div2.innerHTML = userProfileHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), firebase.auth().currentUser.email);
-      document.getElementById('userProfile-2').appendChild(div2);
     });
   });
+}
+
+function showNavBar(bool, searchBarDisplay) {
+  document.getElementById('navBar').style.display = bool ? 'block' : 'none';
+  document.getElementById('searchBar').style.display = searchBarDisplay ? 'block' : 'none';
 }
 
 function showScreen(s) {
@@ -314,6 +321,7 @@ function showScreen(s) {
   searchScreen.style.display = "none";
   chatScreen.style.display = "none";
   specificPostScreen.style.display = "none";
+  showNavBar(false, false);
   switch (s) {
     case 0:
       signinForm.style.display = "block";
@@ -323,11 +331,13 @@ function showScreen(s) {
       break;
     case 2:
       postingSpots.style.display = "block";
+      showNavBar(true, false);
       console.log("post images have been cleared 2");
       postImages = [];
       break;
     case 3:
       searchScreen.style.display = "block";
+      showNavBar(true, true);
       clearOldPosts();
       loadNewPost();
       break;
@@ -377,6 +387,7 @@ var postTitle = document.getElementById("postTitle");
 var addressTextInput = document.getElementById("addressTextInput");
 var ratingSlider = document.getElementById("ratingSlider");
 var searchBox = document.getElementById("search_box");
+var modeSelect = document.getElementById("modeSelect");
 
 //postingSpots
 var postImages = {};
@@ -406,6 +417,8 @@ addressTextInput.addEventListener('keyup', enablePostButton);
 addressTextInput.addEventListener('change', enablePostButton);
 titleInput.addEventListener('keyup', enablePostButton);
 titleInput.addEventListener('change', enablePostButton);
+
+modeSelect.addEventListener('change', updateTravelMode);
 
 // Remove the warning about timstamps change.
 var firestore = firebase.firestore();
@@ -508,48 +521,51 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-ratingSlider.addEventListener('change', function() {
-  docRef = firebase.firestore().collection('ratings').doc(ratingsId);
-  docRef.get().then(function(docSnap) {
-    usersArray = docSnap.get("users");
-    ratingsArray = docSnap.get("ratings");
+ratingSlider.addEventListener('change', ratingReadWrite);
+ratingSlider.addEventListener('keyup', ratingReadWrite);
+ratingSlider.addEventListener('input', ratingReadWrite);
 
-    if (!usersArray.includes(firebase.auth().currentUser.uid)) {
-      console.log("adding user and rating");
-      ratingsArray.push(ratingSlider.value);
-      usersArray.push(firebase.auth().currentUser.uid);
-      docRef.update({
-        ratings: ratingsArray,
-        users: usersArray,
-      }).catch(function(error) {
-        console.error('There was an error adding the current users rating', error);
-      });
-    } else {
-      ratingsArray[usersArray.indexOf(firebase.auth().currentUser.uid)] = ratingSlider.value;
-      docRef.update({
-        ratings: ratingsArray,
-      }).catch(function(error) {
-        console.error('There was an error updating the current users rating', error);
-      });
-    }
-    updateRatingDisplay();
-  });
-}, false);
+var prevRating =0;
+function ratingReadWrite(){if(ratingSlider.value != prevRating){
+  prevRating = ratingSlider.value;
+    docRef = firebase.firestore().collection('ratings').doc(ratingsId);
+    docRef.get().then(function(docSnap) {
+      usersArray = docSnap.get("users");
+      ratingsArray = docSnap.get("ratings");
 
-function updateRatingDisplay() {
-  ratingLabel.text = "Rating: " + getAvgRating();
+      if (!usersArray.includes(firebase.auth().currentUser.uid)) {
+        console.log("adding user and rating");
+        ratingsArray.push(ratingSlider.value);
+        usersArray.push(firebase.auth().currentUser.uid);
+        docRef.update({
+          ratings: ratingsArray,
+          users: usersArray,
+        }).catch(function(error) {
+          console.error('There was an error adding the current users rating', error);
+        });
+      } else {
+        ratingsArray[usersArray.indexOf(firebase.auth().currentUser.uid)] = ratingSlider.value;
+        docRef.update({
+          ratings: ratingsArray,
+        }).catch(function(error) {
+          console.error('There was an error updating the current users rating', error);
+        });
+      }
+      updateRatingDisplay();
+    });}
 }
 
-function getAvgRating() {
+function updateRatingDisplay() {
   firebase.firestore().collection('ratings').doc(ratingsId).get().then(function(docRef) {
     var rtgs = docRef.get("ratings");
-    console.log("ratings: " + rtgs)
+    var ratingsCount = rtgs.length;
     var total = 0;
-    for (var i = 0; i < rtgs.length; i++) {
-      total += rtgs[i];
+    while(rtgs.length>0){
+      total += parseInt(rtgs.pop());
     }
-    return total / rtgs.length;
+    ratingLabel.innerText = ('Rating: ' + (total / ratingsCount));
   }).catch(function(error) {
     console.error('error during average rating function', error);
+    ratingLabel.innerText = "error getting rating";
   });
 }
