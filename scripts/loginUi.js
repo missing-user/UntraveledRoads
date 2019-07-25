@@ -4,8 +4,6 @@ var userDocRef;
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-      // User successfully signed in.
-      accountForm.style.display = "block";
       console.log('signin success');
       var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
       var userDocId;
@@ -37,7 +35,8 @@ var uiConfig = {
 
     },
     uiShown: function() {
-      document.getElementById('login_loader').style.display = 'none';
+      mbhtm.style.display = "block";
+      prld.style.display = "none";
     }
   },
   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
@@ -62,6 +61,4 @@ var uiConfig = {
 ui.start('#firebaseui-auth-container', uiConfig);
 
 var mbhtm = document.getElementById('mainBody');
-mbhtm.style.display = "block";
 var prld = document.getElementById('pre_loader');
-prld.style.display = "none";
