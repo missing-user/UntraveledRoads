@@ -314,6 +314,7 @@ function showScreen(s) {
   searchScreen.style.display = "none";
   chatScreen.style.display = "none";
   specificPostScreen.style.display = "none";
+  specificChatScreen.style.display = "none";
   switch (s) {
     case 0:
       signinForm.style.display = "block";
@@ -337,6 +338,9 @@ function showScreen(s) {
       break;
     case 6:
       specificPostScreen.style.display = "block";
+      break;
+    case 7:
+      specificChatScreen.style.display = "block";
       break;
     default:
       searchScreen.style.display = "block";

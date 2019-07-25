@@ -31,6 +31,9 @@
       <button id="skip_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
         skip
       </button>
+      <button onclick="showScreen(7)" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        SKIP
+      </button>
       <br>
       <br>
       <div class="row">
@@ -319,28 +322,86 @@
       </ul>
 
       <div class="row">
-        <h1 class="col s12">Local near you</h1>
+        <h1 class="col s12">Locals near you</h1>
+
+        <ul class="collection">
+          <li class="collection-item avatar">
+            <img src="images/IMG_1433.jpg" alt="" class="circle">
+            <span class="title"><b1>Title</b1></span> <br>
+            <b2>First Line</b2>
+          </li>
+          <li class="collection-item avatar">
+            <img src="images/IMG_1433.jpg" alt="" class="circle">
+            <span class="title"><b1>Title</b1></span> <br>
+            <b2>First Line</b2>
+          </li>
+          <li class="collection-item avatar">
+            <img src="images/IMG_1433.jpg" alt="" class="circle">
+            <span class="title"><b1>Title</b1></span> <br>
+            <b2>First Line</b2>
+          </li>
+        </ul>
+
+        <i class="medium material-icons" id="specificChatScreenButton" onclick="showScreen(7)">message</i>
       </div>
     </div>
 
-  </div>
-  <!--main body ends-->
+    <div id="specificChatScreen">
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
+            <a id="backCont" class="waves-effect float left-padding-1">
+              <i class="large material-icons red-text text-lighten-3" id="backButton" onclick="showScreen(5)">navigate_before</i>
+            </a>
+          </div>
+        </nav>
+      </div>
+
+      <b1>HEKFFAIVASFADF</b1>
+      <br>
+      <b1>HEKFFAIVASFADF</b1>
+      <br>
+      <b1>HEKFFAIVASFADF</b1>
+      <br>
+
+      <div class="navbar-stay-at-bottom white z-depth-2">
+        <div class="chatBarBox">
+          <div class="row">
+            <div class="col s9" style="position: relative; top: 2rem">
+              <form>
+                <div class="input-field">
+                  <textarea id="chatInput" type="text" class="materialize-textarea" data-length="400"></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="col s3 center">
+              <button id="send_btn" onclick="" class="waves-effect waves-light btn red lighten-3">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!--main body ends-->
 
 
-  <!-- Import and configure the Firebase SDK -->
-  <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
-  <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
-  <script src="/__/firebase/6.2.4/firebase-app.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
-  <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
-  <script src="/__/firebase/init.js"></script>
+    <!-- Import and configure the Firebase SDK -->
+    <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
+    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+    <script src="/__/firebase/init.js"></script>
 
-  <script src="scripts/materialize.js"></script>
-  <script src="scripts/loginUi.js"></script>
-  <script src="scripts/main.js"></script>
-  <!--<script src="scripts/geo.js"></script> -->
+    <script src="scripts/materialize.js"></script>
+    <script src="scripts/loginUi.js"></script>
+    <script src="scripts/main.js"></script>
+    <!--<script src="scripts/geo.js"></script> -->
 </body>
 
 </html>

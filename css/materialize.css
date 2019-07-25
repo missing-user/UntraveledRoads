@@ -3095,7 +3095,7 @@ td, th {
 }
 
 .collection .collection-item.avatar {
-  min-height: 84px;
+  min-height: /*85px*/ 65px;
   padding-left: 72px;
   position: relative;
 }
