@@ -70,7 +70,7 @@ h1 {
 
 h2 {
   font-family: Ubuntu, Roboto, sans-serif;
-  font-size: 1.125em;
+  font-size: 1.25em;
   font-weight: 400;
   font-kerning: auto;
   font-stretch: 130%;
@@ -200,6 +200,13 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .navbar-stay-at-bottom .chatBarBox {
   flex: 1;
+}
+
+.fake-navbar {
+  top: 0;
+  width: 100%;
+  position: fixed;
+  height: 56px;
 }
 
 /* column
