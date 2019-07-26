@@ -41,7 +41,7 @@ function onMediaFileSelected(event, coll) {
   };
 }
 
-var LOADING_IMAGE_URL = 'https://loading.io/spinners/typing/lg.-text-entering-comment-loader.gif';
+var LOADING_IMAGE_URL = 'https://i.ibb.co/9HjHbnY/optimiyed-Gif25fps.gif';
 var lastPostImage = '';
 
 function saveImageFile(file, coll) {

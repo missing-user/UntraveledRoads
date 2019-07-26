@@ -19,3 +19,5 @@ future plans:
 --interesting sites
 --events (flooding the roads tradition, Maibaum)
 --timely events (relevance changes during year) with calendar functionality
+
+hover effect for individual posts, bigger preview text, limit preview text length, desktop stuff...

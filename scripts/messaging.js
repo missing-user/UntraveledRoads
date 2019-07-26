@@ -11,6 +11,29 @@ function saveMessage(messageText) {
   });
 }
 
+function onMessageFileSelected(event) {
+  console.log('its being triggered')
+  event.preventDefault();
+  var file = event.target.files[0];
+
+  // Clear the selection in the file picker input.
+  imageFormElement.reset();
+
+  // Check if the file is an image.
+  if (!file.type.match('image.*')) {
+    var data = {
+      message: 'You can only share images',
+      timeout: 2000
+    };
+    signInSnackbarElement.MaterialSnackbar.showSnackbar(data);
+    return;
+  }
+  // Check if the user is signed-in
+  if (checkSignedInWithMessage()) {
+    saveImageMessage(file);
+  }
+}
+
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages() {
   // Create the query to load the last 12 messages and listen for new ones.
@@ -67,9 +90,19 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
     messageElement.appendChild(image);
   }
   // Show the card fading-in and scroll to view the new message.
-  setTimeout(function() {div.classList.add('visible')}, 1);
+  setTimeout(function() {
+    div.classList.add('visible')
+  }, 1);
   messageListElement.scrollTop = messageListElement.scrollHeight;
   messageInputElement.focus();
+}
+
+function deleteMessage(id) {
+  var div = document.getElementById(id);
+  // If an element for that message exists we delete it.
+  if (div) {
+    div.parentNode.removeChild(div);
+  }
 }
 
 // Saves a new message containing an image in Firebase.
@@ -82,7 +115,6 @@ function saveImageMessage(file) {
     profilePicUrl: getProfilePicUrl(),
     timestamp: firebase.firestore.FieldValue.serverTimestamp()
   }).then(function(messageRef) {
-    console.error('kill me now, pleeeeeease');
     var filePath = firebase.auth().currentUser.uid + '/' + messageRef.id + '/' + file.name;
     return firebase.storage().ref(filePath).put(file).then(function(fileSnapshot) {
       // 3 - Generate a public URL for the file.
@@ -101,16 +133,15 @@ function saveImageMessage(file) {
 
 function resetMaterialTextfield(element) {
   element.value = '';
-  element.parentNode.MaterialTextfield.boundUpdateClassesHandler();
 }
 
 // Template for messages.
 var MESSAGE_TEMPLATE =
-    '<div class="message-container">' +
-      '<div class="spacing"><div class="pic"></div></div>' +
-      '<div class="message"></div>' +
-      '<div class="name"></div>' +
-    '</div>';
+  '<div class="message-container">' +
+  '<div class="spacing"><div class="pic"></div></div>' +
+  '<div class="message"></div>' +
+  '<div class="name"></div>' +
+  '</div>';
 
 // Adds a size to Google Profile pics URLs.
 function addSizeToGoogleProfilePic(url) {
@@ -119,25 +150,44 @@ function addSizeToGoogleProfilePic(url) {
   }
   return url;
 }
+
 function checkSetup() {
   if (!window.firebase || !(firebase.app instanceof Function) || !firebase.app().options) {
     window.alert('You have not configured and imported the Firebase SDK. ' +
-        'Make sure you go through the codelab setup instructions and make ' +
-        'sure you are running the codelab using `firebase serve`');
+      'Make sure you go through the codelab setup instructions and make ' +
+      'sure you are running the codelab using `firebase serve`');
   }
 }
 
-// Checks that Firebase has been imported.
+function onMessageFormSubmit() {
+  // Check that the user entered a message and is signed in.
+  if (messageInputElement.value && checkSignedInWithMessage()) {
+    saveMessage(messageInputElement.value).then(function() {
+      // Clear message text field and re-enable the SEND button.
+      resetMaterialTextfield(messageInputElement);
+      toggleButton();
+    });
+  }
+}
+
+function toggleButton() {
+  if (messageInputElement.value) {
+    //submitButtonElement.removeAttribute('disabled');
+    submitButtonElement.style.display = 'block';
+  } else {
+    //submitButtonElement.setAttribute('disabled', 'true');
+    submitButtonElement.style.display = 'none';
+  }
+}
 checkSetup();
 
 var messageListElement = document.getElementById('messages');
-var messageFormElement = document.getElementById('message-form');
-var messageInputElement = document.getElementById('message');
-var submitButtonElement = document.getElementById('submit');
-var imageButtonElement = document.getElementById('submitImage');
+var messageInputElement = document.getElementById('chatInput');
+var submitButtonElement = document.getElementById('send_btn');
+var mediaCaptureElem = document.getElementById('mediaCapture');
 var imageFormElement = document.getElementById('image-form');
-var mediaCaptureElement = document.getElementById('mediaCapture');
-var userPicElement = document.getElementById('user-pic');
-var userNameElement = document.getElementById('user-name');
+messageInputElement.addEventListener('keyup', toggleButton);
+messageInputElement.addEventListener('change', toggleButton);
 
+mediaCaptureElem.addEventListener('change', onMessageFileSelected);
 loadMessages();

@@ -27,7 +27,7 @@
              keySplines="0.2 0.40 0.4 0.92;
              0.6 0.08 0.8 0.60" />
                          <g style="clip-rule:evenodd;display:inline;opacity:1;fill-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" id="g6677">
-      <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="360 187.92189 402.94242" to="0 187.92189 402.94242" dur="5s" repeatCount="indefinite" />
+      <animateTransform attributeName="transform" attributeType="XML" type="rotate" from="360 187.92189 402.94242" to="0 187.92189 402.94242" dur="4.6s" repeatCount="indefinite" />
 
       <g style="clip-rule:evenodd;fill-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" transform="matrix(1.0295657,0,0,1.0295657,-68.248847,37.996239)" id="g81-9">
         <g id="g79-5">
