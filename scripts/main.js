@@ -352,6 +352,7 @@ function showScreen(s) {
       break;
     case 7:
       specificChatScreen.style.display = "block";
+      loadMessages();
       break;
     default:
       searchScreen.style.display = "block";
@@ -474,7 +475,7 @@ function imageGalleryListHtml(imgUrl) {
 
 function createPostHtml(postId, titl, testImg, txt) {
   return `
-      <div class="col s12">
+      <div class="col s12 ">
         <div id="${postId}" onclick="" class="card waves-effect waves-block waves-light">
           <div class="card-image">
             <img src=${testImg}>

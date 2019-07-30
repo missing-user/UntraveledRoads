@@ -36,32 +36,37 @@ function onMessageFileSelected(event) {
 
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages() {
-  // Create the query to load the last 12 messages and listen for new ones.
-  var query = firebase.firestore().collection('messages').orderBy('timestamp', 'desc').limit(12);
+  if (!query) {
+    var query = firebase.firestore().collection('messages').orderBy('timestamp', 'desc').limit(20);
 
-  // Start listening to the query.
-  query.onSnapshot(function(snapshot) {
-    snapshot.docChanges().forEach(function(change) {
-      if (change.type === 'removed') {
-        deleteMessage(change.doc.id);
-      } else {
-        var message = change.doc.data();
-        displayMessage(change.doc.id, message.timestamp, message.name,
-          message.text, message.profilePicUrl, message.imageUrl);
-      }
+    console.log("now loading messages");
+    //TODO figure out if subscription is being taken care of, or if it stays alive
+
+     
+    // Start listening to the query.
+    query.onSnapshot(function(snapshot) {
+      snapshot.docChanges().forEach(function(change) {
+        if (change.type === 'removed') {
+          deleteMessage(change.doc.id);
+        } else {
+          var message = change.doc.data();
+          displayMessage(change.doc.id, message.timestamp, message.name,
+            message.text, message.profilePicUrl, message.imageUrl);
+        }
+      });
     });
-  });
+  }
 }
 
 function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
-  var div = document.getElementById(id);
+  var divy = document.getElementById(id);
   // If an element for that message does not exists yet we create it.
-  if (!div) {
+  if (!divy) {
     var container = document.createElement('div');
     container.innerHTML = MESSAGE_TEMPLATE;
-    div = container.firstChild;
-    div.setAttribute('id', id);
-    div.setAttribute('timestamp', timestamp);
+    divy = container.firstChild;
+    divy.setAttribute('id', id);
+    divy.setAttribute('timestamp', timestamp);
     for (var i = 0; i < messageListElement.children.length; i++) {
       var child = messageListElement.children[i];
       var time = child.getAttribute('timestamp');
@@ -69,39 +74,41 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
         break;
       }
     }
-    messageListElement.insertBefore(div, child);
+    messageListElement.insertBefore(divy, child);
   }
   if (picUrl) {
-    div.querySelector('.pic').style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
+    divy.querySelector('.pic').style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
   }
-  div.querySelector('.name').textContent = name;
-  var messageElement = div.querySelector('.message');
+  divy.querySelector('.name').textContent = name;
+  var messageElement = divy.querySelector('.message');
   if (text) { // If the message is text.
     messageElement.textContent = text;
     // Replace all line breaks by <br>.
     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
   } else if (imageUrl) { // If the message is an image.
     var image = document.createElement('img');
+    image.className = 'responsive-img materialboxed';
     image.addEventListener('load', function() {
       messageListElement.scrollTop = messageListElement.scrollHeight;
     });
     image.src = imageUrl + '&' + new Date().getTime();
     messageElement.innerHTML = '';
     messageElement.appendChild(image);
+    M.Materialbox.init(image, {});
   }
   // Show the card fading-in and scroll to view the new message.
   setTimeout(function() {
-    div.classList.add('visible')
+    divy.classList.add('visible')
   }, 1);
   messageListElement.scrollTop = messageListElement.scrollHeight;
   messageInputElement.focus();
 }
 
 function deleteMessage(id) {
-  var div = document.getElementById(id);
+  var divy = document.getElementById(id);
   // If an element for that message exists we delete it.
-  if (div) {
-    div.parentNode.removeChild(div);
+  if (divy) {
+    divy.parentNode.removeChild(divy);
   }
 }
 
@@ -190,4 +197,3 @@ messageInputElement.addEventListener('keyup', toggleButton);
 messageInputElement.addEventListener('change', toggleButton);
 
 mediaCaptureElem.addEventListener('change', onMessageFileSelected);
-loadMessages();

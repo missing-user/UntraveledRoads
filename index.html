@@ -33,23 +33,11 @@
   </div>
   <div id="mainBody" style="display: none">
     <div id="signinForm">
+
       <div class="row">
         <div class="col s12 center">
-          <button onclick="showScreen(7)" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            SKIP
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 center">
-          <button id="skip_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            skip
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 center">
-          <img class="front-page-logo" src="images\g128.png">
+          <div class="section">
+            <img class="front-page-logo" src="images\g128.png"></div>
         </div>
       </div>
       <div id="firebaseui-auth-container"></div>
@@ -167,7 +155,7 @@
           <div class="input-field" style="position: relative; top: -0.5rem">
             <input id="title_input" type="text" class="validate">
             <label for="title_input">
-              <b1>Name</b1>
+              <b1>Title</b1>
             </label>
           </div>
           <div class="input-field" style="position: relative; top: -1rem">
@@ -347,7 +335,7 @@
             </div>
           </div>
         </div>
-      </div></div>-->
+      </div>-->
 
 
       <div class="fake-navbar z-depth-2 ur-bg-gradient-2">
@@ -358,7 +346,6 @@
       </div>
 
       <div id="messages">
-        <b1> insert messages here </b1>
       </div>
 
       <div class="navbar-stay-at-bottom white z-depth-2">
@@ -369,13 +356,15 @@
 
 
                 <div class="input-field file-field col s2">
-                    <button class="waves-effect waves-light btn red lighten-3">
-                      <i class="material-icons">image</i><form id="image-form" action="#">
-                      <input id="mediaCapture" accept="image/*"  type="file">
+                  <button class="waves-effect waves-light btn red lighten-3">
+                    <i class="material-icons">image</i>
+                    <form id="image-form" action="#">
+                      <input id="mediaCapture" accept="image/*" type="file">
                       <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">
-                      </div></form>
-                    </button>
+                      </div>
+                    </form>
+                  </button>
                 </div>
 
 
@@ -393,24 +382,25 @@
           </div>
         </div>
       </div>
-      <!--main body ends-->
+    </div>
+    <!--main body ends-->
 
 
-      <!-- Import and configure the Firebase SDK -->
-      <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
-      <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
-      <script src="/__/firebase/6.2.4/firebase-app.js"></script>
-      <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
-      <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
-      <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
-      <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
-      <script src="/__/firebase/init.js"></script>
+    <!-- Import and configure the Firebase SDK -->
+    <script src="node_modules/firebaseui/dist/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="node_modules/firebaseui/dist/firebaseui.css" />
+    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+    <script src="/__/firebase/init.js"></script>
 
-      <script src="scripts/materialize.js"></script>
-      <script src="scripts/loginUi.js"></script>
-      <script src="scripts/main.js"></script>
-      <script src="scripts/messaging.js"></script>
-      <!--<script src="scripts/geo.js"></script> -->
+    <script src="scripts/materialize.js"></script>
+    <script src="scripts/loginUi.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/messaging.js"></script>
+    <!--<script src="scripts/geo.js"></script> -->
 </body>
 
 </html>
