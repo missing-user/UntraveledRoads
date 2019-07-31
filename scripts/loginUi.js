@@ -18,7 +18,8 @@ var uiConfig = {
                 lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
                 profilePicUrl: getProfilePicUrl(),
               });
-            });getUserProfile();
+            });
+            getUserProfile();
             return false;
           } else {
             showScreen(1);

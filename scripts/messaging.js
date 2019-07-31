@@ -68,20 +68,24 @@ function loadUsers() {
       querySnapshot.forEach(function(doc) {
         const liElement = document.createElement('li');
         liElement.className = 'collection-item avatar';
+        liElement.id = doc.get('uid');
         liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'start chatting now');
         usersList.appendChild(liElement);
 
-        document.getElementById(doc.id).onclick = function() {
-          postSelected(this.id);
+        document.getElementById(doc.get('uid')).onclick = function() {
+          startChatting(this.id);
         };
-
-
 
       });
     })
     .catch(function(error) {
       console.error("Error getting user documents: ", error);
     });
+}
+
+function startChatting(otherUid){
+  console.log(firebase.auth().currentUser.uid+' is now talking to '+ otherUid);
+  showScreen(7);
 }
 
 function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
@@ -225,7 +229,7 @@ mediaCaptureElem.addEventListener('change', onMessageFileSelected);
 
 function userListHTML(imgSrc, name, desc) {
   return `
-    <img src=${imgSrc} class="circle">
+    <img src=${imgSrc} class="circle"/>
     <span class="title">
       <b1>${name}</b1>
     </span> <br>

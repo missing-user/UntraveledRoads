@@ -194,7 +194,6 @@ function switchToChatFct() {
 }
 
 function clearOldPosts() {
-  console.log('posts are beig clwared');
   while (pagePost.firstChild) {
     pagePost.removeChild(pagePost.firstChild);
   }
@@ -324,8 +323,13 @@ function showScreen(s) {
     case 2:
       postingSpots.style.display = "block";
       showNavBar(true, false);
-      document.getElementById("postForm").reset();
+      titleInput.value = "";
+      secretInput.value = "";
+      addressTextInput.value = "";
+      postTextInput.value = "";
       postImages = [];
+      M.updateTextFields();
+      document.getElementById("filePickerForm").reset();
       break;
     case 3:
       searchScreen.style.display = "block";
