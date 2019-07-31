@@ -36,26 +36,52 @@ function onMessageFileSelected(event) {
 
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages() {
-  if (!query) {
-    var query = firebase.firestore().collection('messages').orderBy('timestamp', 'desc').limit(20);
+  var query = firebase.firestore().collection('messages').orderBy('timestamp', 'desc').limit(20);
 
-    console.log("now loading messages");
-    //TODO figure out if subscription is being taken care of, or if it stays alive
+  console.log("now loading messages");
+  //TODO figure out if subscription is being taken care of, or if it stays alive
 
-     
-    // Start listening to the query.
-    query.onSnapshot(function(snapshot) {
-      snapshot.docChanges().forEach(function(change) {
-        if (change.type === 'removed') {
-          deleteMessage(change.doc.id);
-        } else {
-          var message = change.doc.data();
-          displayMessage(change.doc.id, message.timestamp, message.name,
-            message.text, message.profilePicUrl, message.imageUrl);
-        }
-      });
+  // Start listening to the query.
+  query.onSnapshot(function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+      if (change.type === 'removed') {
+        deleteMessage(change.doc.id);
+      } else {
+        var message = change.doc.data();
+        displayMessage(change.doc.id, message.timestamp, message.name,
+          message.text, message.profilePicUrl, message.imageUrl);
+      }
     });
+  });
+}
+
+function loadUsers() {
+  while (usersList.firstChild) {
+    usersList.removeChild(usersList.firstChild);
   }
+
+  var query = firebase.firestore().collection('users').where('willingToMeet', '==', true).limit(20);
+
+  console.log("now loading users");
+  // Start listening to the query.
+  query.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        const liElement = document.createElement('li');
+        liElement.className = 'collection-item avatar';
+        liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'start chatting now');
+        usersList.appendChild(liElement);
+
+        document.getElementById(doc.id).onclick = function() {
+          postSelected(this.id);
+        };
+
+
+
+      });
+    })
+    .catch(function(error) {
+      console.error("Error getting user documents: ", error);
+    });
 }
 
 function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
@@ -112,8 +138,6 @@ function deleteMessage(id) {
   }
 }
 
-// Saves a new message containing an image in Firebase.
-// This first saves the image in Firebase storage.
 function saveImageMessage(file) {
   // 1 - We add a message with a loading icon that will get updated with the shared image.
   firebase.firestore().collection('messages').add({
@@ -193,7 +217,17 @@ var messageInputElement = document.getElementById('chatInput');
 var submitButtonElement = document.getElementById('send_btn');
 var mediaCaptureElem = document.getElementById('mediaCapture');
 var imageFormElement = document.getElementById('image-form');
+var usersList = document.getElementById('availableUsersList');
 messageInputElement.addEventListener('keyup', toggleButton);
 messageInputElement.addEventListener('change', toggleButton);
 
 mediaCaptureElem.addEventListener('change', onMessageFileSelected);
+
+function userListHTML(imgSrc, name, desc) {
+  return `
+    <img src=${imgSrc} class="circle">
+    <span class="title">
+      <b1>${name}</b1>
+    </span> <br>
+    <b2>${desc}</b2>`;
+}

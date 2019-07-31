@@ -149,22 +149,22 @@
 
     <div id="postingSpots">
       <div class="row">
-        <div class="col s10 offset-s1" style="position: relative; top: 1rem">
-          <h1>Post a local spot</h1>
-          <b2 style="position: relative; top: -1rem">Post your favorite spots so travelers can see where locals go!</b2>
-          <div class="input-field" style="position: relative; top: -0.5rem">
-            <input id="title_input" type="text" class="validate">
-            <label for="title_input">
-              <b1>Title</b1>
-            </label>
-          </div>
-          <div class="input-field" style="position: relative; top: -1rem">
-            <input id="addressTextInput" type="text" class="validate">
-            <label for="addressTextInput">
-              <b1>Address</b1>
-            </label>
-          </div>
-          <form>
+        <form id="postForm">
+          <div class="col s10 offset-s1" style="position: relative; top: 1rem">
+            <h1>Post a local spot</h1>
+            <b2 style="position: relative; top: -1rem">Post your favorite spots so travelers can see where locals go!</b2>
+            <div class="input-field" style="position: relative; top: -0.5rem">
+              <input id="title_input" type="text" class="validate">
+              <label for="title_input">
+                <b1>Title</b1>
+              </label>
+            </div>
+            <div class="input-field" style="position: relative; top: -1rem">
+              <input id="addressTextInput" type="text" class="validate">
+              <label for="addressTextInput">
+                <b1>Address</b1>
+              </label>
+            </div>
             <div class="input-field" style="position: relative; top: -1.5rem">
               <textarea id="post_txt_input" type="text" class="materialize-textarea validate" data-length="400"></textarea>
               <label for="post_txt_input">
@@ -177,27 +177,22 @@
                 <b1>Secret local tips</b1>
               </label>
             </div>
-          </form>
 
-          <div class="col s12" style="position: relative; top: -3.25rem; right: 1.5rem">
-            <div class="file-field input-field">
-              <input type="file" multiple id="upload_post_pic">
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Upload one or more pictures">
+            <div class="col s12" style="position: relative; top: -3.25rem; right: 1.5rem">
+              <div class="file-field input-field">
+                <input type="file" multiple id="upload_post_pic">
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload one or more pictures">
+                </div>
               </div>
             </div>
+            <div class="col s12" style="position: relative; top: -3.75rem; right: 0.75rem">
+              <button id="post_btn" onclick="postFct(); switchToSearchFct()" disabled class="waves-effect waves-light btn red lighten-3">
+                Post
+              </button>
+            </div>
           </div>
-          <div class="col s12" style="position: relative; top: -3.75rem; right: 0.75rem">
-            <button id="post_btn" onclick="postFct(); switchToSearchFct()" disabled class="waves-effect waves-light btn red lighten-3">
-              Post
-            </button>
-          </div>
-          <!--<button id="search_btn" onclick="switchToSearchFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            Search
-          </button><br><button id="chat_btn" onclick="switchToChatFct()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            chat
-          </button>-->
-        </div>
+        </form>
       </div>
     </div>
 
@@ -240,29 +235,7 @@
     <div id="chatScreen">
       <div class="row">
         <h1 class="col s12">Locals near you</h1>
-
-        <ul class="collection">
-          <li class="collection-item avatar">
-            <img src="images/IMG_1433.jpg" alt="" class="circle">
-            <span class="title">
-              <b1>Title</b1>
-            </span> <br>
-            <b2>First Line</b2>
-          </li>
-          <li class="collection-item avatar">
-            <img src="images/IMG_1433.jpg" alt="" class="circle">
-            <span class="title">
-              <b1>Title</b1>
-            </span> <br>
-            <b2>First Line</b2>
-          </li>
-          <li class="collection-item avatar">
-            <img src="images/IMG_1433.jpg" alt="" class="circle">
-            <span class="title">
-              <b1>Title</b1>
-            </span> <br>
-            <b2>First Line</b2>
-          </li>
+        <ul class="collection" id="availableUsersList">
         </ul>
 
         <i class="medium material-icons" id="specificChatScreenButton" onclick="showScreen(7)">message</i>
@@ -270,74 +243,6 @@
     </div>
 
     <div id="specificChatScreen">
-
-      <!--<nav>
-        <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
-          <a id="backCont" class="waves-effect float">
-            <i class="medium material-icons white-text" id="backButton" onclick="showScreen(5)">navigate_before</i>
-          </a>
-          <h2 class="white-text float center" style="position: relative; top: -3.875rem">Name</h2>
-        </div>
-      </nav>
-
-      <div class="container">
-        <div class="row">
-          <div class="col s12 m9 l9">
-            <div class="row left-align">
-              <div class="col s12 m8 l6 left">
-
-                <div class="row valign-wrapper">
-                  <div class="col s2" style="margin-top:-22px; margin-right:-10px;">
-                    <img src="https://lh5.googleusercontent.com/-d6V2Y2HV0FU/AAAAAAAAAAI/AAAAAAAAACA/iuRJhY_1XPs/s96-c/photo.jpg" height="100" width="" alt="100" class="circle responsive-img">
-                  </div>
-                  <div class="chat-field red">
-                    <span class="chat-message white-text">
-                      This is a square image. Add the "circle" class to it to make it appear circular.
-                    </span>
-                    <div class="example"></div>
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="row right-align">
-              <div class="col s12 m8 l6 right">
-                <div class="row valign-wrapper">
-                  <div class="chat-field2 grey">
-                    <span class="chat-message white-text">
-                      This is a square image. Add the "circle" class to it to make it appear circular.
-                    </span>
-                    <div class="example2"></div>
-                  </div>
-                  <div class="col s2" style="margin-top:-22px; margin-right:-10px;">
-                    <img src="https://lh5.googleusercontent.com/-d6V2Y2HV0FU/AAAAAAAAAAI/AAAAAAAAACA/iuRJhY_1XPs/s96-c/photo.jpg" height="100" width="" alt="100" class="circle responsive-img">
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-        </div>
-        <div class="navbar-stay-at-bottom white z-depth-2">
-        <div class="row">
-          <div class="col s12">
-            <div class="input-field col s9">
-              <input placeholder="type your message here " id="first_name" type="text" class="validate">
-            </div>
-            <div class="input-field col s3">
-              <button id="send_btn" onclick="" class="waves-effect waves-light btn red lighten-3">
-                Send
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>-->
-
-
       <div class="fake-navbar z-depth-2 ur-bg-gradient-2">
         <a id="backCont" class="waves-effect float">
           <i class="medium material-icons white-text" id="backButton" onclick="showScreen(5)">navigate_before</i>

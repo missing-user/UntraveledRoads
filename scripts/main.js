@@ -24,8 +24,6 @@ function onMediaFileSelected(event, coll) {
   for (var i = 0, f; f = files[i]; i++) {
     var file = f;
     console.log('file uploading...');
-    // Clear the selection in the file picker input.
-    //imageFormElement.reset();
 
     if (!file.type.match('image.*')) {
       var data = {
@@ -103,15 +101,11 @@ function postFct() {
       text: postTextInput.value,
       address: addressTextInput.value,
       secrets: secretInput.value,
-      locationHash: secretInput.value,
+      locationHash: addressTextInput.value,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     }).catch(function(error) {
       console.error("Error adding to collection: ", error);
     });
-
-    console.log("these images have been posted:" + postImages);
-
-
     var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
     /*var userDocId;
     query.get().then(function(querySnapshot) {
@@ -153,7 +147,6 @@ function enableButton() {
 }
 
 function enablePostButton() {
-  console.log("so this IS being executed")
   if (postTextInput.value && secretInput.value && addressTextInput.value && titleInput.value && (postImages.length > 0)) {
     postBtn.removeAttribute('disabled');
   } else {
@@ -201,6 +194,7 @@ function switchToChatFct() {
 }
 
 function clearOldPosts() {
+  console.log('posts are beig clwared');
   while (pagePost.firstChild) {
     pagePost.removeChild(pagePost.firstChild);
   }
@@ -251,8 +245,6 @@ function openPost(pid) {
     userinfo.removeChild(userinfo.lastChild);
   }
 
-
-  console.log("pid: " + pid);
   var collection = firebase.firestore().collection('posts');
   collection.doc(pid).get().then(function(docRef) {
     var imageUrls = docRef.get("imageUrls");
@@ -298,7 +290,6 @@ function getUserInfo(uid) {
 }
 
 function getUserProfile() {
-  console.log("it's getting called :)")
   var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
   query.get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
@@ -333,7 +324,7 @@ function showScreen(s) {
     case 2:
       postingSpots.style.display = "block";
       showNavBar(true, false);
-      console.log("post images have been cleared 2");
+      document.getElementById("postForm").reset();
       postImages = [];
       break;
     case 3:
@@ -346,6 +337,7 @@ function showScreen(s) {
     case 5:
       showNavBar(true, true);
       chatScreen.style.display = "block";
+      loadUsers();
       break;
     case 6:
       specificPostScreen.style.display = "block";
@@ -529,9 +521,11 @@ ratingSlider.addEventListener('change', ratingReadWrite);
 ratingSlider.addEventListener('keyup', ratingReadWrite);
 ratingSlider.addEventListener('input', ratingReadWrite);
 
-var prevRating =0;
-function ratingReadWrite(){if(ratingSlider.value != prevRating){
-  prevRating = ratingSlider.value;
+var prevRating = 0;
+
+function ratingReadWrite() {
+  if (ratingSlider.value != prevRating) {
+    prevRating = ratingSlider.value;
     docRef = firebase.firestore().collection('ratings').doc(ratingsId);
     docRef.get().then(function(docSnap) {
       usersArray = docSnap.get("users");
@@ -556,7 +550,8 @@ function ratingReadWrite(){if(ratingSlider.value != prevRating){
         });
       }
       updateRatingDisplay();
-    });}
+    });
+  }
 }
 
 function updateRatingDisplay() {
@@ -564,7 +559,7 @@ function updateRatingDisplay() {
     var rtgs = docRef.get("ratings");
     var ratingsCount = rtgs.length;
     var total = 0;
-    while(rtgs.length>0){
+    while (rtgs.length > 0) {
       total += parseInt(rtgs.pop());
     }
     ratingLabel.innerText = ('Rating: ' + (total / ratingsCount));
