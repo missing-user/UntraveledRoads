@@ -26,9 +26,12 @@
 
 <body>
   <div class="valign-wrapper" id="pre_loader" style="display: block">
-    <div class="col s12 offset-s4 center">
-      <br><br><br><br><br><br>
-      <img src="Images/preload.svg" />
+
+    <div class="col s12 center">
+      <br><br><br><br><br>
+      <div class="section">
+        <img src="Images/preload.svg" />
+      </div>
     </div>
   </div>
   <div id="mainBody" style="display: none">
@@ -41,6 +44,21 @@
         </div>
       </div>
       <div id="firebaseui-auth-container"></div>
+    </div>
+
+    <div id="loadingDiv">
+      <div class="row">
+      </div>
+      <div class="row">
+      </div>
+      <div class="col s12 center">
+        <div class="section">
+          <img src="Images/preload.svg" />
+        </div>
+      </div>
+      <div class='row center'>
+        <b1 id='loadingText' class="white-text">Error</b1>
+      </div>
     </div>
 
     <div id="accountForm">
@@ -108,7 +126,7 @@
             <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="left hide-on-med-and-down">
               <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect white">HOME</a>
-              <a id="messagesButton" onclick="showScreen(5); closeSideNavs()" class="waves-effect white">MESSAGES</a>
+              <a id="messagesButton" onclick="switchToChatFct(); closeSideNavs()" class="waves-effect white">MESSAGES</a>
               <a id="messageButton" onclick="showScreen(2); closeSideNavs()" class="waves-effect white">POST A SPOT</a>
             </ul>
             <form id='searchBar' class="left-padding-4" action="#">
@@ -141,7 +159,7 @@
         </div>
         <div class="divider indigo lighten-3"></div>
         <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
-        <li><a class="waves-effect white-text" id="messagesButton" onclick="showScreen(5); closeSideNavs()">MESSAGES</a></li>
+        <li><a class="waves-effect white-text" id="messagesButton" onclick="switchToChatFct(); closeSideNavs()">MESSAGES</a></li>
         <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a></li>
       </ul>
     </div>

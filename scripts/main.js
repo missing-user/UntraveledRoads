@@ -77,6 +77,7 @@ function submitFct() {
     lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
     profilePicUrl: getProfilePicUrl(),
     willingToMeet: travelConnectChk.value == "on",
+    travelMode: false,
     postCount: 0,
   }).then(function(docRef) {
     userDocRef = docRef;
@@ -106,25 +107,11 @@ function postFct() {
     }).catch(function(error) {
       console.error("Error adding to collection: ", error);
     });
-    var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
-    /*var userDocId;
-    query.get().then(function(querySnapshot) {
-      if (!querySnapshot.empty) {
-        console.log("user exists");
-        querySnapshot.forEach(function(documentSnapshot) {
-          userDocId = documentSnapshot.id;
-          userDocRef = firebase.firestore().collection('users').doc(userDocId);
-        });
-      } else {
-        console.log("user doesnt exist???");
-      }
-    });*/
 
-    console.log("userDocRef: " + userDocRef);
     userDocRef.update({
       postCount: firebase.firestore.FieldValue.increment(1),
     }).catch(function(error) {
-      console.error("Error: ", error);
+      console.error("Error incrementing post count: ", error);
     });
     console.log("post images have been cleared 1");
     postImages = [];
@@ -135,7 +122,12 @@ function postFct() {
 }
 
 function updateTravelMode() {
-  console.log('TravelMode ' + modeSelect.checked);
+  userDocRef.update({
+    travelMode: modeSelect.checked,
+  }).catch(function(error) {
+    console.error("Error updating travel mode: ", error);
+  });
+  closeSideNavs();
 }
 
 function enableButton() {
@@ -174,23 +166,15 @@ function switchTospecificPostScreen() {
   showScreen(6);
 }
 
-function hasUserPosted() {
+function switchToChatFct() {
   var query = firebase.firestore().collection('posts').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
   query.get().then(function(querySnapshot) {
     if (!querySnapshot.empty) {
-      return false;
+      showScreen(5);
     } else {
-      return true;
-    }
+      console.log("you have to post before chatting with people");
+    };
   });
-}
-
-function switchToChatFct() {
-  if (hasUserPosted()) {
-    showScreen(5);
-  } else {
-    console.log("you have to post before chatting with people");
-  };
 }
 
 function clearOldPosts() {
@@ -312,6 +296,7 @@ function showScreen(s) {
   chatScreen.style.display = "none";
   specificPostScreen.style.display = "none";
   specificChatScreen.style.display = "none";
+  loadingScreen.style.display = "none";
   showNavBar(false, false);
   switch (s) {
     case 0:
@@ -350,8 +335,9 @@ function showScreen(s) {
       specificChatScreen.style.display = "block";
       loadMessages();
       break;
+      case 8: loadingScreen.style.display = "block"; break;
     default:
-      searchScreen.style.display = "block";
+      showLoadingScreen('error showing right screen');
       break;
   }
 }
@@ -368,7 +354,7 @@ var languageInput = document.getElementById('language_input');
 var travelConnectChk = document.getElementById('traveler_connect_input');
 var addressInput = document.getElementById('address_input');
 var signIn = document.getElementById('sign_in');
-
+var loadingScreen = document.getElementById('loadingDiv');
 var submitBtn = document.getElementById('submit_btn');
 var searchBtn = document.getElementById('search_btn');
 var accountForm = document.getElementById('accountForm');
@@ -508,11 +494,6 @@ document.addEventListener('DOMContentLoaded', function() {
     edge: 'left'
   });
 });
-
-/*document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.materialboxed');
-  var instances = M.Materialbox.init(elems, {});
-});*/
 
 document.addEventListener('DOMContentLoaded', function() {
   var elems = document.querySelectorAll('.slider');

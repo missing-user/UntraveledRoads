@@ -2,37 +2,25 @@
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 var userDocRef;
 var uiConfig = {
-  callbacks: {
-    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-      console.log('signin success');
-      var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
-      var userDocId;
-      query.get().then(function(querySnapshot) {
-          if (!querySnapshot.empty) {
-            showScreen(2);
-            console.log('welcome back');
-            querySnapshot.forEach(function(documentSnapshot) {
-              userDocId = documentSnapshot.id;
-              userDocRef = firebase.firestore().collection('users').doc(userDocId);
-              userDocRef.update({
-                lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-                profilePicUrl: getProfilePicUrl(),
-              });
-            });
-            getUserProfile();
+    callbacks: {
+      signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+        console.log('signin success');
+        getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
+          if (!successCode) {
+            showScreen(1);
+            console.log('user signing in for the first time (or error) ' + successCode);
             return false;
           } else {
-            showScreen(1);
-            console.log('user signing in for the first time');
-            return false;
+            userDocRef = result;
+            userDocRef.update({
+              lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+              profilePicUrl: getProfilePicUrl(),
+            });
+            showScreen(2);
+            console.log('welcome back');
+            getUserProfile();
           }
-        })
-        .catch(function(error) {
-          console.log("Error getting document id:", error);
-          showScreen(1);
-          return false;
         });
-
     },
     uiShown: function() {
       mbhtm.style.display = "block";
@@ -56,6 +44,26 @@ var uiConfig = {
   // Privacy policy url.
   privacyPolicyUrl: '<your-privacy-policy-url>'
 };
+
+function getUserDocRef(userId, successFunction){
+  var someUserDocRef;
+  var query = firebase.firestore().collection('users').where("uid", "==", userId).limit(1);
+  var userDocId;
+  query.get().then(function(querySnapshot) {
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach(function(documentSnapshot) {
+        userDocId = documentSnapshot.id;
+        someUserDocRef = firebase.firestore().collection('users').doc(userDocId);
+        successFunction(1, someUserDocRef);
+      });
+    } else {
+      successFunction(2, someUserDocRef);
+    }
+  }).catch(function(error) {
+    console.error("error getting user doc reference "+error);
+    successFunction(0, someUserDocRef);
+  });
+}
 
 // The start method will wait until the DOM is loaded.
 ui.start('#firebaseui-auth-container', uiConfig);

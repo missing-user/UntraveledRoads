@@ -69,7 +69,7 @@ function loadUsers() {
         const liElement = document.createElement('li');
         liElement.className = 'collection-item avatar';
         liElement.id = doc.get('uid');
-        liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'This person knows: '+doc.get('language'));
+        liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'This person knows: ' + doc.get('language'));
         usersList.appendChild(liElement);
 
         document.getElementById(doc.get('uid')).onclick = function() {
@@ -83,20 +83,28 @@ function loadUsers() {
     });
 }
 
-function startChatting(otherUid){
-  console.log(firebase.auth().currentUser.uid+' is now talking to '+ otherUid);
+function showLoadingScreen(loadingText, callbackOnCompletion) {
+  loadingTxt.innerText = loadingText;
+  showScreen(8);
+  if (!(callbackOnCompletion === undefined))
+    callbackOnCompletion();
+}
 
-  var tmp = {otherUid, firebase.auth().currentUser.uid};
-
-  firebase.firestore.collection('chatRooms').add({
-    participants: tmp,
-    chatId: 'temporary text',//insert the id of the database entry with the chat history
-    roomName: "name: "+otherUid,
-  }).catch(function(error) {
-    console.error("Error adding to collection: ", error);
+function startChatting(otherUid) {
+  showLoadingScreen('Your chat room is being created', function(){showScreen(7);});
+  var participants = [otherUid, firebase.auth().currentUser.uid];
+  getUserDocRef(otherUid, function(successCode, otherUserRef) {
+    otherUserRef.get().then(function(doc) {
+      console.log(doc.get('firstName') + ' ' + doc.get('lastName'));
+      firebase.firestore().collection('chatRooms').add({
+        participants: participants,
+        chatId: 'temporary text', //insert the id of the database entry with the chat history
+        roomName: doc.get('firstName') + ' ' + doc.get('lastName'),
+      }).catch(function(error) {
+        console.error("Error adding to collection: ", error);
+      });
+    });
   });
-
-  showScreen(7);
 }
 
 function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
@@ -233,6 +241,7 @@ var submitButtonElement = document.getElementById('send_btn');
 var mediaCaptureElem = document.getElementById('mediaCapture');
 var imageFormElement = document.getElementById('image-form');
 var usersList = document.getElementById('availableUsersList');
+var loadingTxt = document.getElementById('loadingText');
 messageInputElement.addEventListener('keyup', toggleButton);
 messageInputElement.addEventListener('change', toggleButton);
 
