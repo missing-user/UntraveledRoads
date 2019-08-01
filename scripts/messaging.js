@@ -69,7 +69,7 @@ function loadUsers() {
         const liElement = document.createElement('li');
         liElement.className = 'collection-item avatar';
         liElement.id = doc.get('uid');
-        liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'start chatting now');
+        liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'This person knows: '+doc.get('language'));
         usersList.appendChild(liElement);
 
         document.getElementById(doc.get('uid')).onclick = function() {
@@ -85,6 +85,17 @@ function loadUsers() {
 
 function startChatting(otherUid){
   console.log(firebase.auth().currentUser.uid+' is now talking to '+ otherUid);
+
+  var tmp = {otherUid, firebase.auth().currentUser.uid};
+
+  firebase.firestore.collection('chatRooms').add({
+    participants: tmp,
+    chatId: 'temporary text',//insert the id of the database entry with the chat history
+    roomName: "name: "+otherUid,
+  }).catch(function(error) {
+    console.error("Error adding to collection: ", error);
+  });
+
   showScreen(7);
 }
 
