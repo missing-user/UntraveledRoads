@@ -60,7 +60,7 @@ function loadUsers() {
     usersList.removeChild(usersList.firstChild);
   }
 
-  var query = firebase.firestore().collection('users').where('willingToMeet', '==', true).limit(20);
+  var query = firebase.firestore().collection('users').where('willingToMeet', '==', true).where('travelMode', '==', !modeSelect.checked).limit(20);
 
   console.log("now loading users");
   // Start listening to the query.

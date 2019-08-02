@@ -279,6 +279,7 @@ function getUserProfile() {
       const div = document.createElement('div');
       div.innerHTML = userProfileHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), firebase.auth().currentUser.email);
       document.getElementById('userProfile').appendChild(div);
+      modeSelect.checked = doc.get('travelMode');
     });
   });
 }
