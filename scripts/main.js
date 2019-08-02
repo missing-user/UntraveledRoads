@@ -127,7 +127,12 @@ function updateTravelMode() {
   }).catch(function(error) {
     console.error("Error updating travel mode: ", error);
   });
-  closeSideNavs();
+
+  console.log('everything needing to be updated should be done here');
+  document.getElementById('nearYou').innerText = modeSelect.checked ? 'Locals near you' : 'Travelers near you';
+  loadUsers();
+
+  //closeSideNavs();
 }
 
 function enableButton() {
@@ -327,6 +332,7 @@ function showScreen(s) {
     case 5:
       showNavBar(true, true);
       chatScreen.style.display = "block";
+      document.getElementById('nearYou').innerText = modeSelect.checked ? 'Locals near you' : 'Travelers near you';
       loadUsers();
       loadPrevChats();
       break;
