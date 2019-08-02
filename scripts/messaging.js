@@ -1,7 +1,7 @@
 // Saves a new message on the Cloud Firestore.
-function saveMessage(messageText) {
+function saveMessage(messageText, chatId) {
   // Add a new message entry to the Firebase database.
-  return firebase.firestore().collection('messages').add({
+  return firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').add({
     name: getUserName(),
     text: messageText,
     profilePicUrl: getProfilePicUrl(),
@@ -30,13 +30,13 @@ function onMessageFileSelected(event) {
   }
   // Check if the user is signed-in
   if (checkSignedInWithMessage()) {
-    saveImageMessage(file);
+    saveImageMessage(file, currentChatId);
   }
 }
 
 // Loads chat messages history and listens for upcoming ones.
-function loadMessages() {
-  var query = firebase.firestore().collection('messages').orderBy('timestamp', 'desc').limit(20);
+function loadMessages(chatId) {
+    var query = firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').orderBy('timestamp', 'desc').limit(20);
 
   console.log("now loading messages");
   //TODO figure out if subscription is being taken care of, or if it stays alive
@@ -75,7 +75,6 @@ function loadUsers() {
         document.getElementById(doc.get('uid')).onclick = function() {
           startChatting(this.id);
         };
-
       });
     })
     .catch(function(error) {
@@ -83,25 +82,66 @@ function loadUsers() {
     });
 }
 
-function showLoadingScreen(loadingText, callbackOnCompletion) {
+function loadPrevChats(){
+
+  while (prevChatsList.firstChild) {
+    prevChatsList.removeChild(prevChatsList.firstChild);
+  }
+
+  var query = firebase.firestore().collection('chatRooms').where('participants', 'array-contains', firebase.auth().currentUser.uid).limit(30);
+
+  console.log("loading chats");
+  query.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        const liElement = document.createElement('li');
+        liElement.className = 'collection-item avatar';
+        liElement.id = doc.id;
+        liElement.innerHTML = userListHTML('Images/g128.png', doc.get("roomName"), '*display last message*');
+        prevChatsList.appendChild(liElement);
+
+        document.getElementById(doc.id).onclick = function() {
+          openChat(this.id);
+        };
+
+      });
+    }).catch(function(error) {
+      console.error("Error getting chat subcollections: ", error);
+    });
+}
+
+function openChat(chatId){
+  currentChatId = chatId;
+  loadMessages(currentChatId);
+}
+
+function showLoadingScreen(loadingText) {
   loadingTxt.innerText = loadingText;
   showScreen(8);
-  if (!(callbackOnCompletion === undefined))
-    callbackOnCompletion();
 }
 
 function startChatting(otherUid) {
-  showLoadingScreen('Your chat room is being created', function(){showScreen(7);});
+  showLoadingScreen('Your chat room is being created');
   var participants = [otherUid, firebase.auth().currentUser.uid];
+
   getUserDocRef(otherUid, function(successCode, otherUserRef) {
-    otherUserRef.get().then(function(doc) {
-      console.log(doc.get('firstName') + ' ' + doc.get('lastName'));
-      firebase.firestore().collection('chatRooms').add({
+    otherUserRef.get().then(function(odoc) {
+      var promise = firebase.firestore().collection('chatRooms').add({
         participants: participants,
-        chatId: 'temporary text', //insert the id of the database entry with the chat history
-        roomName: doc.get('firstName') + ' ' + doc.get('lastName'),
+        roomName: odoc.get('firstName') + ' ' + odoc.get('lastName'),
       }).catch(function(error) {
         console.error("Error adding to collection: ", error);
+      });
+      promise.then(function(c) {
+        currentChatId = c.id;
+        firebase.firestore().collection('chatRooms').doc(c.id).collection('chat').add({
+          name: 'Untraveled Roads',
+          text: 'you have connected succesfully, start chatting now! ;D',
+          profilePicUrl: 'Images/g128.png',
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).catch(function(error) {
+          console.error('Error writing new message to Firebase Database', error);
+        });
+        showScreen(7);
       });
     });
   });
@@ -161,9 +201,9 @@ function deleteMessage(id) {
   }
 }
 
-function saveImageMessage(file) {
+function saveImageMessage(file, chatId) {
   // 1 - We add a message with a loading icon that will get updated with the shared image.
-  firebase.firestore().collection('messages').add({
+  firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').add({
     name: getUserName(),
     imageUrl: LOADING_IMAGE_URL,
     profilePicUrl: getProfilePicUrl(),
@@ -216,7 +256,7 @@ function checkSetup() {
 function onMessageFormSubmit() {
   // Check that the user entered a message and is signed in.
   if (messageInputElement.value && checkSignedInWithMessage()) {
-    saveMessage(messageInputElement.value).then(function() {
+    saveMessage(messageInputElement.value, currentChatId).then(function() {
       // Clear message text field and re-enable the SEND button.
       resetMaterialTextfield(messageInputElement);
       toggleButton();
@@ -241,6 +281,7 @@ var submitButtonElement = document.getElementById('send_btn');
 var mediaCaptureElem = document.getElementById('mediaCapture');
 var imageFormElement = document.getElementById('image-form');
 var usersList = document.getElementById('availableUsersList');
+var prevChatsList = document.getElementById('prevChats');
 var loadingTxt = document.getElementById('loadingText');
 messageInputElement.addEventListener('keyup', toggleButton);
 messageInputElement.addEventListener('change', toggleButton);

@@ -327,17 +327,18 @@ function showScreen(s) {
       showNavBar(true, true);
       chatScreen.style.display = "block";
       loadUsers();
+      loadPrevChats();
       break;
     case 6:
       specificPostScreen.style.display = "block";
       break;
     case 7:
       specificChatScreen.style.display = "block";
-      loadMessages();
+      loadMessages(currentChatId);
       break;
       case 8: loadingScreen.style.display = "block"; break;
     default:
-      showLoadingScreen('error showing right screen');
+      showLoadingScreen('error showing screen');
       break;
   }
 }
