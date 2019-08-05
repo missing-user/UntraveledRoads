@@ -38,7 +38,7 @@ function onMessageFileSelected(event) {
 function loadMessages(chatId) {
     var query = firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').orderBy('timestamp', 'desc').limit(20);
 
-  console.log("now loading messages");
+  console.log("now loading messages for id: "+chatId);
   //TODO figure out if subscription is being taken care of, or if it stays alive
 
   // Start listening to the query.
