@@ -178,6 +178,7 @@ function switchToChatFct() {
       showScreen(5);
     } else {
       console.log("you have to post before chatting with people");
+      alert("you have to post before chatting with people");
     };
   });
 }
