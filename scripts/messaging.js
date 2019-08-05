@@ -111,7 +111,7 @@ function loadPrevChats(){
 
 function openChat(chatId){
   currentChatId = chatId;
-  loadMessages(currentChatId);
+  showScreen(7);
 }
 
 function showLoadingScreen(loadingText) {
