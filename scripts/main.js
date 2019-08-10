@@ -334,8 +334,7 @@ function showScreen(s) {
       showNavBar(true, true);
       chatScreen.style.display = "block";
       document.getElementById('nearYou').innerText = modeSelect.checked ? 'Locals near you' : 'Travelers near you';
-      loadUsers();
-      loadPrevChats();
+      promiseToLoadPrevChat().then(loadUsers());
       break;
     case 6:
       specificPostScreen.style.display = "block";

@@ -69,15 +69,17 @@ function loadUsers() {
   // Start listening to the query.
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-        const liElement = document.createElement('li');
-        liElement.className = 'collection-item avatar';
-        liElement.id = doc.get('uid');
-        liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'This person knows: ' + doc.get('language'));
-        usersList.appendChild(liElement);
+        if (doc.get('uid') != firebase.auth().currentUser.uid && !hasChatWithUser(doc.get('uid'))) {
+          const liElement = document.createElement('li');
+          liElement.className = 'collection-item avatar';
+          liElement.id = doc.get('uid');
+          liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'This person knows: ' + doc.get('language'));
+          usersList.appendChild(liElement);
 
-        document.getElementById(doc.get('uid')).onclick = function() {
-          startChatting(this.id);
-        };
+          document.getElementById(doc.get('uid')).onclick = function() {
+            startChatting(this.id);
+          };
+        }
       });
     })
     .catch(function(error) {
@@ -85,30 +87,52 @@ function loadUsers() {
     });
 }
 
-function loadPrevChats() {
+function hasChatWithUser(oUid) {
+  return allChatParticipants.includes(oUid);
+}
 
-  while (prevChatsList.firstChild) {
-    prevChatsList.removeChild(prevChatsList.firstChild);
-  }
+var allChatParticipants = [];
 
-  var query = firebase.firestore().collection('chatRooms').where('participants', 'array-contains', firebase.auth().currentUser.uid).limit(30);
+function promiseToLoadPrevChat() {
+  return new Promise(function(resolve, reject) {
+    while (prevChatsList.firstChild) {
+      prevChatsList.removeChild(prevChatsList.firstChild);
+    }
+    allChatParticipants = [];
 
-  console.log("loading chats");
-  query.get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-      const liElement = document.createElement('li');
-      liElement.className = 'collection-item avatar';
-      liElement.id = doc.id;
-      liElement.innerHTML = userListHTML('Images/g128.png', doc.get("roomName"), '*display last message*');
-      prevChatsList.appendChild(liElement);
+    var query = firebase.firestore().collection('chatRooms').where('participants', 'array-contains', firebase.auth().currentUser.uid).limit(30);
 
-      document.getElementById(doc.id).onclick = function() {
-        openChat(this.id);
-      };
+    console.log("loading chats");
+    query.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        const liElement = document.createElement('li');
+        liElement.className = 'collection-item avatar';
+        liElement.id = doc.id;
 
+        var picUrl = 'Images/g128.png';
+        var otherUser = firebase.auth().currentUser.uid;
+        doc.get("participants").forEach(function(p) {
+          if (p != firebase.auth().currentUser.uid)
+            otherUser = p;
+        });
+        getUserDocRef(otherUser, function(successCode, otherUserRef) {
+          otherUserRef.get().then(function(odoc) {
+            picUrl = odoc.get('profilePicUrl');
+            liElement.innerHTML = userListHTML(picUrl, doc.get("roomName"), '*display last message*');
+            prevChatsList.appendChild(liElement);
+
+            document.getElementById(doc.id).onclick = function() {
+              openChat(this.id);
+            };
+          });
+        });
+        allChatParticipants.push(otherUser);
+      });
+      resolve(allChatParticipants);
+    }).catch(function(error) {
+      console.error("Error getting chat subcollections: ", error);
+      reject(error);
     });
-  }).catch(function(error) {
-    console.error("Error getting chat subcollections: ", error);
   });
 }
 
@@ -130,7 +154,7 @@ function startChatting(otherUid) {
     otherUserRef.get().then(function(odoc) {
       var promise = firebase.firestore().collection('chatRooms').add({
         participants: participants,
-        roomName: odoc.get('firstName') + ' ' + odoc.get('lastName'),
+        roomName: odoc.get('firstName') + ' ' + odoc.get('lastName') + ' & ' + getUserName(),
       }).catch(function(error) {
         console.error("Error adding to collection: ", error);
       });
