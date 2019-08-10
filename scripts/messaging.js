@@ -36,9 +36,9 @@ function onMessageFileSelected(event) {
 
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages(chatId) {
-    var query = firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').orderBy('timestamp', 'desc').limit(20);
+  var query = firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').orderBy('timestamp', 'desc').limit(20);
 
-  console.log("now loading messages for id: "+chatId);
+  console.log("now loading messages for id: " + chatId);
   //TODO figure out if subscription is being taken care of, or if it stays alive
 
   // Start listening to the query.
@@ -82,7 +82,7 @@ function loadUsers() {
     });
 }
 
-function loadPrevChats(){
+function loadPrevChats() {
 
   while (prevChatsList.firstChild) {
     prevChatsList.removeChild(prevChatsList.firstChild);
@@ -92,24 +92,24 @@ function loadPrevChats(){
 
   console.log("loading chats");
   query.get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        const liElement = document.createElement('li');
-        liElement.className = 'collection-item avatar';
-        liElement.id = doc.id;
-        liElement.innerHTML = userListHTML('Images/g128.png', doc.get("roomName"), '*display last message*');
-        prevChatsList.appendChild(liElement);
+    querySnapshot.forEach(function(doc) {
+      const liElement = document.createElement('li');
+      liElement.className = 'collection-item avatar';
+      liElement.id = doc.id;
+      liElement.innerHTML = userListHTML('Images/g128.png', doc.get("roomName"), '*display last message*');
+      prevChatsList.appendChild(liElement);
 
-        document.getElementById(doc.id).onclick = function() {
-          openChat(this.id);
-        };
+      document.getElementById(doc.id).onclick = function() {
+        openChat(this.id);
+      };
 
-      });
-    }).catch(function(error) {
-      console.error("Error getting chat subcollections: ", error);
     });
+  }).catch(function(error) {
+    console.error("Error getting chat subcollections: ", error);
+  });
 }
 
-function openChat(chatId){
+function openChat(chatId) {
   currentChatId = chatId;
   showScreen(7);
 }
@@ -170,8 +170,11 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
   }
   divy.querySelector('.name').textContent = name;
   var messageElement = divy.querySelector('.message-text');
-  if (text) { // If the message is text.
+  if (text) {
+    // If the message is text.
     messageElement.textContent = text;
+    // Insert message into message bubble??????
+    messageElement.innerHTML = MESSAGE_BUBBLE;
     // Replace all line breaks by <br>.
     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
   } else if (imageUrl) { // If the message is an image.
@@ -233,9 +236,12 @@ function resetMaterialTextfield(element) {
 var MESSAGE_TEMPLATE =
   '<div class="message-container">' +
   '<div class="spacing"><div class="pic"></div></div>' +
-  '<div class="message-text"><p class="z-depth-1-half"></p></div>' +
+  '<div class="message-text"></div>' +
   '<div class="name"></div>' +
   '</div>';
+
+var MESSAGE_BUBBLE =
+  '<p class="z-depth-1-half"></p>';
 
 // Adds a size to Google Profile pics URLs.
 function addSizeToGoogleProfilePic(url) {
