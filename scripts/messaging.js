@@ -36,9 +36,12 @@ function onMessageFileSelected(event) {
 
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages(chatId) {
-    var query = firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').orderBy('timestamp', 'desc').limit(20);
+  while (messageListElement.firstChild) {
+    messageListElement.removeChild(messageListElement.firstChild);
+  }
+  var query = firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').orderBy('timestamp', 'desc').limit(20);
 
-  console.log("now loading messages for id: "+chatId);
+  console.log("now loading messages for id: " + chatId);
   //TODO figure out if subscription is being taken care of, or if it stays alive
 
   // Start listening to the query.
@@ -82,7 +85,7 @@ function loadUsers() {
     });
 }
 
-function loadPrevChats(){
+function loadPrevChats() {
 
   while (prevChatsList.firstChild) {
     prevChatsList.removeChild(prevChatsList.firstChild);
@@ -92,24 +95,24 @@ function loadPrevChats(){
 
   console.log("loading chats");
   query.get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        const liElement = document.createElement('li');
-        liElement.className = 'collection-item avatar';
-        liElement.id = doc.id;
-        liElement.innerHTML = userListHTML('Images/g128.png', doc.get("roomName"), '*display last message*');
-        prevChatsList.appendChild(liElement);
+    querySnapshot.forEach(function(doc) {
+      const liElement = document.createElement('li');
+      liElement.className = 'collection-item avatar';
+      liElement.id = doc.id;
+      liElement.innerHTML = userListHTML('Images/g128.png', doc.get("roomName"), '*display last message*');
+      prevChatsList.appendChild(liElement);
 
-        document.getElementById(doc.id).onclick = function() {
-          openChat(this.id);
-        };
+      document.getElementById(doc.id).onclick = function() {
+        openChat(this.id);
+      };
 
-      });
-    }).catch(function(error) {
-      console.error("Error getting chat subcollections: ", error);
     });
+  }).catch(function(error) {
+    console.error("Error getting chat subcollections: ", error);
+  });
 }
 
-function openChat(chatId){
+function openChat(chatId) {
   currentChatId = chatId;
   showScreen(7);
 }
@@ -190,7 +193,7 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
     divy.classList.add('visible')
   }, 1);
   messageListElement.scrollTop = messageListElement.scrollHeight;
-  messageInputElement.focus();
+  //messageInputElement.focus();
 }
 
 function deleteMessage(id) {
