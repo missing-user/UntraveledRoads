@@ -348,14 +348,12 @@ input[type=range]::-webkit-slider-runnable-track {
   background-color: #DFDFDF !important;
 }
 
-
-
-
-
-
+/* messages
+   ========================================================================== */
 .message-container:first-of-type {
   border-top-width: 0;
 }
+
 .message-container {
   display: block;
   margin-top: 10px;
@@ -364,9 +362,11 @@ input[type=range]::-webkit-slider-runnable-track {
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
+
 .message-container.visible {
   opacity: 1;
 }
+
 .message-container .pic {
   background-image: url('Images/g128.png');
   background-repeat: no-repeat;
@@ -375,21 +375,62 @@ input[type=range]::-webkit-slider-runnable-track {
   background-size: 30px;
   border-radius: 20px;
 }
+
 .message-container .spacing {
   display: table-cell;
   vertical-align: top;
 }
+
 .message-container .message {
   display: table-cell;
   width: calc(100% - 40px);
   padding: 5px 0 5px 10px;
 }
+
 .message-container .name {
   display: inline-block;
   width: 100%;
   padding-left: 40px;
-  color: #B00020;
-  font-style: italic;
+  color: #757575;
   font-size: 12px;
   box-sizing: border-box;
+}
+
+/*.message-text:first-child:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transform-origin: 3px -5px;
+  -moz-transform-origin: 3px -5px;
+  -ms-transform-origin: 3px -5px;
+  -o-transform-origin: 3px -5px;
+  transform-origin: 3px -5px;
+  border-top-color: #2196f3 !important;
+  border-right-color: #2196f3 !important;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  -webkit-box-shadow: 2px -2px 4px -3px rgba(0, 0, 0, .4);
+  box-shadow: 2px -2px 4px -3px rgba(0, 0, 0, .4);
+  background-color: #2196f3
+}
+
+.message-text:not(:first-child) {
+  margin-right: 2rem;
+}*/
+
+.message-text {
+  display: flex;
+  margin: 0rem 5rem 0rem 0rem;
+}
+
+.message-text p {
+  padding: .5rem 1rem;
+  color: #757575;
+  border-radius: 5px;
+  background-color: #fff;
 }
