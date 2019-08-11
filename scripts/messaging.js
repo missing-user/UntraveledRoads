@@ -109,7 +109,7 @@ function promiseToLoadPrevChat() {
         liElement.className = 'collection-item avatar';
         liElement.id = doc.id;
 
-        var picUrl = 'Images/g128.png';
+        var picUrl = 'Images/logoText.svg';
         var otherUser = firebase.auth().currentUser.uid;
         doc.get("participants").forEach(function(p) {
           if (p != firebase.auth().currentUser.uid)
@@ -163,7 +163,7 @@ function startChatting(otherUid) {
         firebase.firestore().collection('chatRooms').doc(c.id).collection('chat').add({
           name: 'Untraveled Roads',
           text: 'you have connected succesfully, start chatting now! ;D',
-          profilePicUrl: 'Images/g128.png',
+          profilePicUrl: 'Images/logoText.svg',
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).catch(function(error) {
           console.error('Error writing new message to Firebase Database', error);
