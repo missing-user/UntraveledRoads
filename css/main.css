@@ -375,7 +375,7 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 .message-container:last-of-type {
-  margin: 1rem 2rem 5rem 10px;
+  margin: 1rem 2rem 6rem 10px;
 }
 
 .message-container {
