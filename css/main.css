@@ -134,12 +134,12 @@ li a {
   padding-bottom: 1rem;
 }
 
-/* icons and buttons
-   ========================================================================== */
 .float {
   z-index: 999 !important;
 }
 
+/* icons and buttons
+   ========================================================================== */
 input[type=range]::-webkit-slider-thumb {
   background-color: #EF9A9A;
 }
@@ -192,10 +192,12 @@ input[type=range]::-webkit-slider-runnable-track {
 .navbar-stay-at-bottom {
   width: 100%;
   position: fixed;
-  min-height: 20px;
+  min-height: 70px;
+  padding: 0 !important;
+  margin: 0 !important;
   bottom: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .navbar-stay-at-bottom .chatBarBox {
@@ -206,7 +208,8 @@ input[type=range]::-webkit-slider-runnable-track {
   top: 0;
   width: 100%;
   position: fixed;
-  height: 56px;
+  height: 65px;
+  z-index: 1000;
 }
 
 /* column
@@ -217,12 +220,29 @@ input[type=range]::-webkit-slider-runnable-track {
   padding-top: 1rem;
 }
 
+.col.s1.no-padding {
+  padding: 0 !important;
+}
+
 .section {
   font-size: 16px;
 }
 
 .section.adding-1 {
   padding-bottom: 1.5rem;
+}
+
+.vertical-center {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.row .col.no-bottom-margin {
+  margin-bottom: 0;
+  padding 0;
 }
 
 /* cards
@@ -355,10 +375,8 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 .message-container {
-  display: block;
-  margin-top: 10px;
-  border-top: 1px solid #DFDFDF;
-  padding-top: 10px;
+  display: flex;
+  margin: 0rem 5rem 0rem 0rem;
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
@@ -382,9 +400,13 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 .message-container .message {
-  display: table-cell;
-  width: calc(100% - 40px);
-  padding: 5px 0 5px 10px;
+}
+
+.message-container p {
+  padding: .5rem 1rem;
+  color: #757575;
+  border-radius: 20px;
+  background-color: #fff;
 }
 
 .message-container .name {
@@ -422,15 +444,3 @@ input[type=range]::-webkit-slider-runnable-track {
 .message-text:not(:first-child) {
   margin-right: 2rem;
 }*/
-
-.message-text {
-  display: flex;
-  margin: 0rem 5rem 0rem 0rem;
-}
-
-.message-text p {
-  padding: .5rem 1rem;
-  color: #757575;
-  border-radius: 5px;
-  background-color: #fff;
-}

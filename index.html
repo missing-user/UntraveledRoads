@@ -1,0 +1,323 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Learn how to use the Firebase platform on the Web">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untraveled Roads</title>
+
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/main.css" media="screen,projection" />
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- GeoFirestore -->
+  <script src="https://unpkg.com/geofirestore@3.2.3/dist/geofirestore.js"></script>
+
+  <!-- Geokit -->
+  <script src="https://unpkg.com/geokit@0.1.2/dist/geokit.js"></script>
+</head>
+
+<body>
+  <div class="valign-wrapper" id="pre_loader" style="display: block">
+    <div class="col s12 center">
+      <br><br><br><br><br>
+      <div class="section">
+        <img src="Images/preload.svg" />
+      </div>
+    </div>
+  </div>
+  <div id="mainBody" style="display: none">
+    <div id="signinForm">
+      <div class="row">
+        <div class="col s12 center">
+          <div class="section">
+            <embed class="front-page-logo" id="logoText1" src="Images\logoText.svg" />
+          </div>
+        </div>
+      </div>
+      <div id="firebaseui-auth-container"></div>
+    </div>
+
+    <div id="loadingDiv">
+      <div class="row">
+      </div>
+      <div class="row">
+      </div>
+      <div class="col s12 center">
+        <div class="section">
+          <embed src="Images/preload.svg" />
+        </div>
+      </div>
+      <div class='row center'>
+        <b1 id='loadingText'>Error</b1>
+      </div>
+    </div>
+
+    <div id="accountForm">
+      <div class="row">
+        <br>
+        <div class="section center">
+          <embed class="front-page-logo" src="images\logoText.svg">
+        </div>
+        <div class="input-field col s10 offset-s1">
+          <input id="first_name_input" type="text" class="validate">
+          <label for="first_name_input">
+            <b1>First Name</b1>
+          </label>
+        </div>
+
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -1rem">
+          <input id="last_name_input" type="text" class="validate">
+          <label for="last_name_input">
+            <b1>Last Name</b1>
+          </label>
+        </div>
+
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -0.5rem">
+          <select id="language_input">
+            <option value="" disabled selected>Choose your language</option>
+            <option value="EN">English</option>
+            <option value="DE">German</option>
+            <option value="FR">French</option>
+            <option value="IT">Italian</option>
+            <option value="HR">Croatian</option>
+          </select>
+          <label>
+            <b1>Language Select</b1>
+          </label>
+        </div>
+
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -1.75rem">
+          <input id="address_input" type="text" class="validate">
+          <label for="address_input">
+            <b1>City of Residence</b1>
+          </label>
+        </div>
+
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -2rem">
+          <div class="valign-wrapper">
+            <label>
+              <input id="traveler_connect_input" type="checkbox">
+              <span>
+                <b1>Willing to connect with travelers?</b1>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="input-field col s10 offset-s1" style="position: relative; top: -3rem">
+          <a id="submit_btn" onclick="submitFct(); showScreen(2);" disabled class="waves-effect waves-light btn red lighten-3">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="navBar">
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
+            <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="left hide-on-med-and-down">
+              <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect white">HOME</a>
+              <a id="messagesButton" onclick="switchToChatFct(); closeSideNavs()" class="waves-effect white">MESSAGES</a>
+              <a id="messageButton" onclick="showScreen(2); closeSideNavs()" class="waves-effect white">POST A SPOT</a>
+            </ul>
+            <form id='searchBar' class="left-padding-4" action="#">
+              <div class="input-field">
+                <input id="search_box" type="search" required>
+                <label class="label-icon" for="search_box"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </div>
+        </nav>
+      </div>
+      <ul class="sidenav ur-bg-gradient-vrt" id="mobile-demo">
+        <div id="userProfile"></div>
+        <div class="divider indigo lighten-3" style="position: relative; top: 1rem"></div>
+        <div class="col s10 offset-s1" style="position: relative; top: rem">
+          <h2 class="white-text">I am currently a:</h2>
+        </div>
+        <div class="row">
+          <div class="center" style="position: relative; top: -0.5rem">
+            <div class="switch">
+              <b1 class="white-text">LOCAL</b1>
+              <label>
+                <input id='modeSelect' onclick='updateTravelMode()' type="checkbox">
+                <span class="lever"></span>
+              </label>
+              <b1 class="white-text">TRAVELER</b1>
+            </div>
+          </div>
+        </div>
+        <div class="divider indigo lighten-3"></div>
+        <li><a class="waves-effect white-text" id="homeButton" onclick="showScreen(3); closeSideNavs()">HOME</a></li>
+        <li><a class="waves-effect white-text" id="messagesButton" onclick="switchToChatFct(); closeSideNavs()">MESSAGES</a></li>
+        <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a></li>
+      </ul>
+    </div>
+
+    <div id="postingSpots">
+      <div class="row">
+        <!--<form id="postForm" action="#">-->
+        <div class="col s10 offset-s1" style="position: relative; top: 1rem">
+          <h1>Post a local spot</h1>
+          <b2 style="position: relative; top: -1rem">Post your favorite spots so travelers can see where locals go!</b2>
+          <div class="input-field" style="position: relative; top: -0.5rem">
+            <input id="title_input" type="text" class="validate">
+            <label for="title_input">
+              <b1>Title</b1>
+            </label>
+          </div>
+          <div class="input-field" style="position: relative; top: -1rem">
+            <input id="addressTextInput" type="text" class="validate">
+            <label for="addressTextInput">
+              <b1>Address</b1>
+            </label>
+          </div>
+          <div class="input-field" style="position: relative; top: -1.5rem">
+            <textarea id="post_txt_input" type="text" class="materialize-textarea validate" data-length="400"></textarea>
+            <label for="post_txt_input">
+              <b1>Boring description</b1>
+            </label>
+          </div>
+          <div class="input-field" style="position: relative; top: -1.875rem">
+            <textarea id="secret_txt_input" type="text" class="materialize-textarea validate" data-length="400"></textarea>
+            <label for="secret_txt_input">
+              <b1>Spicy local tips</b1>
+            </label>
+          </div>
+
+          <div class="col s12" style="position: relative; top: -3.25rem; right: 1.5rem">
+            <form id="filePickerForm" action="#">
+              <div class="file-field input-field">
+                <input type="file" multiple id="upload_post_pic">
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload one or more pictures">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col s12" style="position: relative; top: -3.75rem; right: 0.75rem">
+            <button id="post_btn" onclick="postFct(); switchToSearchFct()" disabled class="waves-effect waves-light btn red lighten-3">
+              Post
+            </button>
+          </div>
+        </div>
+        <!--</form>-->
+      </div>
+    </div>
+
+    <div id="searchScreen">
+      <h1 class="col s12">Local spots near you</h1>
+      <div class="row" id="page-post"></div>
+    </div>
+
+    <div id="specificPostScreen">
+      <div class="slider">
+        <ul id="imageGallery" class="slides">
+          <a id="" class="waves-effect float">
+            <i class="medium material-icons red-text text-lighten-3" id="backButton" onclick="showScreen(3)">navigate_before</i>
+          </a>
+        </ul>
+      </div>
+      <div class="row">
+        <form>
+          <div class="col s10 offset-s1">
+            <b2 id="ratingLabel">Rating</b2>
+            <div class="range-field">
+              <input type="range" id="ratingSlider" min="0" max="10">
+            </div>
+            <br>
+            <h1 id="postTitle">Name</h1>
+            <div id="postText" class="section no-pad-top">
+              <h2 id="titltCont">Reviews</h2>
+            </div>
+            <div class="divider indigo lighten-3"></div>
+            <div id="secretText" class="section no-pad-top">
+              <h2 id="titlsCont">Secret Tips</h2>
+            </div>
+            <div class="divider indigo lighten-3"></div>
+            <div id="userinfo" class="section"></div>
+          </div>
+        </form>
+      </div class="row">
+    </div>
+
+    <div id="chatScreen">
+      <div class="row">
+        <h1 class="col s12" id='nearYou'>Locals near you</h1>
+        <ul class="collection" id="availableUsersList">
+        </ul>
+        <h1 class="col s12">Previous Chats</h1>
+        <ul class="collection" id="prevChats">
+        </ul>
+      </div>
+    </div>
+
+    <div id="specificChatScreen">
+      <div class="fake-navbar z-depth-2 ur-bg-gradient-2">
+        <div class="row no-margin vertical-center">
+          <div class="col s1 no-padding">
+            <a id="backContainer" class="waves-effect float">
+              <i class="medium material-icons white-text" id="backButton" onclick="showScreen(5)">navigate_before</i>
+            </a>
+          </div>
+          <div class="col s10">
+            <h2 class="white-text float center">Name</h2>
+          </div>
+        </div>
+      </div>
+
+      <div id="messages">
+      </div>
+
+      <div class="row">
+          <div class="navbar-stay-at-bottom white z-depth-2">
+            <div class="row">
+              <div class="input-field file-field col s2 no-bottom-margin">
+                <button class="waves-effect waves-light btn red lighten-3"><i class="material-icons">image</i>
+                  <form id="image-form" action="#">
+                    <input id="mediaCapture" accept="image/*" type="file">
+                    <div class="file-path-wrapper"><input class="file-path validate" type="text"></div>
+                  </form>
+                </button>
+              </div>
+              <div class="input-field col s7 no-bottom-margin">
+                <textarea id="chatInput" type="text" class="materialize-textarea no-margin"></textarea>
+              </div>
+              <div class="input-field col s2 no-bottom-margin">
+                <button id="send_btn" onclick="onMessageFormSubmit()" class="waves-effect waves-light btn red lighten-3">Send</button>
+              </div>
+            </div>
+          </div>
+      </div>
+
+    </div>
+    <!--main body ends-->
+
+
+    <!-- Import and configure the Firebase SDK -->
+    <script src="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.css" />
+    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+    <script src="/__/firebase/init.js"></script>
+
+    <script src="scripts/materialize.js"></script>
+    <script src="scripts/loginUi.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/messaging.js"></script>
+    <!--<script src="scripts/geo.js"></script> -->
+</body>
+
+</html>

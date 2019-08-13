@@ -197,13 +197,15 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
   }
   divy.querySelector('.name').textContent = name;
   var messageElement = divy.querySelector('.message');
-  if (text) { // If the message is text.
+  if (text) {
+    // If the message is text.
     messageElement.textContent = text;
     // Replace all line breaks by <br>.
     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+    messageElement.className = messageElement.className + ' z-depth-1 message-text';
   } else if (imageUrl) { // If the message is an image.
     var image = document.createElement('img');
-    image.className = 'responsive-img materialboxed';
+    image.className = 'responsive-img materialboxed message-image z-depth-1';
     image.addEventListener('load', function() {
       messageListElement.scrollTop = messageListElement.scrollHeight;
     });
@@ -263,6 +265,7 @@ var MESSAGE_TEMPLATE =
   '<div class="message"></div>' +
   '<div class="name"></div>' +
   '</div>';
+
 
 // Adds a size to Google Profile pics URLs.
 function addSizeToGoogleProfilePic(url) {
