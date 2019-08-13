@@ -134,12 +134,12 @@ li a {
   padding-bottom: 1rem;
 }
 
-/* icons and buttons
-   ========================================================================== */
 .float {
   z-index: 999 !important;
 }
 
+/* icons and buttons
+   ========================================================================== */
 input[type=range]::-webkit-slider-thumb {
   background-color: #EF9A9A;
 }
@@ -192,10 +192,12 @@ input[type=range]::-webkit-slider-runnable-track {
 .navbar-stay-at-bottom {
   width: 100%;
   position: fixed;
-  min-height: 20px;
+  min-height: 70px;
+  padding: 0 !important;
+  margin: 0 !important;
   bottom: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .navbar-stay-at-bottom .chatBarBox {
@@ -206,7 +208,8 @@ input[type=range]::-webkit-slider-runnable-track {
   top: 0;
   width: 100%;
   position: fixed;
-  height: 56px;
+  height: 65px;
+  z-index: 1000;
 }
 
 /* column
@@ -217,12 +220,29 @@ input[type=range]::-webkit-slider-runnable-track {
   padding-top: 1rem;
 }
 
+.col.s1.no-padding {
+  padding:0 !important;
+}
+
 .section {
   font-size: 16px;
 }
 
 .section.adding-1 {
   padding-bottom: 1.5rem;
+}
+
+.vertical-center {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.row .col.no-bottom-margin {
+  margin-bottom: 0;
+  padding 0;
 }
 
 /* cards
