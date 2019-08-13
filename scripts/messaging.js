@@ -36,6 +36,9 @@ function onMessageFileSelected(event) {
 
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages(chatId) {
+document.getElementById('chatTitleName').innerText = otherUserName;
+
+
   while (messageListElement.firstChild) {
     messageListElement.removeChild(messageListElement.firstChild);
   }
@@ -118,10 +121,12 @@ function promiseToLoadPrevChat() {
         getUserDocRef(otherUser, function(successCode, otherUserRef) {
           otherUserRef.get().then(function(odoc) {
             picUrl = odoc.get('profilePicUrl');
+            var tmpName = odoc.get('firstName') + ' '+ odoc.get('lastName');
             liElement.innerHTML = userListHTML(picUrl, doc.get("roomName"), '*display last message*');
             prevChatsList.appendChild(liElement);
 
             document.getElementById(doc.id).onclick = function() {
+              otherUserName=tmpName
               openChat(this.id);
             };
           });
@@ -146,15 +151,19 @@ function showLoadingScreen(loadingText) {
   showScreen(8);
 }
 
+var otherUserName;
+
 function startChatting(otherUid) {
   showLoadingScreen('Your chat room is being created');
   var participants = [otherUid, firebase.auth().currentUser.uid];
 
   getUserDocRef(otherUid, function(successCode, otherUserRef) {
     otherUserRef.get().then(function(odoc) {
+      otherUserName = odoc.get('firstName') + ' ' + odoc.get('lastName');
+
       var promise = firebase.firestore().collection('chatRooms').add({
         participants: participants,
-        roomName: odoc.get('firstName') + ' ' + odoc.get('lastName') + ' & ' + getUserName(),
+        roomName: otherUserName + ' & ' + getUserName(),
       }).catch(function(error) {
         console.error("Error adding to collection: ", error);
       });
@@ -263,7 +272,7 @@ var MESSAGE_TEMPLATE =
   '<div class="message-container">' +
   '<div class="spacing"><div class="pic"></div></div>' +
   '<div class="message"> </div>' +
-  '<div class="name"></div>' +
+  '<div style="display: none" class="name"></div>' +
   '</div>';
 
 
