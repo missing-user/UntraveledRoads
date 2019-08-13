@@ -408,8 +408,6 @@ input[type=range]::-webkit-slider-runnable-track {
   border-radius: 20px;
   background-color: #fff;
   background-image: url(http://blog.williams-sonoma.com/wp-content/uploads/2018/06/jun-23-Vanilla-Ombre-Layer-Cake.jpg);
-  max-width: 100%;
-  height: auto;
 }
 
 .message-container .name {
