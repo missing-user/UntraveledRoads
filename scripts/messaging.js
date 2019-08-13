@@ -36,6 +36,9 @@ function onMessageFileSelected(event) {
 
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages(chatId) {
+  while (messageListElement.firstChild) {
+    messageListElement.removeChild(messageListElement.firstChild);
+  }
   var query = firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').orderBy('timestamp', 'desc').limit(20);
 
   console.log("now loading messages for id: " + chatId);
@@ -66,15 +69,17 @@ function loadUsers() {
   // Start listening to the query.
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-        const liElement = document.createElement('li');
-        liElement.className = 'collection-item avatar';
-        liElement.id = doc.get('uid');
-        liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'This person knows: ' + doc.get('language'));
-        usersList.appendChild(liElement);
+        if (doc.get('uid') != firebase.auth().currentUser.uid && !hasChatWithUser(doc.get('uid'))) {
+          const liElement = document.createElement('li');
+          liElement.className = 'collection-item avatar';
+          liElement.id = doc.get('uid');
+          liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'This person knows: ' + doc.get('language'));
+          usersList.appendChild(liElement);
 
-        document.getElementById(doc.get('uid')).onclick = function() {
-          startChatting(this.id);
-        };
+          document.getElementById(doc.get('uid')).onclick = function() {
+            startChatting(this.id);
+          };
+        }
       });
     })
     .catch(function(error) {
@@ -82,30 +87,52 @@ function loadUsers() {
     });
 }
 
-function loadPrevChats() {
+function hasChatWithUser(oUid) {
+  return allChatParticipants.includes(oUid);
+}
 
-  while (prevChatsList.firstChild) {
-    prevChatsList.removeChild(prevChatsList.firstChild);
-  }
+var allChatParticipants = [];
 
-  var query = firebase.firestore().collection('chatRooms').where('participants', 'array-contains', firebase.auth().currentUser.uid).limit(30);
+function promiseToLoadPrevChat() {
+  return new Promise(function(resolve, reject) {
+    while (prevChatsList.firstChild) {
+      prevChatsList.removeChild(prevChatsList.firstChild);
+    }
+    allChatParticipants = [];
 
-  console.log("loading chats");
-  query.get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-      const liElement = document.createElement('li');
-      liElement.className = 'collection-item avatar';
-      liElement.id = doc.id;
-      liElement.innerHTML = userListHTML('Images/g128.png', doc.get("roomName"), '*display last message*');
-      prevChatsList.appendChild(liElement);
+    var query = firebase.firestore().collection('chatRooms').where('participants', 'array-contains', firebase.auth().currentUser.uid).limit(30);
 
-      document.getElementById(doc.id).onclick = function() {
-        openChat(this.id);
-      };
+    console.log("loading chats");
+    query.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        const liElement = document.createElement('li');
+        liElement.className = 'collection-item avatar';
+        liElement.id = doc.id;
 
+        var picUrl = 'Images/logoText.svg';
+        var otherUser = firebase.auth().currentUser.uid;
+        doc.get("participants").forEach(function(p) {
+          if (p != firebase.auth().currentUser.uid)
+            otherUser = p;
+        });
+        getUserDocRef(otherUser, function(successCode, otherUserRef) {
+          otherUserRef.get().then(function(odoc) {
+            picUrl = odoc.get('profilePicUrl');
+            liElement.innerHTML = userListHTML(picUrl, doc.get("roomName"), '*display last message*');
+            prevChatsList.appendChild(liElement);
+
+            document.getElementById(doc.id).onclick = function() {
+              openChat(this.id);
+            };
+          });
+        });
+        allChatParticipants.push(otherUser);
+      });
+      resolve(allChatParticipants);
+    }).catch(function(error) {
+      console.error("Error getting chat subcollections: ", error);
+      reject(error);
     });
-  }).catch(function(error) {
-    console.error("Error getting chat subcollections: ", error);
   });
 }
 
@@ -127,7 +154,7 @@ function startChatting(otherUid) {
     otherUserRef.get().then(function(odoc) {
       var promise = firebase.firestore().collection('chatRooms').add({
         participants: participants,
-        roomName: odoc.get('firstName') + ' ' + odoc.get('lastName'),
+        roomName: odoc.get('firstName') + ' ' + odoc.get('lastName') + ' & ' + getUserName(),
       }).catch(function(error) {
         console.error("Error adding to collection: ", error);
       });
@@ -136,7 +163,7 @@ function startChatting(otherUid) {
         firebase.firestore().collection('chatRooms').doc(c.id).collection('chat').add({
           name: 'Untraveled Roads',
           text: 'you have connected succesfully, start chatting now! ;D',
-          profilePicUrl: 'Images/g128.png',
+          profilePicUrl: 'Images/logoText.svg',
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).catch(function(error) {
           console.error('Error writing new message to Firebase Database', error);
@@ -169,12 +196,9 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
     divy.querySelector('.pic').style.backgroundImage = 'url(' + addSizeToGoogleProfilePic(picUrl) + ')';
   }
   divy.querySelector('.name').textContent = name;
-  var messageElement = divy.querySelector('.message-text');
-  if (text) {
-    // If the message is text.
+  var messageElement = divy.querySelector('.message');
+  if (text) { // If the message is text.
     messageElement.textContent = text;
-    // Insert message into message bubble??????
-    messageElement.innerHTML = MESSAGE_BUBBLE;
     // Replace all line breaks by <br>.
     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
   } else if (imageUrl) { // If the message is an image.
@@ -193,7 +217,7 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
     divy.classList.add('visible')
   }, 1);
   messageListElement.scrollTop = messageListElement.scrollHeight;
-  messageInputElement.focus();
+  //messageInputElement.focus();
 }
 
 function deleteMessage(id) {
@@ -236,12 +260,9 @@ function resetMaterialTextfield(element) {
 var MESSAGE_TEMPLATE =
   '<div class="message-container">' +
   '<div class="spacing"><div class="pic"></div></div>' +
-  '<div class="message-text"></div>' +
+  '<div class="message"></div>' +
   '<div class="name"></div>' +
   '</div>';
-
-var MESSAGE_BUBBLE =
-  '<p class="z-depth-1-half"></p>';
 
 // Adds a size to Google Profile pics URLs.
 function addSizeToGoogleProfilePic(url) {

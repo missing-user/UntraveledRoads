@@ -77,15 +77,6 @@
   </g>
   <defs id="defs152">
     <linearGradient gradientTransform="matrix(236.669,0,0,236.669,525.761,281.665)" gradientUnits="userSpaceOnUse" y2="0" x2="1" y1="0" x1="0" id="_Linear8">
-
-      <!--<stop id="stop144" style="stop-color:#5c6bc0" offset="0">
-        <animate attributeName="stop-color" values="#5c6bc0; #ef9a9a; #5c6bc0" dur="4s" repeatCount="indefinite"></animate>
-      </stop>
-
-      <stop id="stop146" style="stop-color:#8A7AB4;stop-opacity:1" offset="0.42" >
-        <animate attributeName="stop-color" values="#8A7AB4; #5c6bc0; #8A7AB4" dur="4s" repeatCount="indefinite"></animate>
-      </stop>
--->
       <stop id="stop144" style="stop-color:rgb(92,107,192);stop-opacity:1" offset="0" />
       <stop id="stop146" style="stop-color:rgb(138,122,180);stop-opacity:1" offset="0.42" />
       <stop id="stop148" style="stop-color:rgb(239,154,154);stop-opacity:1" offset="1" />

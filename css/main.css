@@ -388,7 +388,7 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 .message-container .pic {
-  background-image: url('Images/g128.png');
+  background-image: url('Images/logoText.svg');
   background-repeat: no-repeat;
   width: 30px;
   height: 30px;
