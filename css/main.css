@@ -375,9 +375,14 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 .message-container {
+<<<<<<< HEAD
   display: block;
   margin: 0rem 5rem 0rem 0rem;
   padding-left: 12px;
+=======
+  display: flex;
+  margin: 2rem 5rem 2rem 2rem;
+>>>>>>> b75b768f6363e569fbace9dd2813d1ad5c1726e4
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
@@ -392,21 +397,38 @@ input[type=range]::-webkit-slider-runnable-track {
   width: 40px;
   height: 40px;
   background-size: 40px;
+<<<<<<< HEAD
   border-radius: 50px;
+=======
+  border-radius: 20px;
+>>>>>>> b75b768f6363e569fbace9dd2813d1ad5c1726e4
 }
 
 .message-container .message {
 }
 
+<<<<<<< HEAD
 .message-container .messageSpacing {
   display: flex;
+=======
+.message-container .message {
+  background-color: #fff;
+  border-radius: 20px;
+>>>>>>> b75b768f6363e569fbace9dd2813d1ad5c1726e4
 }
 
-.message-container p {
+.message-container .message-text {
   padding: .5rem 1rem;
+<<<<<<< HEAD
   color: #1a237e;
+=======
+  color: #5c6bc0;
+}
+
+.message-container .message .message-image {
+>>>>>>> b75b768f6363e569fbace9dd2813d1ad5c1726e4
   border-radius: 20px;
-  background-color: #fff;
+  background-color: #5c6bc0;
 }
 
 .message-container .name {
@@ -418,30 +440,3 @@ input[type=range]::-webkit-slider-runnable-track {
   font-size: 12px;
   box-sizing: border-box;
 }
-
-/*.message-text:first-child:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  -webkit-transform-origin: 3px -5px;
-  -moz-transform-origin: 3px -5px;
-  -ms-transform-origin: 3px -5px;
-  -o-transform-origin: 3px -5px;
-  transform-origin: 3px -5px;
-  border-top-color: #2196f3 !important;
-  border-right-color: #2196f3 !important;
-  border-bottom-color: transparent;
-  border-left-color: transparent;
-  -webkit-box-shadow: 2px -2px 4px -3px rgba(0, 0, 0, .4);
-  box-shadow: 2px -2px 4px -3px rgba(0, 0, 0, .4);
-  background-color: #2196f3
-}
-
-.message-text:not(:first-child) {
-  margin-right: 2rem;
-}*/

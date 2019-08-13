@@ -202,9 +202,10 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
     messageElement.textContent = text;
     // Replace all line breaks by <br>.
     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
+    messageElement.className = messageElement.className + ' z-depth-1 message-text';
   } else if (imageUrl) { // If the message is an image.
     var image = document.createElement('img');
-    image.className = 'responsive-img materialboxed';
+    image.className = 'responsive-img materialboxed message-image z-depth-1';
     image.addEventListener('load', function() {
       messageListElement.scrollTop = messageListElement.scrollHeight;
     });
@@ -260,6 +261,11 @@ function resetMaterialTextfield(element) {
 // Template for messages.
 var MESSAGE_TEMPLATE =
   '<div class="message-container">' +
+<<<<<<< HEAD
+=======
+  '<div class="spacing"><div class="pic"></div></div>' +
+  '<div class="message"></div>' +
+>>>>>>> b75b768f6363e569fbace9dd2813d1ad5c1726e4
   '<div class="name"></div>' +
   '<div class="pic"></div>' +
   '<div class="messageSpacing"><p class="z-depth-1 message"></p></div>' +
