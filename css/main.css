@@ -374,6 +374,10 @@ input[type=range]::-webkit-slider-runnable-track {
   border-top-width: 0;
 }
 
+.message-container:last-of-type {
+  margin: 1rem 2rem 5rem 10px;
+}
+
 .message-container {
   display: flex;
   margin: 1rem 2rem 0rem 10px;
