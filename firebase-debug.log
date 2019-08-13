@@ -49,6 +49,7 @@
 [debug] [2019-08-13T20:11:39.596Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true} {}
 [warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
 [info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+<<<<<<< HEAD
 [debug] [2019-08-13T21:06:51.730Z] ----------------------------------------------------------------------
 [debug] [2019-08-13T21:06:51.731Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Philipp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
 [debug] [2019-08-13T21:06:51.731Z] CLI Version:   7.2.2
@@ -88,3 +89,5 @@
 [debug] [2019-08-13T21:06:53.013Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
 [debug] [2019-08-13T21:06:53.014Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
 [debug] [2019-08-13T21:06:53.014Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+=======
+>>>>>>> 3cc77b91c10f7dd22751573715fce6cdd0ff38ce
