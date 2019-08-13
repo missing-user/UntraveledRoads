@@ -197,7 +197,8 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
   }
   divy.querySelector('.name').textContent = name;
   var messageElement = divy.querySelector('.message');
-  if (text) { // If the message is text.
+  if (text) {
+    // If the message is text.
     messageElement.textContent = text;
     // Replace all line breaks by <br>.
     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
@@ -260,9 +261,10 @@ function resetMaterialTextfield(element) {
 var MESSAGE_TEMPLATE =
   '<div class="message-container">' +
   '<div class="spacing"><div class="pic"></div></div>' +
-  '<div class="message"></div>' +
+  '<p class="z-depth-1 message"></p>' +
   '<div class="name"></div>' +
   '</div>';
+
 
 // Adds a size to Google Profile pics URLs.
 function addSizeToGoogleProfilePic(url) {
