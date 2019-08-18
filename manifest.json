@@ -1,0 +1,13 @@
+{
+  "short_name": "Untraveled",
+  "name": "Untraveled Roads",
+  "icons": [
+    {
+      "src": "/Images/preload.svg",
+      "type": "image/svg"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "portrait"
+}

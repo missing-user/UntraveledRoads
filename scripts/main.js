@@ -343,7 +343,9 @@ function showScreen(s) {
       specificChatScreen.style.display = "block";
       loadMessages(currentChatId);
       break;
-      case 8: loadingScreen.style.display = "block"; break;
+    case 8:
+      loadingScreen.style.display = "block";
+      break;
     default:
       showLoadingScreen('error showing screen');
       break;
@@ -487,26 +489,19 @@ function closeSideNavs() {
   });
 }
 
-
-document.addEventListener('DOMContentLoaded', function() {
-  M.AutoInit();
-});
-
 var sideNavInstances;
 
 document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
+  M.AutoInit();
+  var elems = document.querySelectorAll('.slider');
+  var instances = M.Slider.init(elems, {
+    interval: 8000,
+  });
+  elems = document.querySelectorAll('.sidenav');
   sideNavInstances = M.Sidenav.init(elems, {
     inDuration: 350,
     outDuration: 350,
     edge: 'left'
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.slider');
-  var instances = M.Slider.init(elems, {
-    interval: 8000,
   });
 });
 

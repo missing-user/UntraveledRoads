@@ -15,4 +15,7 @@ future plans:
 --events (flooding the roads tradition, Maibaum)
 --timely events (relevance changes during year) with calendar functionality
 
+-make ratings based on fruit, change fruit based on location
+-
+
 hover effect for individual posts, bigger preview text, limit preview text length, desktop stuff...

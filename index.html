@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Untraveled Roads</title>
 
+  <link rel="manifest" href="manifest.json">
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -172,13 +173,13 @@
           <div class="input-field" style="position: relative; top: -0.5rem">
             <input id="title_input" type="text" class="validate">
             <label for="title_input">
-              <b1>Title</b1>
+              <b1>*cool name*</b1>
             </label>
           </div>
           <div class="input-field" style="position: relative; top: -1rem">
             <input id="addressTextInput" type="text" class="validate">
             <label for="addressTextInput">
-              <b1>Address</b1>
+              <b1>Where is this</b1>
             </label>
           </div>
           <div class="input-field" style="position: relative; top: -1.5rem">
@@ -222,7 +223,7 @@
     <div id="specificPostScreen">
       <div class="slider">
         <ul id="imageGallery" class="slides">
-          <a id="" class="waves-effect float">
+          <a id="backCont" class="waves-effect float">
             <i class="medium material-icons red-text text-lighten-3" id="backButton" onclick="showScreen(3)">navigate_before</i>
           </a>
         </ul>
@@ -279,24 +280,24 @@
       </div>
 
       <div class="row">
-          <div class="navbar-stay-at-bottom white z-depth-2">
-            <div class="row">
-              <div class="input-field file-field col s2 no-bottom-margin">
-                <button class="waves-effect waves-light btn red lighten-3"><i class="material-icons">image</i>
-                  <form id="image-form" action="#">
-                    <input id="mediaCapture" accept="image/*" type="file">
-                    <div class="file-path-wrapper"><input class="file-path validate" type="text"></div>
-                  </form>
-                </button>
-              </div>
-              <div class="input-field col s7 no-bottom-margin">
-                <textarea id="chatInput" type="text" class="materialize-textarea no-margin"></textarea>
-              </div>
-              <div class="input-field col s2 no-bottom-margin">
-                <button id="send_btn" onclick="onMessageFormSubmit()" class="waves-effect waves-light btn red lighten-3">Send</button>
-              </div>
+        <div class="navbar-stay-at-bottom white z-depth-2">
+          <div class="row">
+            <div class="input-field file-field col s2 no-bottom-margin">
+              <button class="waves-effect waves-light btn red lighten-3"><i class="material-icons">image</i>
+                <form id="image-form" action="#">
+                  <input id="mediaCapture" accept="image/*" type="file">
+                  <div class="file-path-wrapper"><input class="file-path validate" type="text"></div>
+                </form>
+              </button>
+            </div>
+            <div class="input-field col s7 no-bottom-margin">
+              <textarea id="chatInput" type="text" class="materialize-textarea no-margin"></textarea>
+            </div>
+            <div class="input-field col s2 no-bottom-margin">
+              <button id="send_btn" onclick="onMessageFormSubmit()" class="waves-effect waves-light btn red lighten-3">Send</button>
             </div>
           </div>
+        </div>
       </div>
 
     </div>
