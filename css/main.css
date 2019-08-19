@@ -367,6 +367,15 @@ input[type=range]::-webkit-slider-runnable-track {
 .btn[disabled] {
   background-color: #DFDFDF !important;
 }
+/*post stuff, not sure if its somewhere else already*/
+.postCon {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.postCon.visible {
+  opacity: 1;
+}
 
 /* messages
    ========================================================================== */

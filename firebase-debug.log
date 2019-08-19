@@ -1,13 +1,14 @@
-[debug] [2019-08-18T20:09:49.134Z] ----------------------------------------------------------------------
-[debug] [2019-08-18T20:09:49.136Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Philipp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
-[debug] [2019-08-18T20:09:49.136Z] CLI Version:   7.2.2
-[debug] [2019-08-18T20:09:49.136Z] Platform:      win32
-[debug] [2019-08-18T20:09:49.136Z] Node Version:  v10.16.0
-[debug] [2019-08-18T20:09:49.137Z] Time:          Sun Aug 18 2019 13:09:49 GMT-0700 (Pacific Daylight Time)
-[debug] [2019-08-18T20:09:49.137Z] ----------------------------------------------------------------------
+[debug] [2019-08-19T02:59:45.845Z] ----------------------------------------------------------------------
+[debug] [2019-08-19T02:59:45.847Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Philipp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-08-19T02:59:45.847Z] CLI Version:   7.2.2
+[debug] [2019-08-19T02:59:45.847Z] Platform:      win32
+[debug] [2019-08-19T02:59:45.847Z] Node Version:  v10.16.0
+[debug] [2019-08-19T02:59:45.848Z] Time:          Sun Aug 18 2019 19:59:45 GMT-0700 (Pacific Daylight Time)
+[debug] [2019-08-19T02:59:45.848Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-08-18T20:09:49.142Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-08-18T20:09:49.142Z] > authorizing via signed-in user
-[debug] [2019-08-18T20:09:49.142Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
-[debug] [2019-08-18T20:09:49.144Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
-
+[debug] [2019-08-19T02:59:45.857Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-19T02:59:45.858Z] > authorizing via signed-in user
+[debug] [2019-08-19T02:59:45.858Z] [iam] checking project untraveledroads-d9377 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2019-08-19T02:59:45.859Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-08-19T02:59:45.859Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>

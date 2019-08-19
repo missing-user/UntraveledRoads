@@ -196,12 +196,15 @@ function loadNewPost() {
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         const div = document.createElement('div');
-        div.className = 'row';
+        div.className = 'row postCon';
         div.innerHTML = createPostHtml(doc.id, doc.get("title"), doc.get("imageUrls")[0], doc.get("text"));
         pagePost.appendChild(div);
         document.getElementById(doc.id).onclick = function() {
           postSelected(this.id);
         };
+        setTimeout(function() {
+          div.classList.add('visible');
+        }, 1);
       });
     })
     .catch(function(error) {
@@ -467,7 +470,7 @@ function imageGalleryListHtml(imgUrl) {
 
 function createPostHtml(postId, titl, testImg, txt) {
   return `
-      <div class="col s12 ">
+      <div class="col s12">
         <div id="${postId}" onclick="" class="card waves-effect waves-block waves-light">
           <div class="card-image">
             <img src=${testImg}>
