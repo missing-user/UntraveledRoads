@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Learn how to use the Firebase platform on the Web">
+  <meta name="description" content="A travel application for local culture">
+  <meta name="theme-color" content="#5c6bc0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -18,12 +19,6 @@
 
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- GeoFirestore -->
-  <script src="https://unpkg.com/geofirestore@3.2.3/dist/geofirestore.js"></script>
-
-  <!-- Geokit -->
-  <script src="https://unpkg.com/geokit@0.1.2/dist/geokit.js"></script>
 </head>
 
 <body>
@@ -45,6 +40,7 @@
         </div>
       </div>
       <div id="firebaseui-auth-container"></div>
+
     </div>
 
     <div id="loadingDiv">
@@ -302,24 +298,33 @@
       </div>
 
     </div>
-    <!--main body ends-->
+  </div>
+  <!--main body ends-->
+  <div class="row col s12 center" id = 'fsbtn1'>
+    <button onClick="toggleFullScreen()" class="waves-effect waves-light btn red lighten-3">go fullscreen</button>
+  </div>
 
 
-    <!-- Import and configure the Firebase SDK -->
-    <script src="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.css" />
-    <script src="/__/firebase/6.2.4/firebase-app.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
-    <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
-    <script src="/__/firebase/init.js"></script>
+  <!-- Import and configure the Firebase SDK -->
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.css" />
+  <script src="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.js"></script>
+  <!-- GeoFirestore -->
+  <script src="https://unpkg.com/geofirestore@3.2.3/dist/geofirestore.js"></script>
+  <!-- Geokit -->
+  <script src="https://unpkg.com/geokit@0.1.2/dist/geokit.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-storage.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-firestore.js"></script>
+  <script src="/__/firebase/6.2.4/firebase-performance.js"></script>
+  <script src="/__/firebase/init.js"></script>
 
-    <script src="scripts/materialize.js"></script>
-    <script src="scripts/loginUi.js"></script>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/messaging.js"></script>
-    <!--<script src="scripts/geo.js"></script> -->
+  <script src="scripts/materialize.js"></script>
+  <script src="scripts/loginUi.js"></script>
+  <script src="scripts/main.js"></script>
+  <script src="scripts/messaging.js"></script>
+  <!--<script src="scripts/geo.js"></script> -->
+
 </body>
 
 </html>

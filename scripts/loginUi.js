@@ -2,33 +2,33 @@
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 var userDocRef;
 var uiConfig = {
-    callbacks: {
-      signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-        console.log('signin success');
-        getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
-          if (!successCode) {
-            showScreen(1);
-            console.log('user signing in for the first time (or error) ' + successCode);
-            return false;
-          } else {
-            userDocRef = result;
-            userDocRef.update({
-              lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-              profilePicUrl: getProfilePicUrl(),
-            });
-            showScreen(2);
-            console.log('welcome back');
-            getUserProfile();
-          }
-        });
+  callbacks: {
+    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+      console.log('signin success');
+      getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
+        if (!successCode) {
+          showScreen(1);
+          console.log('user signing in for the first time (or error) ' + successCode);
+          return false;
+        } else {
+          userDocRef = result;
+          userDocRef.update({
+            lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+            profilePicUrl: getProfilePicUrl(),
+          });
+          showScreen(2);
+          console.log('welcome back');
+          getUserProfile();
+        }
+      });
     },
     uiShown: function() {
       mbhtm.style.display = "block";
       prld.style.display = "none";
     }
   },
-  signInFlow: 'popup',
-  signInSuccessUrl: '<url-to-redirect-to-on-success>',
+  //signInFlow: 'redirect',
+  signInSuccessUrl: '<success-url>',
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -44,7 +44,7 @@ var uiConfig = {
   privacyPolicyUrl: '<your-privacy-policy-url>'
 };
 
-function getUserDocRef(userId, successFunction){
+function getUserDocRef(userId, successFunction) {
   var someUserDocRef;
   var query = firebase.firestore().collection('users').where("uid", "==", userId).limit(1);
   var userDocId;
@@ -59,13 +59,42 @@ function getUserDocRef(userId, successFunction){
       successFunction(2, someUserDocRef);
     }
   }).catch(function(error) {
-    console.error("error getting user doc reference "+error);
+    console.error("error getting user doc reference " + error);
     successFunction(0, someUserDocRef);
   });
 }
 
-// The start method will wait until the DOM is loaded.
-ui.start('#firebaseui-auth-container', uiConfig);
+var doc = window.document;
 
-var mbhtm = document.getElementById('mainBody');
-var prld = document.getElementById('pre_loader');
+function toggleFullScreen() {
+  var docEl = doc.documentElement;
+
+  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+  if (isFs()) {
+    fsbtn.style.display = 'block';
+    requestFullScreen.call(docEl);
+    if (isFs())
+      fsbtn.style.display = 'none';
+  } else {
+    cancelFullScreen.call(doc);
+    fsbtn.style.display = 'block';
+  }
+}
+
+function updateFsBtn() {
+  if (isFs())
+    fsbtn.style.display = 'block';
+  }
+
+  function isFs() {
+    return !doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement;
+  }
+
+  // The start method will wait until the DOM is loaded.
+  ui.start('#firebaseui-auth-container', uiConfig);
+
+  var mbhtm = document.getElementById('mainBody');
+  var prld = document.getElementById('pre_loader');
+  var fsbtn = document.getElementById('fsbtn1');

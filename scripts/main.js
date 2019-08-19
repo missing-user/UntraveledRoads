@@ -298,7 +298,13 @@ function showNavBar(bool, searchBarDisplay) {
   document.getElementById('searchBar').style.display = searchBarDisplay ? 'block' : 'none';
 }
 
+function goBack(e){
+  showScreen(e.state.screenIndex);
+}
+
 function showScreen(s) {
+  history.pushState({screenIndex: s}, null, 'page'+s);
+
   signinForm.style.display = "none";
   accountForm.style.display = "none";
   postingSpots.style.display = "none";
@@ -308,6 +314,7 @@ function showScreen(s) {
   specificChatScreen.style.display = "none";
   loadingScreen.style.display = "none";
   showNavBar(false, false);
+
   switch (s) {
     case 0:
       signinForm.style.display = "block";
@@ -506,11 +513,18 @@ document.addEventListener('DOMContentLoaded', function() {
     outDuration: 350,
     edge: 'left'
   });
+
+  document.addEventListener('fullscreenchange', updateFsBtn);
+ document.addEventListener('mozfullscreenchange', updateFsBtn);
+ document.addEventListener('MSFullscreenChange', updateFsBtn);
+ document.addEventListener('webkitfullscreenchange', updateFsBtn);
 });
 
 ratingSlider.addEventListener('change', ratingReadWrite);
 ratingSlider.addEventListener('keyup', ratingReadWrite);
 ratingSlider.addEventListener('input', ratingReadWrite);
+
+window.addEventListener("popstate", goBack);
 
 var prevRating = 0;
 
