@@ -280,8 +280,17 @@ function getUserProfile() {
   var query = firebase.firestore().collection('users').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
   query.get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
+console.log('profile being constructed');
+
       const div = document.createElement('div');
-      div.innerHTML = userProfileHtml(doc.get("profilePicUrl"), doc.get("firstName"), doc.get("lastName"), firebase.auth().currentUser.email);
+      var purl = doc.get("profilePicUrl");
+      if (!purl)
+        purl = 'Images/preload.svg';
+      div.className = 'row';
+      div.addEventListener('click', function(){
+        if(confirm("Are you sure, you want to sign out?"))signOut();
+      }, false);
+      div.innerHTML = userProfileHtml(purl, doc.get("firstName"), doc.get("lastName"), firebase.auth().currentUser.email);
       document.getElementById('userProfile').appendChild(div);
       modeSelect.checked = doc.get('travelMode');
     });
@@ -451,7 +460,6 @@ function userHtml(imgUrl, fn, ln, postc) {
 
 function userProfileHtml(imgUrl, fn, ln, email) {
   return `
-  <div class="row">
     <div class="col s12" style="position: relative; right: -0.300rem; top: 1rem">
       <div class="valign-wrapper">
         <div class="col s3">
@@ -462,8 +470,7 @@ function userProfileHtml(imgUrl, fn, ln, email) {
           <b1 class="white-text style="position: relative; top: -0.25rem">${email}</b1>
         </div>
       </div>
-    </div>
-  </div>`;
+    </div>`;
 }
 
 function imageGalleryListHtml(imgUrl) {

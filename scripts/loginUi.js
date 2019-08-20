@@ -11,28 +11,11 @@ var uiConfig = {
       }).catch(function(error) {
         console.error(error);
       });
-
-      getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
-        if (!successCode) {
-          showScreen(1);
-          console.log('user signing in for the first time (or error) ' + successCode);
-          return false;
-        } else {
-          userDocRef = result;
-          userDocRef.update({
-            lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-            profilePicUrl: getProfilePicUrl(),
-          });
-          showScreen(2);
-          console.log('welcome back');
-          getUserProfile();
-        }
-      });
     },
     uiShown: function() {
       mbhtm.style.display = "block";
       prld.style.display = "none";
-    }
+    },credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
   },
   //signInFlow: 'redirect',
   signInSuccessUrl: 'pages/home',
