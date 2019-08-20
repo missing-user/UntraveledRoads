@@ -114,6 +114,9 @@ firebase.auth().onAuthStateChanged(function(user) {
     getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
       if (!successCode) {
         showScreen(1);
+        alert('you got auto logged in, but have no account??????')
+        mbhtm.style.display = "block";
+        prld.style.display = "none";
         console.log('user signing in for the first time??? (or error) ' + successCode);
         return false;
       } else {
@@ -122,14 +125,17 @@ firebase.auth().onAuthStateChanged(function(user) {
           lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
           profilePicUrl: getProfilePicUrl(),
         });
-        showScreen(2);
+        showScreen(3);
+        mbhtm.style.display = "block";
+        prld.style.display = "none";
         console.log('welcome back... auto');
         getUserProfile();
       }
     });
+  }else{
+    ui.start('#firebaseui-auth-container', uiConfig);
   }
 });
-ui.start('#firebaseui-auth-container', uiConfig);
 
 var mbhtm = document.getElementById('mainBody');
 var prld = document.getElementById('pre_loader');
