@@ -97,13 +97,12 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     console.log('re-signin success');
     getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
-      if (!successCode) {
+      if (successCode==0||successCode==2) {
         showScreen(1);
-        alert('you got auto logged in, but have no account??????')
+        console.log('no account has been created yet')
         mbhtm.style.display = "block";
         prld.style.display = "none";
-        console.log('user signing in for the first time??? (or error) ' + successCode);
-        return false;
+        console.log('user signing in for the first time (or error) ' + successCode);
       } else {
         userDocRef = result;
         userDocRef.update({
