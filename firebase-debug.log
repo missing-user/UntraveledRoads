@@ -1,35 +1,35 @@
-[debug] [2019-08-20T02:43:50.916Z] ----------------------------------------------------------------------
-[debug] [2019-08-20T02:43:50.917Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Philipp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
-[debug] [2019-08-20T02:43:50.917Z] CLI Version:   7.2.2
-[debug] [2019-08-20T02:43:50.917Z] Platform:      win32
-[debug] [2019-08-20T02:43:50.917Z] Node Version:  v10.16.0
-[debug] [2019-08-20T02:43:50.918Z] Time:          Mon Aug 19 2019 19:43:50 GMT-0700 (Pacific Daylight Time)
-[debug] [2019-08-20T02:43:50.918Z] ----------------------------------------------------------------------
+[debug] [2019-08-20T19:51:36.322Z] ----------------------------------------------------------------------
+[debug] [2019-08-20T19:51:36.324Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Philipp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-08-20T19:51:36.324Z] CLI Version:   7.2.2
+[debug] [2019-08-20T19:51:36.324Z] Platform:      win32
+[debug] [2019-08-20T19:51:36.324Z] Node Version:  v10.16.0
+[debug] [2019-08-20T19:51:36.324Z] Time:          Tue Aug 20 2019 12:51:36 GMT-0700 (Pacific Daylight Time)
+[debug] [2019-08-20T19:51:36.324Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-08-20T02:43:50.926Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-08-20T02:43:50.926Z] > authorizing via signed-in user
-[debug] [2019-08-20T02:43:50.926Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
-[debug] [2019-08-20T02:43:50.927Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
+[debug] [2019-08-20T19:51:36.333Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-20T19:51:36.333Z] > authorizing via signed-in user
+[debug] [2019-08-20T19:51:36.333Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
+[debug] [2019-08-20T19:51:36.334Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
 
-[debug] [2019-08-20T02:43:51.443Z] <<< HTTP RESPONSE 200
-[debug] [2019-08-20T02:43:51.444Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
+[debug] [2019-08-20T19:51:36.535Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-20T19:51:36.536Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
  
-[debug] [2019-08-20T02:43:51.678Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-20T19:51:36.753Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from 'F:\LaunchX\BasicPost'...
 [info] 
-[debug] [2019-08-20T02:43:51.681Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config  
+[debug] [2019-08-20T19:51:36.756Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config  
  
 [warn] !  Your requested "node" version "8" doesn't match your global version "10"
-[debug] [2019-08-20T02:43:51.689Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig  
+[debug] [2019-08-20T19:51:36.763Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/adminSdkConfig  
  
-[debug] [2019-08-20T02:43:51.836Z] <<< HTTP RESPONSE 200
-[debug] [2019-08-20T02:43:51.944Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-20T19:51:36.933Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-20T19:51:37.023Z] <<< HTTP RESPONSE 200
 [info] +  hosting: Local server: http://localhost:5000
 [info] +  functions: Emulator started at http://localhost:5001
 [info] i  functions: Watching "F:\LaunchX\BasicPost\functions" for Cloud Functions...
-[debug] [2019-08-20T02:43:52.364Z] [runtime-status] Functions runtime initialized. {"cwd":"F:\\LaunchX\\BasicPost\\functions","node_version":"10.16.0"}
-[debug] [2019-08-20T02:43:52.364Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
-[debug] [2019-08-20T02:43:52.366Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
-[debug] [2019-08-20T02:43:52.367Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
-[debug] [2019-08-20T02:43:52.367Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-20T19:51:37.450Z] [runtime-status] Functions runtime initialized. {"cwd":"F:\\LaunchX\\BasicPost\\functions","node_version":"10.16.0"}
+[debug] [2019-08-20T19:51:37.451Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-20T19:51:37.452Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-08-20T19:51:37.453Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-20T19:51:37.454Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}

@@ -15,7 +15,8 @@ var uiConfig = {
     uiShown: function() {
       mbhtm.style.display = "block";
       prld.style.display = "none";
-    },credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
+    },
+    credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
   },
   //signInFlow: 'redirect',
   signInSuccessUrl: 'pages/home',
@@ -88,6 +89,7 @@ function isUserSignedIn() {
 
 function signOut() {
   firebase.auth().signOut();
+  window.location.reload(true);
 }
 
 // The start method will wait until the DOM is loaded.
@@ -115,7 +117,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         getUserProfile();
       }
     });
-  }else{
+  } else {
     ui.start('#firebaseui-auth-container', uiConfig);
   }
 });

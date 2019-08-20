@@ -34,10 +34,12 @@ function onMessageFileSelected(event) {
   }
 }
 
+var unsub;
 // Loads chat messages history and listens for upcoming ones.
 function loadMessages(chatId) {
-document.getElementById('chatTitleName').innerText = otherUserName;
-
+  document.getElementById('chatTitleName').innerText = otherUserName;
+  if (!!unsub)
+    unsub();
 
   while (messageListElement.firstChild) {
     messageListElement.removeChild(messageListElement.firstChild);
@@ -46,9 +48,10 @@ document.getElementById('chatTitleName').innerText = otherUserName;
 
   console.log("now loading messages for id: " + chatId);
   //TODO figure out if subscription is being taken care of, or if it stays alive
+  //DONE it stays alive....
 
   // Start listening to the query.
-  query.onSnapshot(function(snapshot) {
+  unsub = query.onSnapshot(function(snapshot) {
     snapshot.docChanges().forEach(function(change) {
       if (change.type === 'removed') {
         deleteMessage(change.doc.id);
@@ -68,13 +71,13 @@ function loadUsers() {
 
   var query = firebase.firestore().collection('users').where('willingToMeet', '==', true).where('travelMode', '==', !modeSelect.checked).limit(20);
 
-  console.log("now loading users");
+  //console.log("now loading users");
   // Start listening to the query.
   query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         if (doc.get('uid') != firebase.auth().currentUser.uid && !hasChatWithUser(doc.get('uid'))) {
           const liElement = document.createElement('li');
-          liElement.className = 'collection-item avatar';
+          liElement.className = 'collection-item avatar  waves-effect';
           liElement.id = doc.get('uid');
           liElement.innerHTML = userListHTML(doc.get('profilePicUrl'), doc.get("firstName") + ' ' + doc.get("lastName"), 'This person knows: ' + doc.get('language'));
           usersList.appendChild(liElement);
@@ -105,14 +108,14 @@ function promiseToLoadPrevChat() {
 
     var query = firebase.firestore().collection('chatRooms').where('participants', 'array-contains', firebase.auth().currentUser.uid).limit(30);
 
-    console.log("loading chats");
+    //console.log("loading chats");
     query.get().then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         const liElement = document.createElement('li');
-        liElement.className = 'collection-item avatar';
+        liElement.className = 'collection-item avatar waves-effect';
         liElement.id = doc.id;
 
-        var picUrl = 'Images/logoText.svg';
+        var picUrl = 'Images/preload.svg';
         var otherUser = firebase.auth().currentUser.uid;
         doc.get("participants").forEach(function(p) {
           if (p != firebase.auth().currentUser.uid)
@@ -121,12 +124,12 @@ function promiseToLoadPrevChat() {
         getUserDocRef(otherUser, function(successCode, otherUserRef) {
           otherUserRef.get().then(function(odoc) {
             picUrl = odoc.get('profilePicUrl');
-            var tmpName = odoc.get('firstName') + ' '+ odoc.get('lastName');
+            var tmpName = odoc.get('firstName') + ' ' + odoc.get('lastName');
             liElement.innerHTML = userListHTML(picUrl, doc.get("roomName"), '*display last message*');
             prevChatsList.appendChild(liElement);
 
             document.getElementById(doc.id).onclick = function() {
-              otherUserName=tmpName
+              otherUserName = tmpName
               openChat(this.id);
             };
           });
@@ -172,7 +175,7 @@ function startChatting(otherUid) {
         firebase.firestore().collection('chatRooms').doc(c.id).collection('chat').add({
           name: 'Untraveled Roads',
           text: 'you have connected succesfully, start chatting now! ;D',
-          profilePicUrl: 'Images/logoText.svg',
+          profilePicUrl: 'Images/preload.svg',
           timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).catch(function(error) {
           console.error('Error writing new message to Firebase Database', error);
@@ -286,9 +289,7 @@ function addSizeToGoogleProfilePic(url) {
 
 function checkSetup() {
   if (!window.firebase || !(firebase.app instanceof Function) || !firebase.app().options) {
-    window.alert('You have not configured and imported the Firebase SDK. ' +
-      'Make sure you go through the codelab setup instructions and make ' +
-      'sure you are running the codelab using `firebase serve`');
+    window.alert('You have not configured and imported the Firebase SDK. ');
   }
 }
 

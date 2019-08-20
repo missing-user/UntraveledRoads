@@ -185,7 +185,8 @@ function clearOldPosts() {
 }
 
 function loadNewPost() {
-  console.log("loading new posts");
+  //console.log("loading new posts");
+  
   //where("searchTerms", "array-contains", searchBox.value).
   var query = firebase.firestore().collection('posts').orderBy("timestamp", "desc").limit(12);
   query.get().then(function(querySnapshot) {
