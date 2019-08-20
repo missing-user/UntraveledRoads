@@ -248,7 +248,7 @@ input[type=range]::-webkit-slider-runnable-track {
 /* cards
    ========================================================================== */
 .card-image {
-  max-height: 10rem;
+  max-height: 15rem;
   overflow: hidden;
 }
 
@@ -256,12 +256,6 @@ input[type=range]::-webkit-slider-runnable-track {
   padding-left: 0rem;
   padding-right: 0rem;
   padding-top: 0rem;
-}
-
-.card-image-specific-post {
-  max-height: 14rem;
-  width: auto;
-  overflow: hidden;
 }
 
 .card-content {

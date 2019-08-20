@@ -7,7 +7,8 @@
   <meta name="theme-color" content="#5c6bc0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Untraveled Roads</title>
 
   <!--Import Google Icon Font-->
@@ -300,8 +301,11 @@
     </div>
   </div>
   <!--main body ends-->
-  <div class="row col s12 center" id = 'fsbtn1'>
+  <div class="row col s12 center" id='fsbtn1'>
     <button onClick="toggleFullScreen()" class="waves-effect waves-light btn red lighten-3">go fullscreen</button>
+    <div class="row">
+      <b1 id='locTxt'>text</b1>
+    </div>
   </div>
 
 
@@ -309,7 +313,7 @@
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.css" />
   <script src="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.js"></script>
   <!-- GeoFirestore -->
-  <script src="https://unpkg.com/geofirestore@3.2.3/dist/geofirestore.js"></script>
+  <script src="https://unpkg.com/geofirestore/dist/geofirestore.js"></script>
   <!-- Geokit -->
   <script src="https://unpkg.com/geokit@0.1.2/dist/geokit.js"></script>
   <script src="/__/firebase/6.2.4/firebase-app.js"></script>
@@ -323,7 +327,9 @@
   <script src="scripts/loginUi.js"></script>
   <script src="scripts/main.js"></script>
   <script src="scripts/messaging.js"></script>
-  <!--<script src="scripts/geo.js"></script> -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQHUXZyH0RZ1RuGSVshAucsTq7-H-5hFU&callback=initMap">
+  </script>
+  <script src="scripts/geo.js"></script>
 
 </body>
 

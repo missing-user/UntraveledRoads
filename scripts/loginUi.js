@@ -4,7 +4,14 @@ var userDocRef;
 var uiConfig = {
   callbacks: {
     signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-      console.log('signin success');
+      console.log('signin success (remove callback and redirect to homepage instead)');
+
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(function() {
+        console.log('it worked?');
+      }).catch(function(error) {
+        console.error(error);
+      });
+
       getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
         if (!successCode) {
           showScreen(1);
@@ -28,7 +35,7 @@ var uiConfig = {
     }
   },
   //signInFlow: 'redirect',
-  signInSuccessUrl: '<success-url>',
+  signInSuccessUrl: 'pages/home',
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -86,15 +93,44 @@ function toggleFullScreen() {
 function updateFsBtn() {
   if (isFs())
     fsbtn.style.display = 'block';
+}
+
+function isFs() {
+  return !doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement;
+}
+
+function isUserSignedIn() {
+  return !!firebase.auth().currentUser;
+}
+
+function signOut() {
+  firebase.auth().signOut();
+}
+
+// The start method will wait until the DOM is loaded.
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log('re-signin success');
+    getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
+      if (!successCode) {
+        showScreen(1);
+        console.log('user signing in for the first time??? (or error) ' + successCode);
+        return false;
+      } else {
+        userDocRef = result;
+        userDocRef.update({
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+          profilePicUrl: getProfilePicUrl(),
+        });
+        showScreen(2);
+        console.log('welcome back... auto');
+        getUserProfile();
+      }
+    });
   }
+});
+ui.start('#firebaseui-auth-container', uiConfig);
 
-  function isFs() {
-    return !doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement;
-  }
-
-  // The start method will wait until the DOM is loaded.
-  ui.start('#firebaseui-auth-container', uiConfig);
-
-  var mbhtm = document.getElementById('mainBody');
-  var prld = document.getElementById('pre_loader');
-  var fsbtn = document.getElementById('fsbtn1');
+var mbhtm = document.getElementById('mainBody');
+var prld = document.getElementById('pre_loader');
+var fsbtn = document.getElementById('fsbtn1');

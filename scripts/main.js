@@ -6,14 +6,6 @@ function getProfilePicUrl() {
   return firebase.auth().currentUser.photoURL || '/images/profile_placeholder.png';
 }
 
-function isUserSignedIn() {
-  return !!firebase.auth().currentUser;
-}
-
-function signOut() {
-  firebase.auth().signOut();
-}
-
 function postPicSelected(event) {
   onMediaFileSelected(event, 'postImages');
 }
@@ -93,6 +85,9 @@ function postFct() {
     users: [firebase.auth().currentUser.uid],
   }).then(function(docRef) {
     ratingsId = docRef.id;
+
+    console.log('address to coordinates');
+    addressToPoint(addressTextInput.value);
 
     firebase.firestore().collection('posts').add({
       title: titleInput.value,
@@ -298,12 +293,14 @@ function showNavBar(bool, searchBarDisplay) {
   document.getElementById('searchBar').style.display = searchBarDisplay ? 'block' : 'none';
 }
 
-function goBack(e){
+function goBack(e) {
   showScreen(e.state.screenIndex);
 }
 
 function showScreen(s) {
-  history.pushState({screenIndex: s}, null, 'page'+s);
+  history.pushState({
+    screenIndex: s,
+  }, null, 'page' + s);
 
   signinForm.style.display = "none";
   accountForm.style.display = "none";
@@ -515,9 +512,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   document.addEventListener('fullscreenchange', updateFsBtn);
- document.addEventListener('mozfullscreenchange', updateFsBtn);
- document.addEventListener('MSFullscreenChange', updateFsBtn);
- document.addEventListener('webkitfullscreenchange', updateFsBtn);
+  document.addEventListener('mozfullscreenchange', updateFsBtn);
+  document.addEventListener('MSFullscreenChange', updateFsBtn);
+  document.addEventListener('webkitfullscreenchange', updateFsBtn);
 });
 
 ratingSlider.addEventListener('change', ratingReadWrite);
