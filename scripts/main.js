@@ -186,7 +186,7 @@ function clearOldPosts() {
 
 function loadNewPost() {
   //console.log("loading new posts");
-  
+
   //where("searchTerms", "array-contains", searchBox.value).
   var query = firebase.firestore().collection('posts').orderBy("timestamp", "desc").limit(12);
   query.get().then(function(querySnapshot) {
@@ -198,9 +198,9 @@ function loadNewPost() {
         document.getElementById(doc.id).onclick = function() {
           postSelected(this.id);
         };
-        setTimeout(function() {
+        document.getElementById(doc.id+"img").onload = function() {
           div.classList.add('visible');
-        }, 1);
+        };
       });
     })
     .catch(function(error) {
@@ -483,14 +483,14 @@ function imageGalleryListHtml(imgUrl) {
 function createPostHtml(postId, titl, testImg, txt) {
   return `
       <div class="col s12">
-        <div id="${postId}" onclick="" class="card waves-effect waves-block waves-light">
+        <div id="${postId}" class="card waves-effect waves-block waves-light">
           <div class="card-image">
-            <img src=${testImg}>
+            <img id="${postId}img" src=${testImg}>
           </div>
           <div class="card-stacked">
             <div class="card-content">
               <h1>${titl}</h1>
-              <b1 style="position: relative; top: -0.8rem">${txt}</b1>
+              <b1>${txt}</b1>
             </div>
           </div>
         </div>

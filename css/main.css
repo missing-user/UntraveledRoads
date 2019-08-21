@@ -60,58 +60,39 @@
    ========================================================================== */
 h1 {
   font-family: Ubuntu, Roboto, sans-serif;
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: 500;
   font-kerning: auto;
-  font-stretch: 130%;
-  line-height: 1.4;
+  line-height: 1rem;
   color: #5c6bc0;
 }
 
 h2 {
   font-family: Ubuntu, Roboto, sans-serif;
-  font-size: 1.25em;
+  font-size: 1.25rem;
   font-weight: 400;
   font-kerning: auto;
-  font-stretch: 130%;
-  /* doesn't work????? */
-  line-height: 1.4;
   color: #1a247e;
 }
 
 b1 {
   font-family: Roboto, sans-serif;
-  font-size: 0.875em;
+  font-size: 0.875rem;
   font-weight: 500;
   font-kerning: auto;
   font-stretch: normal;
-  /* doesn't work????? */
-  line-height: 1.4;
   color: #1a247e;
 }
 
 b2 {
   font-family: Roboto, sans-serif;
-  font-size: 0.75em;
+  font-size: 0.75rem;
   font-weight: 400;
   font-kerning: auto;
   font-stretch: normal;
-  /* doesn't work????? */
-  line-height: 1.4;
   color: #1a247e;
 }
 
-/* not using as of now
-btn {
-  font-family: Roboto, sans-serif;
-  font-size: 0.875em;
-  font-weight: 500;
-  font-kerning: auto;
-  font-stretch: 200%;
-  doesn't work?????
-line-height: 1.4;
-color: #1a247e;
-}*/
 li a {
   color: #fff;
 }
@@ -361,13 +342,18 @@ input[type=range]::-webkit-slider-runnable-track {
 .btn[disabled] {
   background-color: #DFDFDF !important;
 }
+
 /*post stuff, not sure if its somewhere else already*/
 .postCon {
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  position: relative;
+  top: 12rem;
+  transition: opacity 0.25s ease-in-out, top 0.25s ease-in-out;
 }
 
 .postCon.visible {
+  position: relative;
+  top: 0rem;
   opacity: 1;
 }
 
@@ -414,6 +400,7 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .message-container .message-text {
   padding: .5rem 1rem;
+  overflow-wrap: break-word;
   color: #5c6bc0;
 }
 

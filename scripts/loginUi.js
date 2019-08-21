@@ -97,7 +97,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     console.log('re-signin success');
     getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
-      if (successCode==0||successCode==2) {
+      if (successCode == 0 || successCode == 2) {
         showScreen(1);
         console.log('no account has been created yet')
         mbhtm.style.display = "block";
@@ -121,6 +121,13 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.register('/app/sw.js').then(function(registration) {
+    console.log('ServiceWorker registration successful with scope:', registration.scope);
+  }).catch(function(error) {
+    console.log('ServiceWorker registration failed:', error);
+  });
+}
 var mbhtm = document.getElementById('mainBody');
 var prld = document.getElementById('pre_loader');
 var fsbtn = document.getElementById('fsbtn1');

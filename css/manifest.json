@@ -1,0 +1,21 @@
+{
+  "short_name": "Untraveled",
+  "name": "Untraveled Roads",
+  "icons": [
+    {
+      "src": "/Images/untr192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/Images/untr512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/app/login",
+  "background_color": "#5c6bc0",
+  "display": "standalone",
+  "scope": "/app/",
+  "theme_color": "#e57373"
+}
