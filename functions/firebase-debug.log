@@ -1,0 +1,26 @@
+[debug] [2019-08-22T02:34:44.203Z] ----------------------------------------------------------------------
+[debug] [2019-08-22T02:34:44.204Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Philipp\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-08-22T02:34:44.204Z] CLI Version:   7.2.2
+[debug] [2019-08-22T02:34:44.204Z] Platform:      win32
+[debug] [2019-08-22T02:34:44.204Z] Node Version:  v10.16.0
+[debug] [2019-08-22T02:34:44.205Z] Time:          Wed Aug 21 2019 19:34:44 GMT-0700 (Pacific Daylight Time)
+[debug] [2019-08-22T02:34:44.205Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-22T02:34:44.210Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-22T02:34:44.210Z] > authorizing via signed-in user
+[debug] [2019-08-22T02:34:44.211Z] [iam] checking project untraveledroads-d9377 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2019-08-22T02:34:44.212Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-08-22T02:34:44.212Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-08-22T02:34:44.357Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-22T02:34:44.360Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
+
+[debug] [2019-08-22T02:34:44.542Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-22T02:34:44.543Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
+ 
+[debug] [2019-08-22T02:34:44.769Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'untraveledroads-d9377'...
+[info] 
+[info] i  deploying database, storage, firestore, functions, hosting
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
