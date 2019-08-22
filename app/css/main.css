@@ -1,5 +1,8 @@
 /* colors
    ========================================================================== */
+$primary-color{  color: #e57373 !default;}
+$secondary-color{  color: ##5c6bc0 !default;}
+
 .ur-transparent {
   background-color: transparent !important;
 }
