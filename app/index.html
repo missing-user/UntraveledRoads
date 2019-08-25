@@ -10,12 +10,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Untraveled Roads</title>
-  <link rel="manifest" href="css/manifest.json">
+  <link rel="manifest" href="manifest.json">
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
   <link type="text/css" rel="stylesheet" href="css/main.css" media="screen,projection" />
 
   <!--Let browser know website is optimized for mobile-->
@@ -23,15 +23,17 @@
 </head>
 
 <body>
-  <div class="valign-wrapper" id="pre_loader" style="display: block">
+  <div class="pre_loader" id="pre_loader" style="display: block">
+    <div class="row">
     <div class="col s12 center">
       <br><br><br><br><br>
       <div class="section">
-        <img src="/app/img/preload.svg" />
+        <embed src="/app/img/preload.svg" />
       </div>
     </div>
   </div>
-  <div id="mainBody" style="display: none">
+  </div>
+  <div id="mainBody" style="display: none,opacity:0.5">
     <div id="signinForm">
       <div class="row">
         <div class="col s12 center">
@@ -60,7 +62,7 @@
 
     <div id="accountForm">
       <div class="row">
-        <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="col s12 m8 offset-m2-l3 l6 ">
           <br>
           <div class="section center">
             <embed class="front-page-logo" src="/app/img/logoText.svg">
@@ -118,26 +120,24 @@
       </div>
     </div>
 
-    <div id="navBar">
-      <div class="navbar-fixed">
-        <nav>
-          <div class="nav-wrapper z-depth-2 ur-bg-gradient-2">
-            <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul class="left hide-on-med-and-down">
-              <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect">HOME</a>
-              <a id="messagesButton" onclick="switchToChatFct(); closeSideNavs()" class="waves-effect">MESSAGES</a>
-              <a id="messageButton" onclick="showScreen(2); closeSideNavs()" class="waves-effect">POST A SPOT</a>
-            </ul>
-            <form id='searchBar' class="right" action="#">
-              <div class="input-field">
-                <input id="search_box" type="search" required>
-                <label class="label-icon" for="search_box"><i class="material-icons">search</i></label>
-                <i class="material-icons">close</i>
-              </div>
-            </form>
-          </div>
-        </nav>
-      </div>
+    <header id="navBar">
+      <nav class="navbar-fixed">
+        <div class="nav-wrapper">
+          <a data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="left hide-on-med-and-down">
+            <a id="homeButton" onclick="showScreen(3); closeSideNavs()" class="waves-effect">HOME</a>
+            <a id="messagesButton" onclick="switchToChatFct(); closeSideNavs()" class="waves-effect">MESSAGES</a>
+            <a id="messageButton" onclick="showScreen(2); closeSideNavs()" class="waves-effect">POST A SPOT</a>
+          </ul>
+          <form id='searchBar' class="right" action="#">
+            <div class="input-field">
+              <input id="search_box" type="search" required>
+              <label class="label-icon" for="search_box"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </div>
+      </nav>
       <ul class="sidenav ur-bg-gradient-vrt" id="mobile-demo">
         <div id="userProfile"></div>
         <div class="divider indigo lighten-3" style="position: relative; top: 1rem"></div>
@@ -161,53 +161,51 @@
         <li><a class="waves-effect white-text" id="messagesButton" onclick="switchToChatFct(); closeSideNavs()">MESSAGES</a></li>
         <li><a class="waves-effect white-text" id="messageButton" onclick="showScreen(2); closeSideNavs()">POST A SPOT</a></li>
       </ul>
-    </div>
+    </header>
 
     <div id="postingSpots">
       <div class="row">
-        <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="col s12 m8 offset-m2-l3 l6">
           <!--<form id="postForm" action="#">-->
-          <div class="offset-s1">
-            <h1>Post a local spot</h1>
-            <b2>Post your favorite spots so travelers can see where locals go!</b2>
-            <div class="input-field">
-              <input id="title_input" type="text" class="validate">
-              <label for="title_input">
-                <b1>*cool name*</b1>
-              </label>
-            </div>
-            <div class="input-field">
-              <input id="addressTextInput" type="text" class="validate">
-              <label for="addressTextInput">
-                <b1>Where is this</b1>
-              </label>
-            </div>
-            <div class="input-field">
-              <textarea id="post_txt_input" type="text" class="materialize-textarea validate" data-length="400"></textarea>
-              <label for="post_txt_input">
-                <b1>Boring description</b1>
-              </label>
-            </div>
-            <div class="input-field">
-              <textarea id="secret_txt_input" type="text" class="materialize-textarea validate" data-length="400"></textarea>
-              <label for="secret_txt_input">
-                <b1>Spicy local tips</b1>
-              </label>
-            </div>
+          <h1>Post a local spot</h1>
+          <b2>Post your favorite spots so travelers can see where locals go!</b2>
+          <div class="input-field">
+            <input id="title_input" type="text" class="validate">
+            <label for="title_input">
+              <b1>*cool name*</b1>
+            </label>
+          </div>
+          <div class="input-field">
+            <input id="addressTextInput" type="text" class="validate">
+            <label for="addressTextInput">
+              <b1>Where is this</b1>
+            </label>
+          </div>
+          <div class="input-field">
+            <textarea id="post_txt_input" type="text" class="materialize-textarea validate" data-length="400"></textarea>
+            <label for="post_txt_input">
+              <b1>Boring description</b1>
+            </label>
+          </div>
+          <div class="input-field">
+            <textarea id="secret_txt_input" type="text" class="materialize-textarea validate" data-length="400"></textarea>
+            <label for="secret_txt_input">
+              <b1>Spicy local tips</b1>
+            </label>
+          </div>
 
-            <form id="filePickerForm" action="#">
-              <div class="file-field input-field">
-                <input type="file" multiple id="upload_post_pic">
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text" placeholder="Upload one or more pictures">
-                </div>
+          <form id="filePickerForm" action="#">
+            <div class="file-field input-field">
+              <input type="file" multiple id="upload_post_pic">
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Upload one or more pictures">
               </div>
-            </form>
-            <div class="row col s12 center">
-              <button id="post_btn" onclick="postFct(); switchToSearchFct()" disabled class="waves-effect waves-light btn red lighten-3">
-                Post
-              </button>
             </div>
+          </form>
+          <div class="row col s12 center">
+            <button id="post_btn" onclick="postFct(); switchToSearchFct()" disabled class="waves-effect waves-light btn red lighten-3">
+              Post
+            </button>
           </div>
           <!--</form>-->
         </div>
@@ -216,7 +214,7 @@
 
     <div id="searchScreen">
       <div class="row">
-        <div  id="page-post" class="col s12 m8 offset-m2 l6 offset-l3">
+        <div id="page-post" class="col s12 m8 offset-m2-l3 l6 ">
 
           <h1>Local spots near you</h1>
         </div>
@@ -225,7 +223,7 @@
 
     <div id="specificPostScreen">
       <div class="row">
-        <div class="col s12 m8 offset-m2 l6 offset-l3">
+        <div class="col s12 m8 offset-m2-l3 l6 ">
           <div class="slider">
             <ul id="imageGallery" class="slides">
               <a id="backCont" class="waves-effect float">
@@ -254,19 +252,26 @@
 
     <div id="chatScreen">
       <div class="row">
-        <div class="col s12 m8 offset-m2 l6 offset-l3">
-          <h1 class="" id='nearYou'>Locals near you</h1>
-          <ul class="collection" id="availableUsersList">
+        <div class="col s12 m8 offset-m2-l3 l6 ">
+          <h1 id='nearYou'>Locals near you</h1>
+          <ul class="collection   chatUserListElement" id="availableUsersList">
           </ul>
-          <h1 class="">Previous Chats</h1>
-          <ul class="collection" id="prevChats">
+          <h1>Previous Chats</h1>
+          <ul class="collection   chatUserListElement" id="prevChats">
           </ul>
         </div>
       </div>
     </div>
 
     <div id="specificChatScreen">
-      <div class="fake-navbar z-depth-2 ur-bg-gradient-2">
+      <nav class="navbar-fixed">
+        <div class="nav-wrapper row">
+          <a class="material-icons col s2" onclick="showScreen(5)"><i class="material-icons">chafron_left</i></a>
+          <b1 id="chatTitleName" class="white-text center col s8">Name</b1>
+            <a class="col s2"></a>
+        </div>
+      </nav>
+      <!--  <div class="nav-wrapper">
         <div class="row no-margin vertical-center">
           <div class="col s1 no-padding">
             <a id="backContainer" class="waves-effect float">
@@ -277,42 +282,32 @@
             <h2 id="chatTitleName" class="white-text float center">Name</h2>
           </div>
         </div>
-      </div>
+      </div>-->
 
       <div id="messages">
       </div>
 
-      <div class="row">
-        <div class="navbar-stay-at-bottom white z-depth-2">
-          <div class="row">
-            <div class="input-field file-field col s2 no-bottom-margin">
-              <button class="waves-effect waves-light btn red lighten-3"><i class="material-icons">image</i>
-                <form id="image-form" action="#">
-                  <input id="mediaCapture" accept="image/*" type="file">
-                  <div class="file-path-wrapper"><input class="file-path validate" type="text"></div>
-                </form>
-              </button>
-            </div>
-            <div class="input-field col s7 no-bottom-margin">
-              <textarea id="chatInput" type="text" class="materialize-textarea no-margin"></textarea>
-            </div>
-            <div class="input-field col s2 no-bottom-margin">
-              <button id="send_btn" onclick="onMessageFormSubmit()" class="waves-effect waves-light btn red lighten-3">Send</button>
-            </div>
+      <!--<div class="navbar-stay-at-bottom white z-depth-2">-->
+        <div class="row" style="margin-bottom: 0;">
+          <div class="input-field file-field col s2 no-bottom-margin">
+            <button class="waves-effect waves-light btn red lighten-3"><i class="material-icons">image</i>
+              <form id="image-form" action="#">
+                <input id="mediaCapture" accept="image/*" type="file">
+                <div class="file-path-wrapper"><input class="file-path validate" type="text"></div>
+              </form>
+            </button>
+          </div>
+          <div class="input-field col s7 no-bottom-margin">
+            <textarea id="chatInput" type="text" class="materialize-textarea no-margin"></textarea>
+          </div>
+          <div class="input-field col s2 no-bottom-margin">
+            <button id="send_btn" onclick="onMessageFormSubmit()" class="waves-effect waves-light btn red lighten-3">Send</button>
           </div>
         </div>
-      </div>
 
     </div>
   </div>
-  <!--main body ends
-  <div class="row col s12 center" id='fsbtn1'>
-    <button onClick="toggleFullScreen()" class="waves-effect waves-light btn red lighten-3">go fullscreen</button>
-    <div class="row">
-      <b1 id='locTxt'>text</b1>
-    </div>
-
-  </div>-->
+  <!--main body ends-->
 
 
   <!-- Import and configure the Firebase SDK -->

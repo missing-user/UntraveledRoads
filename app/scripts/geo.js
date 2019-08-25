@@ -65,15 +65,18 @@ function createInGeofirestore(key, data) {
 }
 
 function addressToPoint(address) {
-  geocoder.geocode({
-    'address': address
-  }, function(results, status) {
-    if (status == 'OK') {
-      const hash = geokit.Geokit.hash({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
-      console.log(hash);
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
+  return new Promise(function(resolve, reject){
+    geocoder.geocode({
+      'address': address
+    }, function(results, status) {
+      if (status == 'OK') {
+        const hash = geokit.Geokit.hash({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
+        resolve(hash);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+        reject(status);
+      }
+    });
   });
 }
 //subscribeGeoquery(ql, 20);
@@ -100,7 +103,7 @@ var cUserPos;
 
 function gotPos(position) {
   cUserPos = position;
-  document.getElementById('locTxt').innerText = 'lat: ' + cUserPos.coords.latitude + ' long: ' + cUserPos.coords.longitude;
+  console.log('lat: ' + cUserPos.coords.latitude + ' long: ' + cUserPos.coords.longitude);
 }
 
 function posFail(err) {

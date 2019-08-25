@@ -1,8 +1,5 @@
 /* colors
    ========================================================================== */
-$primary-color{  color: #e57373 !default;}
-$secondary-color{  color: ##5c6bc0 !default;}
-
 .ur-transparent {
   background-color: transparent !important;
 }
@@ -62,7 +59,7 @@ $secondary-color{  color: ##5c6bc0 !default;}
 /* fonts
    ========================================================================== */
 h1 {
-  font-family: Ubuntu, Roboto, sans-serif;
+  font-family: Ubuntu, sans-serif;
   font-size: 2rem;
   font-weight: 500;
   font-kerning: auto;
@@ -71,11 +68,11 @@ h1 {
 }
 
 h2 {
-  font-family: Ubuntu, Roboto, sans-serif;
+  font-family: Ubuntu, sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
   font-kerning: auto;
-  color: #1a247e;
+  color: #5c6bc0;
 }
 
 b1 {
@@ -84,7 +81,7 @@ b1 {
   font-weight: 500;
   font-kerning: auto;
   font-stretch: normal;
-  color: #1a247e;
+  color: #5c6bc0;
 }
 
 b2 {
@@ -93,7 +90,7 @@ b2 {
   font-weight: 400;
   font-kerning: auto;
   font-stretch: normal;
-  color: #1a247e;
+  color: #5c6bc0;
 }
 
 li a {
@@ -125,11 +122,11 @@ li a {
 /* icons and buttons
    ========================================================================== */
 input[type=range]::-webkit-slider-thumb {
-  background-color: #EF9A9A;
+  background-color: #5c6bc0;
 }
 
 input[type=range]+.thumb {
-  background-color: #EF9A9A;
+  background-color: #e57373;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -142,16 +139,6 @@ input[type=range]::-webkit-slider-runnable-track {
 
 /* navbar, search input field, and chat input
    ========================================================================== */
-.navbar-fixed {
-  position: relative;
-  height: 56px;
-  z-index: 99;
-}
-
-.nav-wrapper {
-  background-color: ;
-  width: inherit;
-}
 
 .nav-wrapper .input-field input[type=search] {
   height: inherit;
@@ -180,7 +167,7 @@ input[type=range]::-webkit-slider-runnable-track {
   padding: 0 !important;
   margin: 0 !important;
   bottom: 0;
-  display: flex;
+  display: block;
   flex-direction: row;
 }
 
@@ -269,7 +256,7 @@ input[type=range]::-webkit-slider-runnable-track {
   height: 45vh !important;
   z-index: 0;
 }
-
+/*
 .slider .indicators .indicator-item.active {
   background-color: #E57373;
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -284,7 +271,7 @@ input[type=range]::-webkit-slider-runnable-track {
    ========================================================================== */
 /* label color */
 .input-field label {
-  font-family: Roboto, sans-serif;
+  font-family: Ubuntu, sans-serif;
   font-size: 0.875em;
   font-weight: 500;
   font-kerning: auto;
@@ -292,58 +279,6 @@ input[type=range]::-webkit-slider-runnable-track {
   /* doesn't work????? */
   line-height: 1.4;
   color: #fff;
-}
-
-.input-field input {
-  color: #5c6bc0 !important;
-}
-
-.input-field textarea {
-  color: #5c6bc0 !important;
-}
-
-/* label focus color */
-.input-field input[type=text]:focus+label {
-  color: #EF9A9A !important;
-}
-
-/* label underline focus color */
-.input-field input[type=text]:focus {
-  border-bottom: 1px solid #EF9A9A !important;
-  box-shadow: 0 1px 0 0 #EF9A9A !important;
-}
-
-/* valid color */
-.input-field input[type=text].valid {
-  border-bottom: 1px solid #5c6bc0 !important;
-  box-shadow: 0 1px 0 0 #5c6bc0 !important;
-}
-
-/* invalid color */
-.input-field input[type=text].invalid {
-  border-bottom: 1px solid #B00020 !important;
-  box-shadow: 0 1px 0 0 #B00020 !important;
-}
-
-/* icon prefix focus color */
-.input-field .prefix.active {
-  color: #EF9A9A !important;
-}
-
-/* valid color */
-.input-field textarea[type=text].valid {
-  border-bottom: 1px solid #5c6bc0 !important;
-  box-shadow: 0 1px 0 0 #5c6bc0 !important;
-}
-
-/* invalid color */
-.input-field textarea[type=text].invalid {
-  border-bottom: 1px solid #B00020 !important;
-  box-shadow: 0 1px 0 0 #B00020 !important;
-}
-
-.btn[disabled] {
-  background-color: #DFDFDF !important;
 }
 
 /*post stuff, not sure if its somewhere else already*/
@@ -367,19 +302,10 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 /* messages
-   ========================================================================== */
-.message-container:first-of-type {
-  margin-top: 6rem;
-  border-top-width: 0;
-}
-
-.message-container:last-of-type {
-  margin-bottom: 6rem;
-}
-
+   ==========================================================================*/
 .message-container {
   display: flex;
-  margin: 1rem 2rem 0rem 10px;
+  margin: 1rem;
   opacity: 0;
   transition: opacity 1s ease-in-out;
 }
@@ -415,14 +341,36 @@ input[type=range]::-webkit-slider-runnable-track {
 
 .message-container .message .message-image {
   border-radius: 20px;
-  background-color: #5c6bc0;
 }
 
 .message-container .name {
   display: inline-block;
   width: 100%;
   padding-left: 40px;
-  color: #757575;
   font-size: 12px;
   box-sizing: border-box;
+}
+
+.chatUserListElement{
+  border: unset;
+}
+
+/*miscelaneous================================================================*/
+.pre_loader{
+  opacity: 1;
+  top: 0%;
+  transition: opacity 0.5s ease-in-out, top 0.5s cubic-bezier(0.12, 0.46, 0.33, 1.32);
+}
+.pre_loader.fade{
+  opacity: 0;
+    top: -80%;
+}
+#mainBody{
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+#messages{
+      height: calc(100% - 56px -  65px);
+      overflow-y: auto;
+      overflow-x: hidden;
 }

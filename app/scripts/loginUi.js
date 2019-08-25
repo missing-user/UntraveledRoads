@@ -3,11 +3,7 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 var userDocRef;
 var uiConfig = {
   callbacks: {
-
-    uiShown: function() {
-      mbhtm.style.display = "block";
-      prld.style.display = "none";
-    },
+    uiShown: softHideDocs(0),
     credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
   },
   //signInFlow: 'redirect',
@@ -47,13 +43,13 @@ function getUserDocRef(userId, successFunction) {
   });
 }
 
-var doc = window.document;
+var fdoc = window.document;
 
 function toggleFullScreen() {
-  var docEl = doc.documentElement;
+  var docEl = fdoc.documentElement;
 
   var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+  var cancelFullScreen = fdoc.exitFullscreen || fdoc.mozCancelFullScreen || fdoc.webkitExitFullscreen || fdoc.msExitFullscreen;
 
   if (isFs()) {
     fsbtn.style.display = 'block';
@@ -66,10 +62,6 @@ function toggleFullScreen() {
   }
 }
 
-function updateFsBtn() {
-  if (isFs())
-    fsbtn.style.display = 'block';
-}
 
 function isFs() {
   return !doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement;
@@ -90,10 +82,8 @@ firebase.auth().onAuthStateChanged(function(user) {
     console.log('re-signin success');
     getUserDocRef(firebase.auth().currentUser.uid, function(successCode, result) {
       if (successCode == 0 || successCode == 2) {
-        showScreen(1);
         console.log('no account has been created yet')
-        mbhtm.style.display = "block";
-        prld.style.display = "none";
+        softHideDocs(1);
         console.log('user signing in for the first time (or error) ' + successCode);
       } else {
         userDocRef = result;
@@ -101,9 +91,7 @@ firebase.auth().onAuthStateChanged(function(user) {
           lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
           profilePicUrl: getProfilePicUrl(),
         });
-        showScreen(3);
-        mbhtm.style.display = "block";
-        prld.style.display = "none";
+        softHideDocs(3);
         console.log('welcome back... auto');
         getUserProfile();
       }
@@ -113,6 +101,22 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
+var mbhtm = document.getElementById('mainBody');
+var prld = document.getElementById('pre_loader');
+
+function softHideDocs(s) {
+  mbhtm = document.getElementById('mainBody');
+  prld = document.getElementById('pre_loader');
+  prld.classList.add('fade');
+  setTimeout(function() {
+    mbhtm.style.opacity = 1;
+    mbhtm.style.display = "block";
+    prld.style.display = "none";
+    console.log('showing the main body');
+    showScreen(s);
+  }, 500);
+}
+
 if (navigator.serviceWorker) {
   navigator.serviceWorker.register('/app/sw.js').then(function(registration) {
     console.log('ServiceWorker registration successful with scope:', registration.scope);
@@ -120,6 +124,3 @@ if (navigator.serviceWorker) {
     console.log('ServiceWorker registration failed:', error);
   });
 }
-var mbhtm = document.getElementById('mainBody');
-var prld = document.getElementById('pre_loader');
-var fsbtn = document.getElementById('fsbtn1');

@@ -31,7 +31,7 @@ function onMediaFileSelected(event, coll) {
   };
 }
 
-var LOADING_IMAGE_URL = 'https://i.ibb.co/9HjHbnY/optimiyed-Gif25fps.gif';
+var LOADING_IMAGE_URL = '/app/img/preload.svg';
 var lastPostImage = '';
 
 function saveImageFile(file, coll) {
@@ -89,18 +89,22 @@ function postFct() {
     console.log('address to coordinates');
     addressToPoint(addressTextInput.value);
 
-    firebase.firestore().collection('posts').add({
-      title: titleInput.value,
-      uid: firebase.auth().currentUser.uid,
-      rating: ratingsId,
-      imageUrls: postImages,
-      text: postTextInput.value,
-      address: addressTextInput.value,
-      secrets: secretInput.value,
-      locationHash: addressTextInput.value,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    }).catch(function(error) {
-      console.error("Error adding to collection: ", error);
+    var geocodePromise = addressToPoint(addressTextInput.value);
+    geocodePromise.then(function(response) {
+      console.log("location hash::: " + response);
+      firebase.firestore().collection('posts').add({
+        title: titleInput.value,
+        uid: firebase.auth().currentUser.uid,
+        rating: ratingsId,
+        imageUrls: postImages,
+        text: postTextInput.value,
+        address: addressTextInput.value,
+        secrets: secretInput.value,
+        locationHash: response,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      }).catch(function(error) {
+        console.error("Error adding to collection: ", error);
+      });
     });
 
     userDocRef.update({
@@ -310,7 +314,7 @@ function getUserProfile() {
       var purl = doc.get("profilePicUrl");
       if (!purl)
         purl = '/app/img/preload.svg';
-      div.className = 'row';
+      div.className = 'section col-12';
       div.addEventListener('click', function() {
         if (confirm("Are you sure, you want to sign out?")) signOut();
       }, false);
@@ -491,17 +495,15 @@ function userHtml(imgUrl, fn, ln, postc) {
 
 function userProfileHtml(imgUrl, fn, ln, email) {
   return `
-    <div class="col s12" style="position: relative; right: -0.300rem; top: 1rem">
       <div class="valign-wrapper">
         <div class="col s3">
           <img src=${imgUrl} class="circle responsive-img">
         </div>
-        <div class="col s9" style="position: relative; top: -0.375rem">
-          <h2 class="white-text">${fn} ${ln}</h2>
-          <b1 class="white-text style="position: relative; top: -0.25rem">${email}</b1>
+        <div class="col s9">
+          <h2 class="white-text" style="line-height:1rem; margin-bottom:1rem; margin-top:1rem">${fn} ${ln}</h2>
+          <b1 class="white-text">${email}</b1>
         </div>
-      </div>
-    </div>`;
+      </div>`;
 }
 
 function imageGalleryListHtml(imgUrl) {
@@ -548,11 +550,6 @@ document.addEventListener('DOMContentLoaded', function() {
     outDuration: 350,
     edge: 'left'
   });
-
-  document.addEventListener('fullscreenchange', updateFsBtn);
-  document.addEventListener('mozfullscreenchange', updateFsBtn);
-  document.addEventListener('MSFullscreenChange', updateFsBtn);
-  document.addEventListener('webkitfullscreenchange', updateFsBtn);
 });
 
 ratingSlider.addEventListener('change', ratingReadWrite);

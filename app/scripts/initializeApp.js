@@ -1,4 +1,4 @@
-console.log('signin success');
+console.log('initialize app being executed, auto login detected');
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(function() {
   console.log('it worked?');

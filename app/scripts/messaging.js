@@ -44,6 +44,7 @@ function loadMessages(chatId) {
   while (messageListElement.firstChild) {
     messageListElement.removeChild(messageListElement.firstChild);
   }
+  messageListElement.appendChild(document.createElement('div'));
   var query = firebase.firestore().collection('chatRooms').doc(chatId).collection('chat').orderBy('timestamp', 'desc').limit(20);
 
   console.log("now loading messages for id: " + chatId);
@@ -195,8 +196,10 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
     divy = container.firstChild;
     divy.setAttribute('id', id);
     divy.setAttribute('timestamp', timestamp);
+    var child;
+
     for (var i = 0; i < messageListElement.children.length; i++) {
-      var child = messageListElement.children[i];
+      child = messageListElement.children[i];
       var time = child.getAttribute('timestamp');
       if (time && time > timestamp) {
         break;
@@ -218,10 +221,16 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
   } else if (imageUrl) { // If the message is an image.
     var image = document.createElement('img');
     image.className = 'responsive-img materialboxed message-image z-depth-1';
+
     image.addEventListener('load', function() {
-      messageListElement.scrollTop = messageListElement.scrollHeight;
+      messageElement.scrollIntoView();
     });
-    image.src = imageUrl + '&' + new Date().getTime();
+
+    if (imageUrl.startsWith("https://firebasestorage"))
+      image.src = imageUrl + '&' + new Date().getTime();
+    else
+      image.src = imageUrl; //its the preloader
+
     messageElement.innerHTML = '';
     messageElement.appendChild(image);
     M.Materialbox.init(image, {});
@@ -230,8 +239,9 @@ function displayMessage(id, timestamp, name, text, picUrl, imageUrl) {
   setTimeout(function() {
     divy.classList.add('visible')
   }, 1);
-  messageListElement.scrollTop = messageListElement.scrollHeight;
-  //messageInputElement.focus();
+  messageElement.scrollIntoView();
+
+  messageInputElement.focus();
 }
 
 function deleteMessage(id) {

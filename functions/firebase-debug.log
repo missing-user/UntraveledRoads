@@ -28,3 +28,8 @@
 [info] +  hosting: Local server: http://localhost:5000
 [info] +  functions: Emulator started at http://localhost:5001
 [info] i  functions: Watching "F:\LaunchX\BasicPost\functions" for Cloud Functions...
+[debug] [2019-08-22T02:39:53.473Z] [runtime-status] Functions runtime initialized. {"cwd":"F:\\LaunchX\\BasicPost\\functions","node_version":"10.16.0"}
+[debug] [2019-08-22T02:39:53.474Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-22T02:39:53.475Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-08-22T02:39:53.476Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-22T02:39:53.477Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
