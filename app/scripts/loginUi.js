@@ -73,7 +73,7 @@ function isUserSignedIn() {
 
 function signOut() {
   firebase.auth().signOut();
-  window.location.reload(true);
+  window.location.replace("/app/");
 }
 
 // The start method will wait until the DOM is loaded.

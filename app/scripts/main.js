@@ -559,6 +559,7 @@ var sideNavInstances;
 
 document.addEventListener('DOMContentLoaded', function() {
   M.AutoInit();
+
   var elems = document.querySelectorAll('.sidenav');
   sideNavInstances = M.Sidenav.init(elems, {
     inDuration: 350,
