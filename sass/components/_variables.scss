@@ -33,13 +33,13 @@
 // 1. Colors
 // ==========================================================================
 
-$primary-color: #5c6bc0 !default;
+$primary-color: #5c6bc0 !default; // blue
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
-$secondary-color: #e57373 !default;
-$success-color: #FBCC80 !default;
-$error-color: #B00020 !default;
+$secondary-color: #e57373 !default; // pink
+$success-color: $secondary-color !default; // also pink
+$error-color: #FBCC80 !default; // yellow
 $link-color: color($primary-color, "darken-1") !default;
 
 

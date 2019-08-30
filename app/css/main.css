@@ -139,7 +139,6 @@ input[type=range]::-webkit-slider-runnable-track {
 
 /* navbar, search input field, and chat input
    ========================================================================== */
-
 .nav-wrapper .input-field input[type=search] {
   height: inherit;
   padding-left: 4rem;
@@ -256,6 +255,7 @@ input[type=range]::-webkit-slider-runnable-track {
   height: 45vh !important;
   z-index: 0;
 }
+
 /*
 .slider .indicators .indicator-item.active {
   background-color: #E57373;
@@ -296,9 +296,12 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 
 #page-post {
-    height: 100%;
-    overflow: auto;
-    position: relative;
+  height: calc(100% - 70px);
+  overflow-x: auto;
+}
+
+#searchScreen .row {
+  margin: 0px;
 }
 
 /* messages
@@ -351,26 +354,29 @@ input[type=range]::-webkit-slider-runnable-track {
   box-sizing: border-box;
 }
 
-.chatUserListElement{
+.chatUserListElement {
   border: unset;
 }
 
 /*miscelaneous================================================================*/
-.pre_loader{
+.pre_loader {
   opacity: 1;
   top: 0%;
   transition: opacity 0.5s ease-in-out, top 0.5s cubic-bezier(0.12, 0.46, 0.33, 1.32);
 }
-.pre_loader.fade{
+
+.pre_loader.fade {
   opacity: 0;
-    top: -80%;
+  top: -80%;
 }
-#mainBody{
+
+#mainBody {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
-#messages{
-      height: calc(100% - 56px -  65px);
-      overflow-y: auto;
-      overflow-x: hidden;
+
+#messages {
+  height: calc(100% - 56px - 65px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }

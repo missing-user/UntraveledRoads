@@ -87,11 +87,24 @@ function postFct() {
     ratingsId = docRef.id;
 
     console.log('address to coordinates');
-    addressToPoint(addressTextInput.value);
+    addressToPoint(addressTextInput.value).then(
+      function(result) {
+        setInGeofire(result, {
+          title: titleInput.value,
+          uid: firebase.auth().currentUser.uid,
+          rating: ratingsId,
+          imageUrls: postImages,
+          text: postTextInput.value,
+          address: addressTextInput.value,
+          secrets: secretInput.value,
+          locationHash: geokit.Geokit.hash(result),
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+      }
+    );
 
-    var geocodePromise = addressToPoint(addressTextInput.value);
+    var geocodePromise = addressToHash(addressTextInput.value);
     geocodePromise.then(function(response) {
-      console.log("location hash::: " + response);
       firebase.firestore().collection('posts').add({
         title: titleInput.value,
         uid: firebase.auth().currentUser.uid,
@@ -105,6 +118,10 @@ function postFct() {
       }).catch(function(error) {
         console.error("Error adding to collection: ", error);
       });
+
+      console.log("post images have been cleared 1");
+      postImages = [];
+      ratingsId = "";
     });
 
     userDocRef.update({
@@ -112,11 +129,8 @@ function postFct() {
     }).catch(function(error) {
       console.error("Error incrementing post count: ", error);
     });
-    console.log("post images have been cleared 1");
-    postImages = [];
-    ratingsId = "";
   }).catch(function(error) {
-    console.error("Error: ", error);
+    console.error("Error creating rating reference, everything else aborting: ", error);
   });
 }
 
@@ -130,8 +144,6 @@ function updateTravelMode() {
   console.log('everything needing to be updated should be done here');
   document.getElementById('nearYou').innerText = modeSelect.checked ? 'Locals near you' : 'Travelers near you';
   loadUsers();
-
-  //closeSideNavs();
 }
 
 function enableButton() {
@@ -162,14 +174,6 @@ function checkSignedInWithMessage() {
   return false;
 }
 
-function switchToSearchFct() {
-  showScreen(3);
-}
-
-function switchTospecificPostScreen() {
-  showScreen(6);
-}
-
 function switchToChatFct() {
   var query = firebase.firestore().collection('posts').where("uid", "==", firebase.auth().currentUser.uid).limit(1);
   query.get().then(function(querySnapshot) {
@@ -191,6 +195,7 @@ function clearOldPosts() {
 
 var lastQueryItem;
 var mayQueryAgain;
+var searchRadius=500;
 
 function loadNewPost(loadFresh = true) {
   if (loadFresh) {
@@ -198,23 +203,28 @@ function loadNewPost(loadFresh = true) {
     mayQueryAgain = true;
   }
 
-  var query = firebase.firestore().collection('posts').orderBy("timestamp", "desc");
+  var query = geoCollectionRef.near({
+    center: new firebase.firestore.GeoPoint(cUserPos.coords.latitude, cUserPos.coords.longitude),
+    radius: searchRadius
+  });
+  console.log('search radius: '+ searchRadius+' km');
+
   if (!!lastQueryItem)
     query = query.startAfter(lastQueryItem).limit(3);
   else
-    query = query.limit(3);
+    query = query.limit(100);
 
   if (mayQueryAgain) {
     mayQueryAgain = false
     console.log('loading next page...');
     //where("searchTerms", "array-contains", searchBox.value).
-
     query.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
+        querySnapshot.docs.forEach(function(doc) {
+          var docadata = doc.data().datain;
           lastQueryItem = doc;
           const div = document.createElement('div');
           div.className = 'row postCon';
-          div.innerHTML = createPostHtml(doc.id, doc.get("title"), doc.get("imageUrls")[0], doc.get("text"));
+          div.innerHTML = createPostHtml(doc.id, docadata.title, docadata.imageUrls[0], docadata.text);
           pagePost.appendChild(div);
           document.getElementById(doc.id).onclick = function() {
             postSelected(this.id);
@@ -223,6 +233,9 @@ function loadNewPost(loadFresh = true) {
             void div.offsetWidth;
             div.classList.add('visible');
           };
+          setTimeout(function() {
+            div.classList.add('visible');
+          }, 1500);
         });
         mayQueryAgain = true;
       })
@@ -260,9 +273,10 @@ function openPost(pid) {
     userinfo.removeChild(userinfo.lastChild);
   }
 
-  var collection = firebase.firestore().collection('posts');
+  var collection = firebase.firestore().collection('locations');
   collection.doc(pid).get().then(function(docRef) {
-    var imageUrls = docRef.get("imageUrls");
+    var docadata = docRef.data().d.datain;
+    var imageUrls = docadata.imageUrls;
     imageUrls.forEach(function(imgUrl) {
       imageGallery.appendChild(imageGalleryListHtml(imgUrl));
     });
@@ -271,21 +285,21 @@ function openPost(pid) {
     var instances = M.Slider.init(elems, {
       interval: 8000,
     });
-    var title = docRef.get("title");
+    var title = docadata.title;
     postTitle.innerHTML = title;
-    var text = docRef.get("text");
+    var text = docadata.text;
 
-    ratingsId = docRef.get("rating");
+    ratingsId = docadata.rating;
 
     const bodytxt = document.createElement('b1');
     bodytxt.innerHTML = text;
     postText.appendChild(bodytxt);
 
     const secrets = document.createElement('b1');
-    secrets.innerHTML = docRef.get("secrets");
+    secrets.innerHTML = docadata.secrets;
     secretText.appendChild(secrets);
 
-    getUserInfo(docRef.get("uid"));
+    getUserInfo(docadata.uid);
     updateRatingDisplay();
   }).catch(function(error) {
     console.error("Error getting document:", error);

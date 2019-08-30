@@ -3,7 +3,7 @@ const geoCollectionRef = geoFirestore.collection('locations');
 var geocoder;
 
 function initMap() {
-  geocoder = new google.maps.Geocoder(); addressToPoint("munich");
+  geocoder = new google.maps.Geocoder();
 }
 
 function subscribeGeoquery(location, radius) {
@@ -54,7 +54,12 @@ console.log(hash);
   });
 }
 
-function updateInGeofirestore(key, data) {}
+function updateInGeofirestore(key, data) {
+  geoCollectionRef.doc(key).update(data).then(() => {
+  console.log('Provided document has been added in Firestore');
+}, (error) => {
+  console.log('Error: ' + error);
+});}
 
 function createInGeofirestore(key, data) {
   geoCollectionRef.doc(key).set(data).then(() => {
@@ -64,7 +69,7 @@ function createInGeofirestore(key, data) {
   });
 }
 
-function addressToPoint(address) {
+function addressToHash(address) {
   return new Promise(function(resolve, reject){
     geocoder.geocode({
       'address': address
@@ -79,8 +84,23 @@ function addressToPoint(address) {
     });
   });
 }
+
+function addressToPoint(address) {
+  return new Promise(function(resolve, reject){
+    geocoder.geocode({
+      'address': address
+    }, function(results, status) {
+      if (status == 'OK') {
+        resolve({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+        reject(status);
+      }
+    });
+  });
+}
 //subscribeGeoquery(ql, 20);
-getUserPos();
+setInterval(getUserPos(), 60*1000);
 
 function getUserPos() {
   if (navigator.geolocation) {
@@ -94,7 +114,7 @@ function getUserPos() {
 
     navigator.geolocation.getCurrentPosition(gotPos, posFail, options);
   } else {
-    alert('you have to enable eolocation for this app to work');
+    alert('you have to enable geolocation for this app to work');
     console.error('you have to enable eolocation for this app to work');
   }
 }
@@ -118,10 +138,12 @@ function posFail(err) {
 
 ///.experiments!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function test11() {
+  console.log('runnning test 11');
   const query = geoCollectionRef.near({
     center: new firebase.firestore.GeoPoint(cUserPos.coords.latitude, cUserPos.coords.longitude),
-    radius: 1000
+    radius: 5000
   });
+
   // Get query (as Promise)
   query.get().then((value) => {
     value.docs.forEach(function(d) {
