@@ -281,10 +281,14 @@ function openPost(pid) {
       imageGallery.appendChild(imageGalleryListHtml(imgUrl));
     });
     //reinitialize the gallery
-    var elems = document.querySelectorAll('.slider');
-    var instances = M.Slider.init(elems, {
+
+    var elems = document.querySelectorAll('.carousel-slider');
+    var instances = M.Carousel.init(elems, {
       interval: 8000,
+      fullWidth: true,
+      indicators: true
     });
+
     var title = docadata.title;
     postTitle.innerHTML = title;
     var text = docadata.text;
@@ -521,7 +525,8 @@ function userProfileHtml(imgUrl, fn, ln, email) {
 }
 
 function imageGalleryListHtml(imgUrl) {
-  const lelem = document.createElement('li');
+  const lelem = document.createElement('a');
+  lelem.className='carousel-item';
   lelem.innerHTML = '<img src=' + imgUrl + '>';
   return lelem;
 }
@@ -554,11 +559,7 @@ var sideNavInstances;
 
 document.addEventListener('DOMContentLoaded', function() {
   M.AutoInit();
-  var elems = document.querySelectorAll('.slider');
-  var instances = M.Slider.init(elems, {
-    interval: 8000,
-  });
-  elems = document.querySelectorAll('.sidenav');
+  var elems = document.querySelectorAll('.sidenav');
   sideNavInstances = M.Sidenav.init(elems, {
     inDuration: 350,
     outDuration: 350,

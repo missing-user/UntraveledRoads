@@ -1,36 +1,13 @@
-[debug] [2019-08-29T18:32:31.713Z] ----------------------------------------------------------------------
-[debug] [2019-08-29T18:32:31.716Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\phili\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
-[debug] [2019-08-29T18:32:31.716Z] CLI Version:   7.3.0
-[debug] [2019-08-29T18:32:31.716Z] Platform:      win32
-[debug] [2019-08-29T18:32:31.716Z] Node Version:  v12.9.1
-[debug] [2019-08-29T18:32:31.717Z] Time:          Thu Aug 29 2019 20:32:31 GMT+0200 (Central European Summer Time)
-[debug] [2019-08-29T18:32:31.717Z] ----------------------------------------------------------------------
+[debug] [2019-08-30T13:14:30.061Z] ----------------------------------------------------------------------
+[debug] [2019-08-30T13:14:30.063Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\phili\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-08-30T13:14:30.063Z] CLI Version:   7.3.0
+[debug] [2019-08-30T13:14:30.063Z] Platform:      win32
+[debug] [2019-08-30T13:14:30.063Z] Node Version:  v12.9.1
+[debug] [2019-08-30T13:14:30.064Z] Time:          Fri Aug 30 2019 15:14:30 GMT+0200 (Central European Summer Time)
+[debug] [2019-08-30T13:14:30.064Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-08-29T18:32:31.725Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-08-29T18:32:31.726Z] > authorizing via signed-in user
-[debug] [2019-08-29T18:32:31.726Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
-[debug] [2019-08-29T18:32:31.728Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-08-29T18:32:31.728Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
- <request body omitted>
-[debug] [2019-08-29T18:32:31.882Z] <<< HTTP RESPONSE 200
-[debug] [2019-08-29T18:32:31.888Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
+[debug] [2019-08-30T13:14:30.076Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-30T13:14:30.077Z] > authorizing via signed-in user
+[debug] [2019-08-30T13:14:30.077Z] [iam] checking project untraveledroads-d9377 for permissions ["firebase.projects.get"]
+[debug] [2019-08-30T13:14:30.079Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/untraveledroads-d9377:testIamPermissions  
 
-[debug] [2019-08-29T18:32:32.733Z] <<< HTTP RESPONSE 200
-[debug] [2019-08-29T18:32:32.735Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377  
- 
-[debug] [2019-08-29T18:32:32.983Z] <<< HTTP RESPONSE 200
-[info] 
-[info] === Serving from 'F:\LaunchX\BasicPost'...
-[info] 
-[debug] [2019-08-29T18:32:32.987Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/untraveledroads-d9377/webApps/-/config  
- 
-[warn] !  Your requested "node" version "8" doesn't match your global version "12"
-[info] +  functions: Emulator started at http://localhost:5001
-[debug] [2019-08-29T18:32:33.779Z] <<< HTTP RESPONSE 200
-[info] i  functions: Watching "F:\LaunchX\BasicPost\functions" for Cloud Functions...
-[info] +  hosting: Local server: http://localhost:5000
-[debug] [2019-08-29T18:32:34.172Z] [runtime-status] Functions runtime initialized. {"cwd":"F:\\LaunchX\\BasicPost\\functions","node_version":"12.9.1"}
-[debug] [2019-08-29T18:32:34.172Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
-[debug] [2019-08-29T18:32:34.199Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
-[debug] [2019-08-29T18:32:34.215Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
-[debug] [2019-08-29T18:32:34.216Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.1.0","resolution":"F:\\LaunchX\\BasicPost\\functions\\node_modules\\firebase-functions\\lib\\index.js"}

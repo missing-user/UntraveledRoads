@@ -135,29 +135,3 @@ function posFail(err) {
   }
   console.error(errors[err]);
 }
-
-///.experiments!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-function test11() {
-  console.log('runnning test 11');
-  const query = geoCollectionRef.near({
-    center: new firebase.firestore.GeoPoint(cUserPos.coords.latitude, cUserPos.coords.longitude),
-    radius: 5000
-  });
-
-  // Get query (as Promise)
-  query.get().then((value) => {
-    value.docs.forEach(function(d) {
-      console.log(d);
-    });
-  });
-}
-
-function exampleEntry() {
-  ql = {
-    lat: Math.random() * 50,
-    lng: -122
-  }
-  setInGeofire(ql, {
-    d: "some data",
-  });
-}
